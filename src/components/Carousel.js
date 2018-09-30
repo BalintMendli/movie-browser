@@ -5,7 +5,7 @@ import {
   CarouselInner,
   CarouselItem,
   View,
-  Mask
+  Mask,
 } from 'mdbreact';
 
 class CarouselComp extends Component {
@@ -43,8 +43,8 @@ class CarouselComp extends Component {
               <Mask overlay="black-strong" />
             </View>
             <CarouselCaption>
-              <h3 className="h3-responsive">Strong mask</h3>
-              <p>Second text</p>
+              <h3 className="h3-responsive text-left">Strong mask</h3>
+              <p className="text-left">Second text</p>
             </CarouselCaption>
           </CarouselItem>
           <CarouselItem itemId="3">
@@ -57,8 +57,8 @@ class CarouselComp extends Component {
               <Mask overlay="black-slight" />
             </View>
             <CarouselCaption>
-              <h3 className="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
+              <h3 className="h3-responsive text-left">Slight mask</h3>
+              <p className="text-left">Third text</p>
             </CarouselCaption>
           </CarouselItem>
           <CarouselItem itemId="4">
@@ -71,8 +71,8 @@ class CarouselComp extends Component {
               <Mask overlay="black-light" />
             </View>
             <CarouselCaption>
-              <h3 className="h3-responsive">Sopot Beach</h3>
-              <p>Taken june 21th by @mattonit</p>
+              <h3 className="h3-responsive text-left">Sopot Beach</h3>
+              <p className="text-left">Taken june 21th by @mattonit</p>
             </CarouselCaption>
           </CarouselItem>
         </CarouselInner>

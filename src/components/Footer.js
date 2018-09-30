@@ -4,7 +4,7 @@ import { Col, Container, Row, Footer } from 'mdbreact';
 class FooterComp extends React.Component {
   render() {
     return (
-      <Footer color="elegant-color-dark" className="font-small pt-4">
+      <Footer color="unique-color-dark" className="font-small pt-4">
         <Container fluid className="text-center text-md-left">
           <Row className="justify-content-center">
             <Col md="5">
