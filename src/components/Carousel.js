@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Carousel,
   CarouselCaption,
@@ -7,78 +7,83 @@ import {
   View,
   Mask,
 } from 'mdbreact';
+import './Carousel.css';
 
-class CarouselComp extends Component {
-  render() {
-    return (
-      <Carousel
-        activeItem={1}
-        length={4}
-        showControls={false}
-        showIndicators={false}
-        className="z-depth-1"
-      >
-        <CarouselInner>
-          <CarouselItem itemId="1">
-            <View>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-                alt="First slide"
-              />
-              <Mask overlay="black-light" />
-            </View>
-            <CarouselCaption>
-              <h3 className="h3-responsive text-left">Light mask</h3>
-              <p className="text-left">First text</p>
-            </CarouselCaption>
-          </CarouselItem>
-          <CarouselItem itemId="2">
-            <View>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(99).jpg"
-                alt="Second slide"
-              />
-              <Mask overlay="black-strong" />
-            </View>
-            <CarouselCaption>
-              <h3 className="h3-responsive text-left">Strong mask</h3>
-              <p className="text-left">Second text</p>
-            </CarouselCaption>
-          </CarouselItem>
-          <CarouselItem itemId="3">
-            <View>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg"
-                alt="Third slide"
-              />
-              <Mask overlay="black-slight" />
-            </View>
-            <CarouselCaption>
-              <h3 className="h3-responsive text-left">Slight mask</h3>
-              <p className="text-left">Third text</p>
-            </CarouselCaption>
-          </CarouselItem>
-          <CarouselItem itemId="4">
-            <View>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20%28143%29.jpg"
-                alt="Mattonit's item"
-              />
-              <Mask overlay="black-light" />
-            </View>
-            <CarouselCaption>
-              <h3 className="h3-responsive text-left">Sopot Beach</h3>
-              <p className="text-left">Taken june 21th by @mattonit</p>
-            </CarouselCaption>
-          </CarouselItem>
-        </CarouselInner>
-      </Carousel>
-    );
-  }
-}
+const CarouselComp = props => (
+  <Carousel
+    activeItem={1}
+    length={4}
+    showControls={false}
+    showIndicators={false}
+    className="z-depth-1"
+  >
+    <CarouselInner>
+      <CarouselItem itemId="1">
+        <View
+          src={`https://image.tmdb.org/t/p/original${
+            props.trending[0].backdrop_path
+          }`}
+          className="car-img"
+        >
+          <Mask overlay="black-light" />
+        </View>
+        <CarouselCaption>
+          <h3 className="h3-responsive text-left">{props.trending[0].title}</h3>
+          <p className="text-left">
+            Average rating: {props.trending[0].vote_average}
+          </p>
+        </CarouselCaption>
+      </CarouselItem>
+      <CarouselItem itemId="2">
+        <View
+          src={`https://image.tmdb.org/t/p/original${
+            props.trending[1].backdrop_path
+          }`}
+          className="car-img"
+        >
+          <Mask overlay="black-strong" />
+        </View>
+        <CarouselCaption>
+          <h3 className="h3-responsive text-left">{props.trending[1].title}</h3>
+          <p className="text-left">
+            Average rating: {props.trending[1].vote_average}
+          </p>
+        </CarouselCaption>
+      </CarouselItem>
+      <CarouselItem itemId="3">
+        <View
+          src={`https://image.tmdb.org/t/p/original${
+            props.trending[2].backdrop_path
+          }`}
+          className="car-img"
+        >
+          <Mask overlay="black-slight" />
+        </View>
+        <CarouselCaption>
+          <h3 className="h3-responsive text-left">{props.trending[2].title}</h3>
+          <p className="text-left">
+            Average rating: {props.trending[2].vote_average}
+          </p>
+        </CarouselCaption>
+      </CarouselItem>
+      <CarouselItem itemId="4">
+        <View
+          src={`https://image.tmdb.org/t/p/original${
+            props.trending[3].backdrop_path
+          }`}
+          className="car-img"
+        >
+          <Mask overlay="black-light" />
+        </View>
+        <CarouselCaption>
+          <h3 className="h3-responsive text-left">{props.trending[3].title}</h3>
+          <p className="text-left">
+            Average rating: {props.trending[3].vote_average}
+          </p>
+        </CarouselCaption>
+      </CarouselItem>
+    </CarouselInner>
+  </Carousel>
+);
 
 export default CarouselComp;
