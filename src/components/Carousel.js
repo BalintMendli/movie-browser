@@ -12,7 +12,7 @@ import './Carousel.css';
 const CarouselComp = props => (
   <Carousel
     activeItem={1}
-    length={4}
+    length={5}
     showControls={false}
     showIndicators={false}
     className="z-depth-1"
@@ -79,6 +79,22 @@ const CarouselComp = props => (
           <h3 className="h3-responsive text-left">{props.trending[3].title}</h3>
           <p className="text-left">
             Average rating: {props.trending[3].vote_average}
+          </p>
+        </CarouselCaption>
+      </CarouselItem>
+      <CarouselItem itemId="5">
+        <View
+          src={`https://image.tmdb.org/t/p/original${
+            props.trending[4].backdrop_path
+            }`}
+          className="car-img"
+        >
+          <Mask overlay="black-light" />
+        </View>
+        <CarouselCaption>
+          <h3 className="h3-responsive text-left">{props.trending[4].title}</h3>
+          <p className="text-left">
+            Average rating: {props.trending[4].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>

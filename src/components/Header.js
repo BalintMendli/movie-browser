@@ -7,53 +7,70 @@ import {
   Collapse,
   NavItem,
   NavLink,
+  Fa,
 } from 'mdbreact';
-import { BrowserRouter as Router } from 'react-router-dom';
 import './Header.css';
+import { Fade } from 'react-reveal';
+import BrandImg from '../media/brand.png';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       collapse: false,
-      isWideEnough: false,
     };
     this.onClick = this.onClick.bind(this);
   }
 
   onClick() {
-    this.setState({
-      collapse: !this.state.collapse,
-    });
+    this.setState(prevState => ({
+      collapse: !prevState.collapse,
+    }));
   }
 
   render() {
     return (
       <div>
         <header>
-          <Router>
-            <Navbar color="transparent" dark expand="md" fixed="top" scrolling>
+          <Navbar color="transparent" dark expand="md" fixed="top" scrolling>
+            <Fade left>
               <NavbarBrand href="/">
-                <strong>Navbar</strong>
+                <img src={BrandImg} height="40" alt="icon" />
               </NavbarBrand>
-              {!this.state.isWideEnough && (
-                <NavbarToggler onClick={this.onClick} />
-              )}
-              <Collapse isOpen={this.state.collapse} navbar>
+            </Fade>
+            <Fade right>
+              <NavbarToggler onClick={this.onClick} />
+            </Fade>
+            <Collapse isOpen={this.state.collapse} navbar>
+              <Fade>
                 <NavbarNav left>
                   <NavItem active>
-                    <NavLink to="#">Home</NavLink>
+                    <NavLink to="/">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink to="#">Link</NavLink>
+                    <NavLink to="/movies/">Movies</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink to="#">Profile</NavLink>
+                    <NavLink to="/tv-shows/">TV Shows</NavLink>
                   </NavItem>
                 </NavbarNav>
-              </Collapse>
-            </Navbar>
-          </Router>
+              </Fade>
+              <NavbarNav right>
+                <Fade>
+                  <NavItem>
+                    <NavLink to="/profile/">
+                      <span className="profile-text">Profile</span>
+                      <Fa
+                        icon="user-circle"
+                        size="2x"
+                        className="profile-icon"
+                      />
+                    </NavLink>
+                  </NavItem>
+                </Fade>
+              </NavbarNav>
+            </Collapse>
+          </Navbar>
         </header>
       </div>
     );
