@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, Switch } from 'react-router';
 import Header from './components/Header';
-import CarouselComp from './components/Carousel';
-import MainCont from './components/MainCont';
 import FooterComp from './components/Footer';
+import Home from './components/Home';
+import Movies from './components/Movies';
+import TvShows from './components/TvShows';
+import Profile from './components/Profile';
 
 const API = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
 const DEFAULT_QUERY = '00022dd605aeb5a850c9dba38f57340e';
@@ -52,21 +54,11 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <>
-                <CarouselComp trending={trending} />
-                <MainCont />
-              </>
-            )}
-          />
-          <Route path="/movies" render={() => <div>Movies</div>} />
-          <Route path="/tv-shows" render={() => <div>TV Shows</div>} />
-          <Route path="/profile" render={() => <div>Profile</div>} />
+          <Route exact path="/" render={() => <Home trending={trending} />} />
+          <Route path="/movies" render={() => <Movies />} />
+          <Route path="/tv-shows" render={() => <TvShows />} />
+          <Route path="/profile" render={() => <Profile />} />
         </Switch>
-
         <FooterComp />
       </div>
     );

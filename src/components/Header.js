@@ -32,7 +32,15 @@ class Header extends React.Component {
     return (
       <div>
         <header>
-          <Navbar color="transparent" dark expand="md" fixed="top" scrolling>
+          <Navbar
+            color="unique-color-dark"
+            dark
+            expand="md"
+            fixed="top"
+            scrolling
+            transparent
+            className={this.state.collapse ? 'navbar-opened' : ''}
+          >
             <Fade left>
               <NavbarBrand href="/">
                 <img src={BrandImg} height="40" alt="icon" />
@@ -59,11 +67,11 @@ class Header extends React.Component {
                 <Fade>
                   <NavItem>
                     <NavLink to="/profile/">
-                      <span className="profile-text">Profile</span>
+                      <span className="d-md-none">Profile</span>
                       <Fa
                         icon="user-circle"
                         size="2x"
-                        className="profile-icon"
+                        className="d-none d-md-inline"
                       />
                     </NavLink>
                   </NavItem>

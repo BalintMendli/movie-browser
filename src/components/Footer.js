@@ -1,47 +1,47 @@
 import React from 'react';
 import { Col, Container, Row, Footer } from 'mdbreact';
+import PoweredBy from '../media/powered-by.svg';
+import './Footer.css';
 
-class FooterComp extends React.Component {
-  render() {
-    return (
-      <Footer color="unique-color-dark" className="font-small pt-4">
-        <Container fluid className="text-center text-md-left">
-          <Row className="justify-content-center">
-            <Col md="5">
-              <h5 className="title">Footer Content</h5>
-              <p>
-                Here you can use rows and columns here to organize your footer
-                content.
-              </p>
-            </Col>
-            <Col md="5">
-              <h5 className="title">Links</h5>
-              <ul>
-                <li className="list-unstyled">
-                  <a href="#!">Link 1</a>
-                </li>
-                <li className="list-unstyled">
-                  <a href="#!">Link 2</a>
-                </li>
-                <li className="list-unstyled">
-                  <a href="#!">Link 3</a>
-                </li>
-                <li className="list-unstyled">
-                  <a href="#!">Link 4</a>
-                </li>
-              </ul>
-            </Col>
-          </Row>
-        </Container>
-        <div className="footer-copyright text-center py-3">
-          <Container fluid>
-            &copy; {new Date().getFullYear()} Copyright:{' '}
-            <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
-          </Container>
-        </div>
-      </Footer>
-    );
-  }
-}
+const FooterComp = () => (
+  <Footer color="unique-color-dark" className="font-small pt-4">
+    <Container fluid className="text-center text-md-left">
+      <Row className="justify-content-center">
+        <Col md="4" className="text-center">
+          <img
+            src={PoweredBy}
+            height="100px"
+            alt="powered by"
+            className="mt-2"
+          />
+        </Col>
+        <Col md="4" className="text-center">
+          <h5 className="title">Links</h5>
+          <ul>
+            <li className="list-unstyled">
+              <a href="/">Home</a>
+            </li>
+            <li className="list-unstyled">
+              <a href="/movies">Movies</a>
+            </li>
+            <li className="list-unstyled">
+              <a href="/tv-shows">TV Shows</a>
+            </li>
+            <li className="list-unstyled">
+              <a href="/profile">Profile</a>
+            </li>
+          </ul>
+        </Col>
+      </Row>
+    </Container>
+    <div className="footer-copyright text-center py-3">
+      <Container fluid>
+        {new Date().getFullYear()} - Movie App
+        <span className="text-muted"> by</span>
+        <a href="https://github.com/zenott"> zenott</a>
+      </Container>
+    </div>
+  </Footer>
+);
 
 export default FooterComp;

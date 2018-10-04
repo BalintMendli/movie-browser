@@ -1,16 +1,5 @@
-.top-nav-collapse {
-  background-color: #1c2331;
-}
-
-.profile-icon {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .profile-text {
-    display: none;
-  }
-  .profile-icon {
-    display: inline;
+@media (max-width: 767px) {
+  .navbar-opened {
+    background-color: #1c2331 !important;
   }
 }

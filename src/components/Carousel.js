@@ -30,7 +30,8 @@ const CarouselComp = props => (
         <CarouselCaption>
           <h3 className="h3-responsive text-left">{props.trending[0].title}</h3>
           <p className="text-left">
-            Average rating: {props.trending[0].vote_average}
+            Average rating:
+            {props.trending[0].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>
@@ -46,7 +47,8 @@ const CarouselComp = props => (
         <CarouselCaption>
           <h3 className="h3-responsive text-left">{props.trending[1].title}</h3>
           <p className="text-left">
-            Average rating: {props.trending[1].vote_average}
+            Average rating:
+            {props.trending[1].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>
@@ -62,7 +64,8 @@ const CarouselComp = props => (
         <CarouselCaption>
           <h3 className="h3-responsive text-left">{props.trending[2].title}</h3>
           <p className="text-left">
-            Average rating: {props.trending[2].vote_average}
+            Average rating:
+            {props.trending[2].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>
@@ -78,7 +81,8 @@ const CarouselComp = props => (
         <CarouselCaption>
           <h3 className="h3-responsive text-left">{props.trending[3].title}</h3>
           <p className="text-left">
-            Average rating: {props.trending[3].vote_average}
+            Average rating:
+            {props.trending[3].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>
@@ -86,7 +90,7 @@ const CarouselComp = props => (
         <View
           src={`https://image.tmdb.org/t/p/original${
             props.trending[4].backdrop_path
-            }`}
+          }`}
           className="car-img"
         >
           <Mask overlay="black-light" />
@@ -94,7 +98,8 @@ const CarouselComp = props => (
         <CarouselCaption>
           <h3 className="h3-responsive text-left">{props.trending[4].title}</h3>
           <p className="text-left">
-            Average rating: {props.trending[4].vote_average}
+            Average rating:
+            {props.trending[4].vote_average}
           </p>
         </CarouselCaption>
       </CarouselItem>
