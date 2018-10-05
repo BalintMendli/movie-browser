@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'mdbreact';
-import './bg.css';
+// import './bg.css';
 
 const Profile = () => (
   <div className="bg">

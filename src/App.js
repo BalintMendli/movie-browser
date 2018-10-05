@@ -55,7 +55,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" render={() => <Home trending={trending} />} />
-          <Route path="/movies" render={() => <Movies />} />
+          <Route path="/movies" render={() => <Movies trending={trending} />} />
           <Route path="/tv-shows" render={() => <TvShows />} />
           <Route path="/profile" render={() => <Profile />} />
         </Switch>
