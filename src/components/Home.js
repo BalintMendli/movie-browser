@@ -2,9 +2,9 @@ import React from 'react';
 import CarouselComp from './Carousel';
 import MainCont from './MainCont';
 
-const Home = ({ trending }) => (
+const Home = ({ nowPlaying }) => (
   <>
-    <CarouselComp trending={trending} />
+    <CarouselComp nowPlaying={nowPlaying} />
     <MainCont />
   </>
 );

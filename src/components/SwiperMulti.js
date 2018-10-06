@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Container,
-  Card,
-  CardBody,
-  CardImage,
-  CardText,
-  CardTitle,
-  Button,
-} from 'mdbreact';
 import Swiper from 'react-id-swiper';
 import SwiperElem from './SwiperElem';
 
-const SwiperMulti = ({ trending }) => {
+const SwiperMulti = ({ movies }) => {
   const params = {
     slidesPerView: 6,
     spaceBetween: 30,
@@ -30,28 +21,36 @@ const SwiperMulti = ({ trending }) => {
         spaceBetween: 10,
         slidesPerGroup: 1,
       },
-      480: {
+      574: {
         slidesPerView: 2,
         spaceBetween: 20,
         slidesPerGroup: 2,
       },
-      640: {
+      767: {
         slidesPerView: 3,
         spaceBetween: 30,
         slidesPerGroup: 3,
       },
+      991: {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        slidesPerGroup: 4,
+      },
+      1199: {
+        slidesPerView: 5,
+        spaceBetween: 30,
+        slidesPerGroup: 5,
+      },
     },
   };
   return (
-    <Container>
-      <Swiper {...params}>
-        {trending.map(x => (
-          <div>
-            <SwiperElem movie={x} />
-          </div>
-        ))}
-      </Swiper>
-    </Container>
+    <Swiper {...params}>
+      {movies.map(x => (
+        <div key={x.id}>
+          <SwiperElem movie={x} />
+        </div>
+      ))}
+    </Swiper>
   );
 };
 

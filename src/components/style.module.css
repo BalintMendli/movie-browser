@@ -1,11 +1,13 @@
-body,
-html {
-  height: 100%;
-}
 .bg {
   background-image: url('../media/bg.jpg');
-  height: 100vh;
+  min-height: 100vh;
   background-repeat: repeat-y;
   background-size: cover;
   z-index: -10;
+  padding-top: 120px;
+  padding-bottom: 50px;
+}
+
+.hr {
+  border-color: rgba(255, 255, 255, 0.3);
 }

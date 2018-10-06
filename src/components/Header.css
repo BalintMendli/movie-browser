@@ -3,3 +3,7 @@
     background-color: #1c2331 !important;
   }
 }
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}

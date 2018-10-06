@@ -1,0 +1,30 @@
+.card {
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: relative;
+  background-color: #000;
+  transform: scale(0.95);
+}
+
+.card:hover {
+  transform: scale(1);
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.2s;
+}
+
+.card:hover:before {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.image {
+  height: 240px;
+}
