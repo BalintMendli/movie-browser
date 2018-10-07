@@ -23,7 +23,7 @@ export default class MovieDetails extends Component {
     this.setState({ isLoading: true });
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${
+        `https://api.themoviedb.org/3/tv/${
           this.props.match.params.movieId
         }?api_key=${API_KEY}&&append_to_response=videos,credits,reviews,similar`
       )
@@ -194,7 +194,7 @@ export default class MovieDetails extends Component {
                           <h4>Release Date</h4>
                           <p>{this.state.movieDetails.release_date}</p>
                           <h4>Runtime</h4>
-                          <p>{`${this.state.movieDetails.runtime} min`}</p>
+                          <p>{`${this.state.movieDetails.episode_run_time[0]} min`}</p>
                           <h4>Summary</h4>
                           <p>{this.state.movieDetails.overview}</p>
                         </div>
@@ -259,7 +259,7 @@ export default class MovieDetails extends Component {
                           aria-labelledby="nav-similar-tab"
                         >
                           {this.state.movieDetails.similar.results.map(x => (
-                            <div key={x.id}>{x.title}</div>
+                            <div key={x.id}>{x.name}</div>
                           ))}
                         </div>
                       </div>

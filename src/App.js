@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import MovieDetails from './components/MovieDetails';
+import TvDetails from './components/TvDetails';
 import Header from './components/Header';
 import FooterComp from './components/Footer';
 import Home from './components/Home';
@@ -10,9 +11,6 @@ import TvShows from './components/TvShows';
 import Profile from './components/Profile';
 
 const nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
-const popularUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=';
-const topRatedUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
-const upComingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 class App extends Component {
@@ -25,24 +23,15 @@ class App extends Component {
       upComing: [],
       isLoading: true,
       error: null,
-      movieDetails: {},
     };
   }
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    Promise.all([
-      axios.get(nowPlayingUrl + API_KEY),
-      axios.get(popularUrl + API_KEY),
-      axios.get(topRatedUrl + API_KEY),
-      axios.get(upComingUrl + API_KEY),
-    ])
+    Promise.all([axios.get(nowPlayingUrl + API_KEY)])
       .then(response => {
         this.setState({
           nowPlaying: response[0].data.results,
-          popular: response[1].data.results,
-          topRated: response[2].data.results,
-          upComing: response[3].data.results,
           isLoading: false,
         });
       })
@@ -55,14 +44,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      nowPlaying,
-      popular,
-      topRated,
-      upComing,
-      isLoading,
-      error,
-    } = this.state;
+    const { nowPlaying, isLoading, error } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -83,20 +65,17 @@ class App extends Component {
           />
           <Route
             path="/movies"
-            render={() => (
-              <Movies
-                nowPlaying={nowPlaying}
-                popular={popular}
-                topRated={topRated}
-                upComing={upComing}
-              />
-            )}
+            render={() => <Movies nowPlaying={nowPlaying} />}
           />
           <Route path="/tv-shows" render={() => <TvShows />} />
           <Route path="/profile" render={() => <Profile />} />
           <Route
             path="/movie/:movieId"
             render={({ match }) => <MovieDetails match={match} />}
+          />
+          <Route
+            path="/tv/:movieId"
+            render={({ match }) => <TvDetails match={match} />}
           />
         </Switch>
         <FooterComp />
