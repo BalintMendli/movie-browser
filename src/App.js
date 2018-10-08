@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import MovieDetails from './components/MovieDetails';
 import TvDetails from './components/TvDetails';
+import PeopleDetails from './components/PeopleDetails';
 import Header from './components/Header';
 import FooterComp from './components/Footer';
 import Home from './components/Home';
@@ -76,6 +77,10 @@ class App extends Component {
           <Route
             path="/tv/:movieId"
             render={({ match }) => <TvDetails match={match} />}
+          />
+          <Route
+            path="/people/:personId"
+            render={({ match }) => <PeopleDetails match={match} />}
           />
         </Switch>
         <FooterComp />

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
+import { View, Mask, Fa, Container, Row, Col, Card, CardText } from 'mdbreact';
+import { Link } from 'react-router-dom';
 import { carImg } from './Carousel.module.css';
 import { bg } from './style.module.css';
+import defProf from '../media/default_profile.jpg';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -184,9 +186,8 @@ export default class MovieDetails extends Component {
                       </nav>
                       <div className="tab-content" id="nav-tabContent">
                         <div
-                          className={`tab-pane fade${
-                            this.state.activeItem === '1' ? ' show active' : ''
-                          }`}
+                          className={`tab-pane fade${this.state.activeItem ===
+                            '1' && ' show active'}`}
                           id="nav-overview"
                           role="tabpanel"
                           aria-labelledby="nav-overview-tab"
@@ -199,24 +200,44 @@ export default class MovieDetails extends Component {
                           <p>{this.state.movieDetails.overview}</p>
                         </div>
                         <div
-                          className={`tab-pane fade${
-                            this.state.activeItem === '2' ? ' show active' : ''
-                          }`}
+                          className={`tab-pane fade${this.state.activeItem ===
+                            '2' && ' show active'}`}
                           id="nav-cast"
                           role="tabpanel"
                           aria-labelledby="nav-cast-tab"
                         >
                           {this.state.movieDetails.credits.cast.map(x => (
-                            <h5 key={x.cast_id}>
-                              {x.character} -
-{x.name}
-                            </h5>
+                            <Link key={x.cast_id} to={`/people/${x.id}`}>
+                              <Card
+                                className="card-body"
+                                style={{ width: '22rem', marginTop: '1rem' }}
+                              >
+                                <Row>
+                                  <Col size="4" className="text-center">
+                                    <img
+                                      src={
+                                        x.profile_path
+                                          ? `https://image.tmdb.org/t/p/w45${
+                                              x.profile_path
+                                            }`
+                                          : defProf
+                                      }
+                                      alt="profile-pic"
+                                    />
+                                  </Col>
+                                  <Col size="8">
+                                    <CardText className="text-dark">
+                                      {x.name} as {x.character}
+                                    </CardText>
+                                  </Col>
+                                </Row>
+                              </Card>
+                            </Link>
                           ))}
                         </div>
                         <div
-                          className={`tab-pane fade${
-                            this.state.activeItem === '3' ? ' show active' : ''
-                          }`}
+                          className={`tab-pane fade${this.state.activeItem ===
+                            '3' && ' show active'}`}
                           id="nav-trailers"
                           role="tabpanel"
                           aria-labelledby="nav-trailers-tab"
@@ -227,6 +248,7 @@ export default class MovieDetails extends Component {
                               <iframe
                                 key={x.id}
                                 id="ytplayer"
+                                title="ytplayer"
                                 type="text/html"
                                 width="640"
                                 height="360"
@@ -236,9 +258,8 @@ export default class MovieDetails extends Component {
                             ))}
                         </div>
                         <div
-                          className={`tab-pane fade${
-                            this.state.activeItem === '4' ? ' show active' : ''
-                          }`}
+                          className={`tab-pane fade${this.state.activeItem ===
+                            '4' && ' show active'}`}
                           id="nav-reviews"
                           role="tabpanel"
                           aria-labelledby="nav-reviews-tab"
@@ -251,9 +272,8 @@ export default class MovieDetails extends Component {
                           ))}
                         </div>
                         <div
-                          className={`tab-pane fade${
-                            this.state.activeItem === '5' ? ' show active' : ''
-                          }`}
+                          className={`tab-pane fade${this.state.activeItem ===
+                            '5' && ' show active'}`}
                           id="nav-similar"
                           role="tabpanel"
                           aria-labelledby="nav-similar-tab"

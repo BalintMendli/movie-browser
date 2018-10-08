@@ -63,6 +63,7 @@
         "trailingComma": "es5"
       }
     ],
+    "react/jsx-one-expression-per-line": 0,
     "react/jsx-filename-extension": [
       "error",
       {
