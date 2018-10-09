@@ -19,9 +19,6 @@ class App extends Component {
     super(props);
     this.state = {
       nowPlaying: [],
-      popular: [],
-      topRated: [],
-      upComing: [],
       isLoading: true,
       error: null,
     };
@@ -70,18 +67,9 @@ class App extends Component {
           />
           <Route path="/tv-shows" render={() => <TvShows />} />
           <Route path="/profile" render={() => <Profile />} />
-          <Route
-            path="/movie/:movieId"
-            render={({ match }) => <MovieDetails match={match} />}
-          />
-          <Route
-            path="/tv/:movieId"
-            render={({ match }) => <TvDetails match={match} />}
-          />
-          <Route
-            path="/people/:personId"
-            render={({ match }) => <PeopleDetails match={match} />}
-          />
+          <Route path="/movie/:movieId" component={MovieDetails} />
+          <Route path="/tv/:movieId" component={TvDetails} />
+          <Route path="/people/:personId" component={PeopleDetails} />
         </Switch>
         <FooterComp />
       </div>

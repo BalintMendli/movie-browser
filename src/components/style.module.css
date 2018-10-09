@@ -11,3 +11,41 @@
 .hr {
   border-color: rgba(255, 255, 255, 0.3);
 }
+
+.posterImg {
+  border: 1px solid rgba(68, 68, 68, 0.7);
+  padding: 5px;
+  position: sticky;
+  top: 5rem;
+}
+
+.tabsComp {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 3px double rgba(68, 68, 68, 0.7);
+}
+
+.tabContent {
+  padding: 15px;
+}
+
+.pills {
+  color: #ffffff;
+}
+
+.pills:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pills.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 575.98px) {
+  .pills + .pills {
+    border-top: 1px solid rgba(68, 68, 68, 0.7);
+  }
+
+  .pillsHeader {
+    border-bottom: 3px double rgba(68, 68, 68, 0.7);
+  }
+}

@@ -27,6 +27,19 @@ const SwiperElem = ({ movie, isTv }) => (
   </Link>
 );
 
-SwiperElem.propTypes = {};
+SwiperElem.propTypes = {
+  isTv: PropTypes.bool,
+  movie: PropTypes.shape({
+    id: PropTypes.number,
+    poster_path: PropTypes.string,
+    name: PropTypes.string,
+    title: PropTypes.string,
+    vote_average: PropTypes.number,
+  }).isRequired,
+};
+
+SwiperElem.defaultProps = {
+  isTv: false,
+};
 
 export default SwiperElem;

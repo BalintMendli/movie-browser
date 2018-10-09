@@ -1,5 +1,6 @@
 import React from 'react';
 import { CarouselCaption, CarouselItem, View, Mask, Fa } from 'mdbreact';
+import PropTypes from 'prop-types';
 import { carImg } from './Carousel.module.css';
 
 const CarouselElem = ({ itemId, movie }) => (
@@ -24,3 +25,12 @@ const CarouselElem = ({ itemId, movie }) => (
 );
 
 export default CarouselElem;
+
+CarouselElem.propTypes = {
+  itemId: PropTypes.number.isRequired,
+  movie: PropTypes.shape({
+    title: PropTypes.string,
+    vote_average: PropTypes.number,
+    backdrop_path: PropTypes.string,
+  }).isRequired,
+};

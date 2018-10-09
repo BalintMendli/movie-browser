@@ -1,5 +1,6 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
+import PropTypes from 'prop-types';
 import SwiperElem from './SwiperElem';
 
 const params = {
@@ -54,5 +55,14 @@ const SwiperMulti = ({ movies, isTv }) => (
       ))}
   </Swiper>
 );
+
+SwiperMulti.propTypes = {
+  isTv: PropTypes.bool,
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+SwiperMulti.defaultProps = {
+  isTv: false,
+};
 
 export default SwiperMulti;

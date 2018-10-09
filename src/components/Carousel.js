@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel, CarouselInner } from 'mdbreact';
+import PropTypes from 'prop-types';
 import CarouselElem from './CarouselElem';
 
 const carouselLength = 10;
@@ -21,3 +22,7 @@ const CarouselComp = ({ nowPlaying }) => (
 );
 
 export default CarouselComp;
+
+CarouselComp.propTypes = {
+  nowPlaying: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
