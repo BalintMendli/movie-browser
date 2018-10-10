@@ -49,3 +49,14 @@
     border-bottom: 3px double rgba(68, 68, 68, 0.7);
   }
 }
+
+.searchInput {
+  border: 1px solid #bdbdbd !important;
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+}
+
+.searchInput:focus {
+  border: 1px solid #bdbdbd !important;
+  box-shadow: none !important;
+}

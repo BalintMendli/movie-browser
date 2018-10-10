@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Movies from './components/Movies';
 import TvShows from './components/TvShows';
 import Profile from './components/Profile';
+import SearchResults from './components/SearchResults';
 
 const nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -70,6 +71,7 @@ class App extends Component {
           <Route path="/movie/:movieId" component={MovieDetails} />
           <Route path="/tv/:movieId" component={TvDetails} />
           <Route path="/people/:personId" component={PeopleDetails} />
+          <Route path="/results/:type/:query" component={SearchResults} />
         </Switch>
         <FooterComp />
       </div>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container } from 'mdbreact';
+import { Container, Row, Col } from 'mdbreact';
 import axios from 'axios';
 import { bg, hr } from './style.module.css';
 import SwiperMulti from './SwiperMulti';
+import SearchForm from './SearchForm';
 
 const airingTodayUrl = 'https://api.themoviedb.org/3/tv/airing_today?api_key=';
 const onTheAirUrl = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=';
@@ -68,7 +69,14 @@ export default class TvShows extends Component {
     return (
       <div className={bg}>
         <Container className="text-white">
-          <h2 className="mb-4">Airing Today</h2>
+          <Row>
+            <Col size="9" className="d-flex align-items-center">
+              <h2 className="mb-0">Airing Today</h2>
+            </Col>
+            <Col size="3">
+              <SearchForm type="tv" />
+            </Col>
+          </Row>
           <SwiperMulti movies={airingToday} isTv />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">On The Air</h2>

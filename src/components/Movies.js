@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container } from 'mdbreact';
+import { Container, Row, Col } from 'mdbreact';
 import axios from 'axios';
 import { bg, hr } from './style.module.css';
 import SwiperMulti from './SwiperMulti';
+import SearchForm from './SearchForm';
 
 const popularUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=';
 const topRatedUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
@@ -58,7 +59,14 @@ export default class Movies extends Component {
     return (
       <div className={bg}>
         <Container className="text-white">
-          <h2 className="mb-4">Now Playing</h2>
+          <Row>
+            <Col size="9" className="d-flex align-items-center">
+              <h2 className="mb-0">Now Playing</h2>
+            </Col>
+            <Col size="3">
+              <SearchForm type="movie" />
+            </Col>
+          </Row>
           <SwiperMulti movies={nowPlaying} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Popular</h2>
