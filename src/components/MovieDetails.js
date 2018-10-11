@@ -99,6 +99,7 @@ export default class MovieDetails extends Component {
                           'Reviews',
                           'Similar',
                         ]}
+                        type="movie"
                       />
                     </Col>
                   </Row>

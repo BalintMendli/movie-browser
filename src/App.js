@@ -11,6 +11,8 @@ import Movies from './components/Movies';
 import TvShows from './components/TvShows';
 import Profile from './components/Profile';
 import SearchResults from './components/SearchResults';
+import LogIn from './components/LogIn';
+import Auth from './components/Auth';
 
 const nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -67,7 +69,9 @@ class App extends Component {
             render={() => <Movies nowPlaying={nowPlaying} />}
           />
           <Route path="/tv-shows" render={() => <TvShows />} />
-          <Route path="/profile" render={() => <Profile />} />
+          <Route path="/login" exact render={() => <LogIn />} />
+          <Route path="/login/auth" exact component={Auth} />
+          <Route path="/profile" exact component={Profile} />
           <Route path="/movie/:movieId" component={MovieDetails} />
           <Route path="/tv/:movieId" component={TvDetails} />
           <Route path="/people/:personId" component={PeopleDetails} />

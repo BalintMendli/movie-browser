@@ -4,14 +4,11 @@ import { View, Mask, Fa, Container, Row, Col, Card, CardText } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import defProf from '../media/default_profile.jpg';
 
-const SmallCards = ({ data }) => (
+const SmallCards = ({ data, type }) => (
   <>
     {data.map(x => (
       <Link key={x.cast_id} to={`/people/${x.id}`}>
-        <Card
-          className="card-body"
-          style={{ width: '22rem', marginTop: '1rem' }}
-        >
+        <Card className="card-body mb-2">
           <Row>
             <Col size="4" className="text-center">
               <img
