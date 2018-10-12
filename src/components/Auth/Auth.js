@@ -45,13 +45,8 @@ export default class Auth extends Component {
       return <p>Loading ...</p>;
     }
 
-    return (
-      <Redirect
-        to={{
-          pathname: '/profile',
-          state: { sessionId },
-        }}
-      />
-    );
+    localStorage.setItem('session_id', sessionId);
+
+    return <Redirect to="/profile" />;
   }
 }

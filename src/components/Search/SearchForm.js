@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Fa } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
-import { searchInput } from './style.module.css';
+import { searchInput } from '../Style/style.module.css';
 
 export default class SearchForm extends Component {
   constructor(props) {

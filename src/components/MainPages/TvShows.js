@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import axios from 'axios';
-import { bg, hr } from './style.module.css';
-import SwiperMulti from './SwiperMulti';
-import SearchForm from './SearchForm';
+import { bg, hr } from '../Style/style.module.css';
+import SwiperMulti from '../Swiper/SwiperMulti';
+import SearchForm from '../Search/SearchForm';
 
 const airingTodayUrl = 'https://api.themoviedb.org/3/tv/airing_today?api_key=';
 const onTheAirUrl = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=';

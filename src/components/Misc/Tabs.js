@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Mask, Fa, Container, Row, Col, Card, CardText } from 'mdbreact';
-import { Link } from 'react-router-dom';
-import defProf from '../media/default_profile.jpg';
-import SmallCards from './SmallCards';
 import Loadable from 'react-loadable';
 import {
   tabsComp,
@@ -11,7 +7,7 @@ import {
   pills,
   active,
   pillsHeader,
-} from './style.module.css';
+} from '../Style/style.module.css';
 
 export default class Tabs extends Component {
   constructor(props) {
@@ -65,7 +61,7 @@ export default class Tabs extends Component {
         <div className={`tab-content ${tabContent}`} id="nav-tabContent">
           {tabs.map((x, i) => {
             const DynComp = Loadable({
-              loader: () => import(`./${x}`),
+              loader: () => import(`../TabComps/${x}`),
               loading: () => <div>Loading...</div>,
             });
             return (

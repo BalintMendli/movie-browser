@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import axios from 'axios';
-import { bg, hr } from './style.module.css';
-import SwiperMulti from './SwiperMulti';
-import SearchForm from './SearchForm';
+import { bg, hr } from '../Style/style.module.css';
+import SwiperMulti from '../Swiper/SwiperMulti';
+import SearchForm from '../Search/SearchForm';
 
 const popularUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=';
 const topRatedUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';

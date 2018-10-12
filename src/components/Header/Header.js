@@ -11,7 +11,7 @@ import {
 } from 'mdbreact';
 import './Header.css';
 import { Fade } from 'react-reveal';
-import BrandImg from '../media/brand.png';
+import BrandImg from '../../media/brand.png';
 
 class Header extends React.Component {
   constructor(props) {
@@ -58,17 +58,17 @@ class Header extends React.Component {
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink to="/movies/">Movies</NavLink>
+                    <NavLink to="/movies">Movies</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink to="/tv-shows/">TV Shows</NavLink>
+                    <NavLink to="/tv-shows">TV Shows</NavLink>
                   </NavItem>
                 </NavbarNav>
               </Fade>
               <NavbarNav right>
                 <Fade>
                   <NavItem>
-                    <NavLink to="/profile/">
+                    <NavLink to="/profile">
                       <span className="d-md-none">Profile</span>
                       <Fa
                         icon="user-circle"

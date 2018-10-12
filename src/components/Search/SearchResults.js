@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Container, Row, Col } from 'mdbreact';
-import { bg } from './style.module.css';
+import { bg } from '../Style/style.module.css';
 import SearchResultsElem from './SearchResultsElem';
 
 const API_KEY = process.env.REACT_APP_API_KEY;

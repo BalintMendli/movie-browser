@@ -1,5 +1,5 @@
 .bg {
-  background-image: url('../media/bg.jpg');
+  background-image: url('../../media/bg.jpg');
   min-height: 100vh;
   background-repeat: repeat-y;
   background-size: 100% auto;

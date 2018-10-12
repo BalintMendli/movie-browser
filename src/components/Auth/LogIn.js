@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { bg, posterImg } from './style.module.css';
+import { bg, posterImg } from '../Style/style.module.css';
 
 const url = 'https://api.themoviedb.org/3/authentication/token/new?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -25,7 +25,7 @@ export default class LogIn extends Component {
           window.location.replace(
             `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${
               window.location.href
-            }auth`
+            }/auth`
           );
         }
       })

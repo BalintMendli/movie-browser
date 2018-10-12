@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row, Footer } from 'mdbreact';
-import PoweredBy from '../media/powered-by.svg';
+import PoweredBy from '../../media/powered-by.svg';
 import './Footer.css';
 
 const FooterComp = () => (

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Card, CardText, CardTitle } from 'mdbreact';
 import { Link } from 'react-router-dom';
-import defPoster from '../media/default_poster.jpg';
+import defPoster from '../../media/default_poster.jpg';
 
 const SearchResultsElem = ({ data }) => (
   <Link to={`/movie/${data.id}`}>

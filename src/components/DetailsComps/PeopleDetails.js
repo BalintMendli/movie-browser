@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row, Col, Card, CardText, CardTitle } from 'mdbreact';
-import defPoster from '../media/default_poster.jpg';
-import { bg, posterImg } from './style.module.css';
-import Tabs from './Tabs';
+import defPoster from '../../media/default_poster.jpg';
+import { bg, posterImg } from '../Style/style.module.css';
+import Tabs from '../Misc/Tabs';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
