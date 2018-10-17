@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Container, Row, Footer } from 'mdbreact';
 import PoweredBy from '../../media/powered-by.svg';
 import './Footer.css';
@@ -17,18 +18,18 @@ const FooterComp = () => (
         </Col>
         <Col md="4" className="text-center">
           <h5 className="title">Links</h5>
-          <ul>
+          <ul className="pl-0">
             <li className="list-unstyled">
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li className="list-unstyled">
-              <a href="/movies">Movies</a>
+              <Link to="/movies">Movies</Link>
             </li>
             <li className="list-unstyled">
-              <a href="/tv-shows">TV Shows</a>
+              <Link to="/tv-shows">TV Shows</Link>
             </li>
             <li className="list-unstyled">
-              <a href="/profile">Profile</a>
+              <Link to="/profile">Profile</Link>
             </li>
           </ul>
         </Col>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
 import { carImg } from '../Carousel/Carousel.module.css';
-import { bg, posterImg } from '../Style/style.module.css';
+import { bg, posterImg, carText } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -62,16 +62,20 @@ export default class MovieDetails extends Component {
             overlay="black-light"
             className="d-flex justify-content-end p-5 flex-column text-white"
           >
-            <h1 className="text-left font-weight-bold">{movieDetails.title}</h1>
-            <h4>{movieDetails.tagline}</h4>
-            <p>{movieDetails.genres.map(genre => genre.name).join(', ')}</p>
-            <p className="text-left font-weight-bold">
-              <Fa icon="star" className="amber-text pr-1" />
-              {movieDetails.vote_average}
-              <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
-                /10
-              </span>
-            </p>
+            <div className={carText}>
+              <h1 className="text-left font-weight-bold">
+                {movieDetails.title}
+              </h1>
+              <h4>{movieDetails.tagline}</h4>
+              <p>{movieDetails.genres.map(genre => genre.name).join(', ')}</p>
+              <p className="text-left font-weight-bold">
+                <Fa icon="star" className="amber-text pr-1" />
+                {movieDetails.vote_average}
+                <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
+                  /10
+                </span>
+              </p>
+            </div>
           </Mask>
         </View>
         <div className={bg}>
