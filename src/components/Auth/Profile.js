@@ -14,50 +14,82 @@ export default class Profile extends Component {
       profile: {},
       favoriteMovies: [],
       favoriteTv: [],
+      ratedMovies: [],
+      ratedTv: [],
       isLoading: true,
       error: null,
       redirect: false,
+      guest: false,
     };
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     const sessionId = localStorage.getItem('session_id');
-    axios
-      .get(
-        `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`
-      )
-      .then(response => {
-        this.setState({ profile: response.data, isLoading: false });
-        localStorage.setItem('profile_id', response.data.id);
-        console.log(response.data);
-        return Promise.all([
-          axios.get(
-            `https://api.themoviedb.org/3/account/${
-              response.data.id
-            }/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`
-          ),
-          axios.get(
-            `https://api.themoviedb.org/3/account/${
-              response.data.id
-            }/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`
-          ),
-        ]);
-      })
-      .then(response => {
-        this.setState({
-          favoriteMovies: response[0].data.results,
-          favoriteTv: response[1].data.results,
-        });
-        console.log(response[0].data);
-        console.log(response[1].data);
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
+    const guestSessionId = localStorage.getItem('guest_session_id');
+    if (sessionId) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`
+        )
+        .then(response => {
+          this.setState({ profile: response.data, isLoading: false });
+          localStorage.setItem('profile_id', response.data.id);
+          console.log(response.data);
+          return Promise.all([
+            axios.get(
+              `https://api.themoviedb.org/3/account/${
+                response.data.id
+              }/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`
+            ),
+            axios.get(
+              `https://api.themoviedb.org/3/account/${
+                response.data.id
+              }/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`
+            ),
+          ]);
         })
-      );
+        .then(response => {
+          this.setState({
+            favoriteMovies: response[0].data.results,
+            favoriteTv: response[1].data.results,
+            isLoading: false,
+          });
+          console.log(response[0].data);
+          console.log(response[1].data);
+        })
+        .catch(error =>
+          this.setState({
+            error,
+            isLoading: false,
+          })
+        );
+    } else if (guestSessionId) {
+      this.setState({ guest: true });
+      Promise.all([
+        axios.get(
+          `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}`
+        ),
+        axios.get(
+          `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/tv?api_key=${API_KEY}`
+        ),
+      ])
+        .then(response => {
+          this.setState({
+            ratedMovies: response[0].data.results,
+            ratedTv: response[1].data.results,
+            isLoading: false,
+          });
+          console.log(response[0].data);
+          console.log(response[1].data);
+        })
+        .catch(error =>
+          this.setState({
+            error,
+            isLoading: false,
+          })
+        );
+    }
   }
 
   logout() {
@@ -84,9 +116,12 @@ export default class Profile extends Component {
       profile,
       favoriteMovies,
       favoriteTv,
+      ratedMovies,
+      ratedTv,
       isLoading,
       error,
       redirect,
+      guest,
     } = this.state;
 
     if (error) {
@@ -101,29 +136,49 @@ export default class Profile extends Component {
       return <Redirect push to="/" />;
     }
 
+    if (!guest) {
+      return (
+        <div className={bg}>
+          <Container className="text-white">
+            <h2>Profile</h2>
+            <h5>Username:</h5>
+            <p>{profile.username}</p>
+            <h5>Name:</h5>
+            <p>{profile.name}</p>
+            <h5>Account Id:</h5>
+            <p>{profile.id}</p>
+            <h5>Avatar:</h5>
+            <img
+              src={`https://www.gravatar.com/avatar/${
+                profile.avatar.gravatar.hash
+              }`}
+              alt="gravatar"
+            />
+            <h5>Favorite Movies:</h5>
+            {favoriteMovies.map(x => (
+              <SmallCards key={x.id} data={x} type="movie" />
+            ))}
+            <h5>Favorite TV Shows:</h5>
+            {favoriteTv.map(x => (
+              <SmallCards key={x.id} data={x} type="tv" />
+            ))}
+            <button type="button" onClick={this.logout}>
+              Log Out
+            </button>
+          </Container>
+        </div>
+      );
+    }
     return (
       <div className={bg}>
         <Container className="text-white">
-          <h2>Profile</h2>
-          <h5>Username:</h5>
-          <p>{profile.username}</p>
-          <h5>Name:</h5>
-          <p>{profile.name}</p>
-          <h5>Account Id:</h5>
-          <p>{profile.id}</p>
-          <h5>Avatar:</h5>
-          <img
-            src={`https://www.gravatar.com/avatar/${
-              profile.avatar.gravatar.hash
-            }`}
-            alt="gravatar"
-          />
-          <h5>Favorite Movies:</h5>
-          {favoriteMovies.map(x => (
+          <h2>Guest Profile</h2>
+          <h5>Rated Movies:</h5>
+          {ratedMovies.map(x => (
             <SmallCards key={x.id} data={x} type="movie" />
           ))}
-          <h5>Favorite TV Shows:</h5>
-          {favoriteTv.map(x => (
+          <h5>Rated TV Shows:</h5>
+          {ratedTv.map(x => (
             <SmallCards key={x.id} data={x} type="tv" />
           ))}
           <button type="button" onClick={this.logout}>

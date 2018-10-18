@@ -83,7 +83,8 @@ class App extends Component {
           <Route
             path="/profile"
             render={() =>
-              localStorage.getItem('session_id') ? (
+              localStorage.getItem('session_id') ||
+              localStorage.getItem('guest_session_id') ? (
                 <Profile />
               ) : (
                 <Redirect to="/login" />

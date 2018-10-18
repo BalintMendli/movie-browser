@@ -46,7 +46,7 @@ const params = {
 
 const paramsSmall = {
   slidesPerView: 4,
-  spaceBetween: 30,
+  spaceBetween: 20,
   slidesPerGroup: 4,
   scrollbar: {
     el: '.swiper-scrollbar',
@@ -69,7 +69,7 @@ const paramsSmall = {
     },
     992: {
       slidesPerView: 3,
-      spaceBetween: 30,
+      spaceBetween: 20,
       slidesPerGroup: 3,
     },
   },
