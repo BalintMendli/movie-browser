@@ -12,6 +12,10 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+.hr:last-child {
+  display: none;
+}
+
 .posterImg {
   border: 1px solid rgba(68, 68, 68, 0.7);
   padding: 5px;
