@@ -1,5 +1,5 @@
 import React from 'react';
-import { hr } from '../Style/style.module.css';
+import { hr, whiteSpace } from '../Style/style.module.css';
 
 const Reviews = ({ data }) => {
   if (!data.reviews.results.length) {
@@ -9,7 +9,7 @@ const Reviews = ({ data }) => {
     <React.Fragment key={x.id}>
       <div>
         <h4 className="mt-4 mb-3">{`A review by ${x.author}`}</h4>
-        <p style={{ whiteSpace: 'pre-line' }}>{x.content}</p>
+        <p className={whiteSpace}>{x.content}</p>
       </div>
       <hr className={hr} />
     </React.Fragment>

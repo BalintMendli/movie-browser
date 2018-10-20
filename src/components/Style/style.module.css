@@ -68,3 +68,7 @@
 .carText {
   padding-left: 12%;
 }
+
+.whiteSpace {
+  white-space: pre-line;
+}
