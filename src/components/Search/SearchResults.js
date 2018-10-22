@@ -58,7 +58,7 @@ export default class SearchResults extends Component {
             <Col size="10">
               <h3 className="mb-4">Search results:</h3>
               {results.results.map(data => (
-                <SearchResultsElem data={data} />
+                <SearchResultsElem key={data.id} data={data} />
               ))}
             </Col>
           </Row>
