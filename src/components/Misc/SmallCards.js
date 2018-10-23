@@ -6,50 +6,49 @@ import defProf from '../../media/default_profile.jpg';
 import defPoster from '../../media/default_poster.jpg';
 import { ellipsis } from '../Style/style.module.css';
 
-const SmallCards = ({ data, type }) => {
-  if (type === 'movie-filmography' || type === 'movie-similar') {
+const SmallCards = ({ data, type, page }) => {
+  if (page === 'filmography' || page === 'similar') {
     let cardText = '';
-    if (type === 'movie-filmography') {
+    if (page === 'filmography') {
       cardText = data.character ? `as ${data.character}` : '-';
     }
-    if (type === 'movie-similar') {
+    if (page === 'similar') {
       cardText = data.overview;
     }
     return (
-      <Link
-        to={
-          data.media_type === 'movie' ? `/movie/${data.id}` : `/tv/${data.id}`
-        }
-      >
-        <Card className="card-body mb-2">
-          <Row>
-            <Col size="4" className="text-center">
-              <img
-                src={
-                  data.poster_path
-                    ? `https://image.tmdb.org/t/p/w92${data.poster_path}`
-                    : defPoster
-                }
-                alt="poster"
-              />
-            </Col>
-            <Col
-              size="8"
-              className="text-dark d-flex flex-column justify-content-between pr-4"
-            >
-              <CardTitle>{data.title || data.name}</CardTitle>
-              <CardText className={ellipsis}>{cardText}</CardText>
-              <p className="text-left font-weight-bold mb-0">
-                <Fa icon="star" className="amber-text pr-1" />
-                {data.vote_average}
-                <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
-                  /10
-                </span>
-              </p>
-            </Col>
-          </Row>
-        </Card>
-      </Link>
+      <>
+        <Link to="/tv/1">Home</Link>
+        <Link to={type === 'movie' ? `/movie/${data.id}` : `/tv/${data.id}`}>
+          <Card className="card-body mb-2">
+            <Row>
+              <Col size="4" className="text-center">
+                <img
+                  src={
+                    data.poster_path
+                      ? `https://image.tmdb.org/t/p/w92${data.poster_path}`
+                      : defPoster
+                  }
+                  alt="poster"
+                />
+              </Col>
+              <Col
+                size="8"
+                className="text-dark d-flex flex-column justify-content-between pr-4"
+              >
+                <CardTitle>{data.title || data.name}</CardTitle>
+                <CardText className={ellipsis}>{cardText}</CardText>
+                <p className="text-left font-weight-bold mb-0">
+                  <Fa icon="star" className="amber-text pr-1" />
+                  {data.vote_average}
+                  <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
+                    /10
+                  </span>
+                </p>
+              </Col>
+            </Row>
+          </Card>
+        </Link>
+      </>
     );
   }
   if (type === 'person') {
