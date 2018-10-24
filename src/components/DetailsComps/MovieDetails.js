@@ -31,7 +31,7 @@ export default class MovieDetails extends Component {
     this.setState({ isLoading: true });
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&&append_to_response=videos,credits,reviews,similar`
+        `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`
       )
       .then(response => {
         this.setState({ movieDetails: response.data, isLoading: false });

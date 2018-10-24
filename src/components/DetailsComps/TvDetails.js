@@ -20,11 +20,22 @@ export default class MovieDetails extends Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
+  componentDidMount() {
+    const { match } = this.props;
+    this.fetchData(match.params.movieId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.movieId !== prevProps.match.params.movieId) {
+      this.fetchData(this.props.match.params.movieId);
+    }
+  }
+
   fetchData(movieId) {
     this.setState({ isLoading: true });
     axios
       .get(
-        `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&&append_to_response=videos,credits,reviews,similar`
+        `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`
       )
       .then(response => {
         this.setState({ movieDetails: response.data, isLoading: false });
@@ -36,17 +47,6 @@ export default class MovieDetails extends Component {
           isLoading: false,
         })
       );
-  }
-
-  componentDidMount() {
-    const { match } = this.props;
-    this.fetchData(match.params.movieId);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.movieId !== prevProps.match.params.movieId) {
-      this.fetchData(this.props.match.params.movieId);
-    }
   }
 
   render() {

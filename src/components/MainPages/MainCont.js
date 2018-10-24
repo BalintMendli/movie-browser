@@ -3,7 +3,6 @@ import { Col, Container, Row } from 'mdbreact';
 import axios from 'axios';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SmallCards from '../Misc/SmallCards';
-import { bg } from '../Style/style.module.css';
 
 const popPersonUrl = 'https://api.themoviedb.org/3/person/popular?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -58,9 +57,9 @@ class MainCont extends React.Component {
           <Col md="4" className="pl-4">
             <h2>Spotlight Celebrities</h2>
             {popPerson
-              .filter((x, i) => i <= 2)
+              .filter((_, i) => i <= 2)
               .map(x => (
-                <SmallCards data={x} key={x.id} />
+                <SmallCards data={x} key={x.id} type="person" />
               ))}
           </Col>
         </Row>

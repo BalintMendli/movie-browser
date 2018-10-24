@@ -26,7 +26,7 @@ export default class MovieDetails extends Component {
       .get(
         `https://api.themoviedb.org/3/person/${
           match.params.personId
-        }?api_key=${API_KEY}&&append_to_response=combined_credits`
+        }?api_key=${API_KEY}&append_to_response=combined_credits`
       )
       .then(response => {
         this.setState({ personDetails: response.data, isLoading: false });

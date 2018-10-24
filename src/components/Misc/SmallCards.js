@@ -17,7 +17,6 @@ const SmallCards = ({ data, type, page }) => {
     }
     return (
       <>
-        <Link to="/tv/1">Home</Link>
         <Link to={type === 'movie' ? `/movie/${data.id}` : `/tv/${data.id}`}>
           <Card className="card-body mb-2">
             <Row>
@@ -51,7 +50,7 @@ const SmallCards = ({ data, type, page }) => {
       </>
     );
   }
-  if (type === 'person') {
+  if (type === 'character') {
     return (
       <Link to={`/people/${data.id}`}>
         <Card className="card-body mb-2">
@@ -74,6 +73,36 @@ const SmallCards = ({ data, type, page }) => {
                 <strong>{data.name}</strong>
                 <br />
                 as {data.character}
+              </CardText>
+            </Col>
+          </Row>
+        </Card>
+      </Link>
+    );
+  }
+  if (type === 'person') {
+    return (
+      <Link to={`/people/${data.id}`}>
+        <Card className="card-body mb-2">
+          <Row>
+            <Col size="4" className="text-center">
+              <img
+                src={
+                  data.profile_path
+                    ? `https://image.tmdb.org/t/p/w45${data.profile_path}`
+                    : defProf
+                }
+                alt="profile-pic"
+              />
+            </Col>
+            <Col
+              size="8"
+              className="d-flex justify-content-center align-items-center text-center pr-4"
+            >
+              <CardText className="text-dark">
+                <strong>{data.name}</strong>
+                <br />
+                {data.known_for[0].title || data.known_for[0].name}
               </CardText>
             </Col>
           </Row>
