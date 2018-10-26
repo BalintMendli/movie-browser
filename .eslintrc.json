@@ -14,10 +14,14 @@
   },
   "rules": {
     "class-methods-use-this": "off",
-    "import/no-named-as-default": "off",
     "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "warn",
     "no-nested-ternary": "off",
     "linebreak-style": "off",
+    "no-unused-vars": "warn",
+    "no-use-before-define": "off",
+    "no-param-reassign": "warn",
+    "no-shadow": "off",
     "comma-dangle": [
       "error",
       {
@@ -35,7 +39,8 @@
         "trailingComma": "es5"
       }
     ],
-    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "warn",
     "react/jsx-filename-extension": [
       "error",
       {

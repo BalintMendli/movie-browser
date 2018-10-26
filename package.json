@@ -14,7 +14,8 @@
     "react-reveal": "^1.2.2",
     "react-scripts": "^2.1.8",
     "react-star-ratings": "^2.3.0",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,6 +41,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "jest-cli": "^23.6.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "redux-devtools-extension": "^2.13.8"
   }
 }
