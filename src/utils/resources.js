@@ -17,4 +17,6 @@ export const getUrl = ({ media, category, id, appends }) => {
   return url;
 };
 
-export const getMoviesUrl = category => getUrl({ media: 'movie', category });
+export const moviesUrl = category => getUrl({ media: 'movie', category });
+
+export const tvShowsUrl = category => getUrl({ media: 'tv', category });

@@ -1,52 +1,28 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
-import axios from 'axios';
-import { bg, hr } from '../Style/style.module.css';
+import { connect } from 'react-redux';
+import { fetchTvShows } from '../../redux/actions';
+import { getUrlsTvShows } from '../../utils/fetchData';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
+import { bg, hr } from '../Style/style.module.css';
 
-const airingTodayUrl = 'https://api.themoviedb.org/3/tv/airing_today?api_key=';
-const onTheAirUrl = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=';
-const popularUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=';
-const topRatedUrl = 'https://api.themoviedb.org/3/tv/top_rated?api_key=';
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export default class TvShows extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      airingToday: [],
-      onTheAir: [],
-      popular: [],
-      topRated: [],
-      isLoading: true,
-      error: null,
-    };
-  }
-
+class TvShows extends Component {
   componentDidMount() {
-    this.setState({ isLoading: true });
-    Promise.all([
-      axios.get(airingTodayUrl + API_KEY),
-      axios.get(onTheAirUrl + API_KEY),
-      axios.get(popularUrl + API_KEY),
-      axios.get(topRatedUrl + API_KEY),
-    ])
-      .then(response => {
-        this.setState({
-          airingToday: response[0].data.results,
-          onTheAir: response[1].data.results,
-          popular: response[2].data.results,
-          topRated: response[3].data.results,
-          isLoading: false,
-        });
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
+    const {
+      airingToday,
+      onTheAir,
+      popular,
+      topRated,
+      fetchTvShows,
+    } = this.props;
+    const toFetch = getUrlsTvShows({
+      popular,
+      topRated,
+      airingToday,
+      onTheAir,
+    });
+    if (Object.keys(toFetch).length) fetchTvShows(toFetch);
   }
 
   render() {
@@ -57,7 +33,7 @@ export default class TvShows extends Component {
       topRated,
       isLoading,
       error,
-    } = this.state;
+    } = this.props;
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -92,3 +68,10 @@ export default class TvShows extends Component {
     );
   }
 }
+
+const mapStateToProps = state => state.tvShows;
+
+export default connect(
+  mapStateToProps,
+  { fetchTvShows }
+)(TvShows);

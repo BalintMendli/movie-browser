@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
-import { bg, hr } from '../Style/style.module.css';
+import { getUrlsMovies } from '../../utils/fetchData';
+import { fetchMovies } from '../../redux/actions';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
-import { fetchMovies } from '../../redux/actions/index';
-import { needFetch } from '../../utils/fetchData';
+import { bg, hr } from '../Style/style.module.css';
 
 class Movies extends Component {
   componentDidMount() {
     const { popular, topRated, nowPlaying, upcoming, fetchMovies } = this.props;
-    const toFetch = needFetch({ popular, topRated, nowPlaying, upcoming });
+    const toFetch = getUrlsMovies({ popular, topRated, nowPlaying, upcoming });
     if (Object.keys(toFetch).length) fetchMovies(toFetch);
   }
 
