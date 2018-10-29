@@ -15,7 +15,7 @@ import LogIn from './components/Auth/LogIn';
 import Auth from './components/Auth/Auth';
 
 const nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
-const upComingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
+const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
     super(props);
     this.state = {
       nowPlaying: [],
-      upComing: [],
+      upcoming: [],
       isLoading: true,
       error: null,
     };
@@ -33,12 +33,12 @@ class App extends Component {
     this.setState({ isLoading: true });
     Promise.all([
       axios.get(nowPlayingUrl + API_KEY),
-      axios.get(upComingUrl + API_KEY),
+      axios.get(upcomingUrl + API_KEY),
     ])
       .then(response => {
         this.setState({
           nowPlaying: response[0].data.results,
-          upComing: response[1].data.results,
+          upcoming: response[1].data.results,
           isLoading: false,
         });
       })
@@ -51,7 +51,7 @@ class App extends Component {
   }
 
   render() {
-    const { nowPlaying, upComing, isLoading, error } = this.state;
+    const { nowPlaying, upcoming, isLoading, error } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -68,12 +68,12 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => <Home nowPlaying={nowPlaying} upComing={upComing} />}
+            render={() => <Home nowPlaying={nowPlaying} upcoming={upcoming} />}
           />
           <Route
             path="/movies"
             render={() => (
-              <Movies nowPlaying={nowPlaying} upComing={upComing} />
+              <Movies nowPlaying={nowPlaying} upcoming={upcoming} />
             )}
           />
           <Route path="/tv-shows" render={() => <TvShows />} />

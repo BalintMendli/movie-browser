@@ -1,49 +1,29 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { bg, hr } from '../Style/style.module.css';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
+import { fetchMovies } from '../../redux/actions/index';
+import { needFetch } from '../../utils/fetchData';
 
-const popularUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=';
-const topRatedUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=';
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export default class Movies extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      popular: [],
-      topRated: [],
-      isLoading: true,
-      error: null,
-    };
-  }
-
+class Movies extends Component {
   componentDidMount() {
-    this.setState({ isLoading: true });
-    Promise.all([
-      axios.get(popularUrl + API_KEY),
-      axios.get(topRatedUrl + API_KEY),
-    ])
-      .then(response => {
-        this.setState({
-          popular: response[0].data.results,
-          topRated: response[1].data.results,
-          isLoading: false,
-        });
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
+    const { popular, topRated, nowPlaying, upcoming, fetchMovies } = this.props;
+    const toFetch = needFetch({ popular, topRated, nowPlaying, upcoming });
+    if (Object.keys(toFetch).length) fetchMovies(toFetch);
   }
 
   render() {
-    const { popular, topRated, isLoading, error } = this.state;
-    const { nowPlaying, upComing } = this.props;
+    const {
+      popular,
+      topRated,
+      nowPlaying,
+      upcoming,
+      isLoading,
+      error,
+    } = this.props;
+
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -72,9 +52,16 @@ export default class Movies extends Component {
           <SwiperMulti movies={topRated} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Upcoming</h2>
-          <SwiperMulti movies={upComing} />
+          <SwiperMulti movies={upcoming} />
         </Container>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => state.movies;
+
+export default connect(
+  mapStateToProps,
+  { fetchMovies }
+)(Movies);

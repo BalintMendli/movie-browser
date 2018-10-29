@@ -37,7 +37,7 @@ class MainCont extends React.Component {
 
   render() {
     const { popPerson, isLoading, error } = this.state;
-    const { upComing } = this.props;
+    const { upcoming } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -52,7 +52,7 @@ class MainCont extends React.Component {
         <Row>
           <Col md="8">
             <h2 className="mb-4">Upcoming Movies</h2>
-            <SwiperMulti movies={upComing} isSmall />
+            <SwiperMulti movies={upcoming} isSmall />
           </Col>
           <Col md="4" className="pl-4">
             <h2>Spotlight Celebrities</h2>

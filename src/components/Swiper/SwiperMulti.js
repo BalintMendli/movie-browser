@@ -80,10 +80,10 @@ const SwiperMulti = ({ movies, isTv, isSmall }) => {
   return (
     <Swiper {...paramsToPass}>
       {movies
-        .filter(x => x.poster_path)
-        .map(x => (
-          <div key={x.id}>
-            <SwiperElem movie={x} isTv={isTv} />
+        .filter(movie => movie.pic)
+        .map(movie => (
+          <div key={movie.id}>
+            <SwiperElem movie={movie} isTv={isTv} />
           </div>
         ))}
     </Swiper>
