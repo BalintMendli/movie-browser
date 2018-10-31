@@ -5,12 +5,6 @@ const parseMovie = ({ id, poster_path: pic, title, vote_average: rating }) => ({
   rating,
 });
 
-export const parseMovies = obj =>
-  Object.keys(obj).reduce(
-    (retObj, key) => Object.assign(retObj, { [key]: obj[key].map(parseMovie) }),
-    {}
-  );
-
 const parseTvShow = ({
   id,
   poster_path: pic,
@@ -23,9 +17,10 @@ const parseTvShow = ({
   rating,
 });
 
-export const parseTvShows = obj =>
-  Object.keys(obj).reduce(
-    (retObj, key) =>
-      Object.assign(retObj, { [key]: obj[key].map(parseTvShow) }),
-    {}
-  );
+export const parseLists = obj =>
+  Object.keys(obj).reduce((retObj, key) => {
+    let parser;
+    if (key.includes('Movie')) parser = parseMovie;
+    if (key.includes('Tv')) parser = parseTvShow;
+    return Object.assign(retObj, { [key]: obj[key].map(parser) });
+  }, {});

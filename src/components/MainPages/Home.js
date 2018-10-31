@@ -4,9 +4,9 @@ import MainCont from './MainCont';
 
 class Home extends React.Component {
   componentDidMount() {
-    const { nowPlaying, upcoming, popPerson } = this.props;
-    const toFetch = getUrls({ nowPlaying, upcoming, popPerson });
-    if (Object.keys(toFetch).length) fetchMovies(toFetch);
+    // const { nowPlaying, upcoming, popPerson } = this.props;
+    // const toFetch = getUrls({ nowPlaying, upcoming, popPerson });
+    // if (Object.keys(toFetch).length) fetchMovies(toFetch);
   }
 
   render() {

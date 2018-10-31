@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
-import { getUrlsMovies } from '../../utils/fetchData';
-import { fetchMovies } from '../../redux/actions';
+import { getUrls } from '../../utils/fetchData';
+import { fetchLists } from '../../redux/actions';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
 import { bg, hr } from '../Style/style.module.css';
 
 class Movies extends Component {
   componentDidMount() {
-    const { popular, topRated, nowPlaying, upcoming, fetchMovies } = this.props;
-    const toFetch = getUrlsMovies({ popular, topRated, nowPlaying, upcoming });
-    if (Object.keys(toFetch).length) fetchMovies(toFetch);
+    const {
+      popularMovie,
+      topRatedMovie,
+      nowPlayingMovie,
+      upcomingMovie,
+      fetchLists,
+    } = this.props;
+    const toFetch = getUrls({
+      popularMovie,
+      topRatedMovie,
+      nowPlayingMovie,
+      upcomingMovie,
+    });
+    console.log(toFetch);
+    if (Object.keys(toFetch).length) fetchLists(toFetch);
   }
 
   render() {
     const {
-      popular,
-      topRated,
-      nowPlaying,
-      upcoming,
+      popularMovie,
+      topRatedMovie,
+      nowPlayingMovie,
+      upcomingMovie,
       isLoading,
       error,
     } = this.props;
@@ -43,25 +55,25 @@ class Movies extends Component {
               <SearchForm type="movie" />
             </Col>
           </Row>
-          <SwiperMulti movies={nowPlaying} />
+          <SwiperMulti movies={nowPlayingMovie} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Popular</h2>
-          <SwiperMulti movies={popular} />
+          <SwiperMulti movies={popularMovie} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Top Rated</h2>
-          <SwiperMulti movies={topRated} />
+          <SwiperMulti movies={topRatedMovie} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Upcoming</h2>
-          <SwiperMulti movies={upcoming} />
+          <SwiperMulti movies={upcomingMovie} />
         </Container>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => state.movies;
+const mapStateToProps = state => state.lists;
 
 export default connect(
   mapStateToProps,
-  { fetchMovies }
+  { fetchLists }
 )(Movies);

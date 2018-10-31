@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { SET_ERROR, LOADING_START } from '../redux/actions/types';
-import { moviesUrl, tvShowsUrl } from './resources';
+import { SET_LISTS, SET_ERROR, LOADING_START } from '../redux/actions/types';
+import { getUrl } from './resources';
 
-export default (urls, actionType) => async dispatch => {
+export default urls => async dispatch => {
   dispatch({ type: LOADING_START });
   try {
     const respTuple = async category => ({
@@ -10,37 +10,36 @@ export default (urls, actionType) => async dispatch => {
     });
     const response = await Promise.all(Object.keys(urls).map(respTuple));
     const respObj = response.reduce((obj, cat) => Object.assign(obj, cat), {});
-    dispatch({ type: actionType, respObj });
+    console.log(respObj);
+    dispatch({ type: SET_LISTS, respObj });
   } catch (error) {
     dispatch({ type: SET_ERROR, error });
   }
 };
 
-export const getUrlsMovies = categories =>
-  Object.keys(categories).reduce(
-    (obj, key) =>
-      !categories[key] || !categories[key].length
-        ? Object.assign(obj, { [key]: moviesUrl(key) })
-        : obj,
-    {}
-  );
+// export const getUrlsMovies = categories =>
+//   Object.keys(categories).reduce(
+//     (obj, key) =>
+//       !categories[key] || !categories[key].length
+//         ? Object.assign(obj, { [key]: moviesUrl(key) })
+//         : obj,
+//     {}
+//   );
 
-export const getUrlsTvShows = categories =>
-  Object.keys(categories).reduce(
-    (obj, key) =>
-      !categories[key] || !categories[key].length
-        ? Object.assign(obj, { [key]: tvShowsUrl(key) })
-        : obj,
-    {}
-  );
+// export const getUrlsTvShows = categories =>
+//   Object.keys(categories).reduce(
+//     (obj, key) =>
+//       !categories[key] || !categories[key].length
+//         ? Object.assign(obj, { [key]: tvShowsUrl(key) })
+//         : obj,
+//     {}
+//   );
 
 export const getUrls = categories =>
   Object.keys(categories).reduce(
     (obj, key) =>
       !categories[key] || !categories[key].length
-        ? Object.assign(obj, { [key]: moviesUrl(key) })
+        ? Object.assign(obj, { [key]: getUrl(key) })
         : obj,
     {}
   );
-
-const urlMap = {};

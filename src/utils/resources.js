@@ -8,15 +8,18 @@ const toSnake = str =>
     .join('_')
     .toLowerCase();
 
-export const getUrl = ({ media, category, id, appends }) => {
-  let url = `${API_URL}/${VERSION}/${media}/${toSnake(category)}`;
+function buildUrl({ media, category, id, appends }) {
+  let url = `${API_URL}/${VERSION}/${media}/${category}`;
   if (id) url += `/${id}`;
   url += `?api_key=${API_KEY}`;
   if (appends && appends.length)
     url += `&append_to_response=${appends.join(',')}`;
   return url;
-};
+}
 
-export const moviesUrl = category => getUrl({ media: 'movie', category });
-
-export const tvShowsUrl = category => getUrl({ media: 'tv', category });
+export function getUrl(input) {
+  const split = input.split(/(?=[A-Z])/);
+  const media = split.pop().toLowerCase();
+  const category = split.join('_').toLowerCase();
+  return buildUrl({ media, category });
+}

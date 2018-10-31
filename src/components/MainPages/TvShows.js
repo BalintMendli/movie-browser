@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
-import { fetchTvShows } from '../../redux/actions';
-import { getUrlsTvShows } from '../../utils/fetchData';
+import { fetchLists } from '../../redux/actions';
+import { getUrls } from '../../utils/fetchData';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
 import { bg, hr } from '../Style/style.module.css';
@@ -10,27 +10,27 @@ import { bg, hr } from '../Style/style.module.css';
 class TvShows extends Component {
   componentDidMount() {
     const {
-      airingToday,
-      onTheAir,
-      popular,
-      topRated,
-      fetchTvShows,
+      airingTodayTv,
+      onTheAirTv,
+      popularTv,
+      topRatedTv,
+      fetchLists,
     } = this.props;
-    const toFetch = getUrlsTvShows({
-      popular,
-      topRated,
-      airingToday,
-      onTheAir,
+    const toFetch = getUrls({
+      popularTv,
+      topRatedTv,
+      airingTodayTv,
+      onTheAirTv,
     });
-    if (Object.keys(toFetch).length) fetchTvShows(toFetch);
+    if (Object.keys(toFetch).length) fetchLists(toFetch);
   }
 
   render() {
     const {
-      airingToday,
-      onTheAir,
-      popular,
-      topRated,
+      airingTodayTv,
+      onTheAirTv,
+      popularTv,
+      topRatedTv,
       isLoading,
       error,
     } = this.props;
@@ -53,25 +53,25 @@ class TvShows extends Component {
               <SearchForm type="tv" />
             </Col>
           </Row>
-          <SwiperMulti movies={airingToday} isTv />
+          <SwiperMulti movies={airingTodayTv} isTv />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">On The Air</h2>
-          <SwiperMulti movies={onTheAir} isTv />
+          <SwiperMulti movies={onTheAirTv} isTv />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Popular</h2>
-          <SwiperMulti movies={popular} isTv />
+          <SwiperMulti movies={popularTv} isTv />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Top Rated</h2>
-          <SwiperMulti movies={topRated} isTv />
+          <SwiperMulti movies={topRatedTv} isTv />
         </Container>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => state.tvShows;
+const mapStateToProps = state => state.lists;
 
 export default connect(
   mapStateToProps,
-  { fetchTvShows }
+  { fetchLists }
 )(TvShows);
