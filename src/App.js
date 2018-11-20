@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import MovieDetails from './components/DetailsComps/MovieDetails';
 import TvDetails from './components/DetailsComps/TvDetails';
@@ -14,68 +13,14 @@ import SearchResults from './components/Search/SearchResults';
 import LogIn from './components/Auth/LogIn';
 import Auth from './components/Auth/Auth';
 
-const nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=';
-const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=';
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nowPlaying: [],
-      upcoming: [],
-      isLoading: true,
-      error: null,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ isLoading: true });
-    Promise.all([
-      axios.get(nowPlayingUrl + API_KEY),
-      axios.get(upcomingUrl + API_KEY),
-    ])
-      .then(response => {
-        this.setState({
-          nowPlaying: response[0].data.results,
-          upcoming: response[1].data.results,
-          isLoading: false,
-        });
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
-  }
-
   render() {
-    const { nowPlaying, upcoming, isLoading, error } = this.state;
-
-    if (error) {
-      return <p>{error.message}</p>;
-    }
-
-    if (isLoading) {
-      return <p>Loading ...</p>;
-    }
-
     return (
       <div className="App">
         <Header />
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <Home nowPlaying={nowPlaying} upcoming={upcoming} />}
-          />
-          <Route
-            path="/movies"
-            render={() => (
-              <Movies nowPlaying={nowPlaying} upcoming={upcoming} />
-            )}
-          />
+          <Route exact path="/" component={Home} />
+          <Route path="/movies" component={Movies} />
           <Route path="/tv-shows" render={() => <TvShows />} />
           <Redirect exact strict from="/login/" to="/login" />
           <Route path="/login" exact render={() => <LogIn />} />

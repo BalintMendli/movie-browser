@@ -22,7 +22,6 @@ class Movies extends Component {
       nowPlayingMovie,
       upcomingMovie,
     });
-    console.log(toFetch);
     if (Object.keys(toFetch).length) fetchLists(toFetch);
   }
 

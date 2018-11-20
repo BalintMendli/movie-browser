@@ -88,8 +88,8 @@ const SmallCards = ({ data, type, page }) => {
             <Col size="4" className="text-center">
               <img
                 src={
-                  data.profile_path
-                    ? `https://image.tmdb.org/t/p/w45${data.profile_path}`
+                  data.pic
+                    ? `https://image.tmdb.org/t/p/w45${data.pic}`
                     : defProf
                 }
                 alt="profile-pic"
@@ -102,7 +102,7 @@ const SmallCards = ({ data, type, page }) => {
               <CardText className="text-dark">
                 <strong>{data.name}</strong>
                 <br />
-                {data.known_for[0].title || data.known_for[0].name}
+                {data.knownFor.title || data.knownFor.name}
               </CardText>
             </Col>
           </Row>

@@ -10,6 +10,7 @@ const initialState = {
   topRatedTv: [],
   onTheAirTv: [],
   airingTodayTv: [],
+  popularPerson: [],
 };
 
 export default function lists(state = initialState, action) {

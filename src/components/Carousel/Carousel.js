@@ -5,7 +5,7 @@ import CarouselElem from './CarouselElem';
 
 const carouselLength = 10;
 
-const CarouselComp = ({ nowPlaying }) => (
+const CarouselComp = ({ nowPlayingMovie }) => (
   <Carousel
     activeItem={1}
     length={carouselLength}
@@ -14,7 +14,7 @@ const CarouselComp = ({ nowPlaying }) => (
     className="z-depth-1"
   >
     <CarouselInner>
-      {nowPlaying
+      {nowPlayingMovie
         .filter((_, i) => i < carouselLength)
         .map((x, i) => (
           <CarouselElem key={x.id} itemId={i + 1} movie={x} />
@@ -26,5 +26,5 @@ const CarouselComp = ({ nowPlaying }) => (
 export default CarouselComp;
 
 CarouselComp.propTypes = {
-  nowPlaying: PropTypes.arrayOf(PropTypes.object).isRequired,
+  nowPlayingMovie: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
