@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
-import { getUrls } from '../../utils/fetchData';
 import { fetchLists } from '../../redux/actions';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
@@ -16,13 +15,12 @@ class Movies extends Component {
       upcomingMovie,
       fetchLists,
     } = this.props;
-    const toFetch = getUrls({
+    fetchLists({
       popularMovie,
       topRatedMovie,
       nowPlayingMovie,
       upcomingMovie,
     });
-    if (Object.keys(toFetch).length) fetchLists(toFetch);
   }
 
   render() {
@@ -31,15 +29,15 @@ class Movies extends Component {
       topRatedMovie,
       nowPlayingMovie,
       upcomingMovie,
-      isLoading,
-      error,
+      listsIsLoading,
+      listsError,
     } = this.props;
 
-    if (error) {
-      return <p>{error.message}</p>;
+    if (listsError) {
+      return <p>{listsError.message}</p>;
     }
 
-    if (isLoading) {
+    if (listsIsLoading) {
       return <p>Loading ...</p>;
     }
 
@@ -70,7 +68,18 @@ class Movies extends Component {
   }
 }
 
-const mapStateToProps = state => state.lists;
+const mapStateToProps = ({
+  lists: { popularMovie, topRatedMovie, nowPlayingMovie, upcomingMovie },
+  listsIsLoading,
+  listsError,
+}) => ({
+  popularMovie,
+  topRatedMovie,
+  nowPlayingMovie,
+  upcomingMovie,
+  listsIsLoading,
+  listsError,
+});
 
 export default connect(
   mapStateToProps,

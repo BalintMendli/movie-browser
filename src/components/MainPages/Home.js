@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUrls } from '../../utils/fetchData';
 import { fetchLists } from '../../redux/actions';
 import CarouselComp from '../Carousel/Carousel';
 import MainCont from './MainCont';
@@ -13,13 +12,26 @@ class Home extends React.Component {
       popularPerson,
       fetchLists,
     } = this.props;
-    const toFetch = getUrls({ nowPlayingMovie, upcomingMovie, popularPerson });
-    console.log(toFetch);
-    if (Object.keys(toFetch).length) fetchLists(toFetch);
+    fetchLists({ nowPlayingMovie, upcomingMovie, popularPerson });
   }
 
   render() {
-    const { nowPlayingMovie, upcomingMovie, popularPerson } = this.props;
+    const {
+      nowPlayingMovie,
+      upcomingMovie,
+      popularPerson,
+      listsIsLoading,
+      listsError,
+    } = this.props;
+
+    if (listsError) {
+      return <p>{listsError.message}</p>;
+    }
+
+    if (listsIsLoading) {
+      return <p>Loading ...</p>;
+    }
+
     return (
       <>
         <CarouselComp nowPlayingMovie={nowPlayingMovie} />
@@ -29,7 +41,17 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.lists;
+const mapStateToProps = ({
+  lists: { nowPlayingMovie, upcomingMovie, popularPerson },
+  listsIsLoading,
+  listsError,
+}) => ({
+  nowPlayingMovie,
+  upcomingMovie,
+  popularPerson,
+  listsIsLoading,
+  listsError,
+});
 
 export default connect(
   mapStateToProps,

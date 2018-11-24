@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Loadable from 'react-loadable';
+import loadable from '@loadable/component';
 import {
   tabsComp,
   tabContent,
@@ -41,7 +41,7 @@ export default class Tabs extends Component {
           >
             {tabs.map((x, i) => (
               <a
-                key={i + 1}
+                key={x}
                 className={`nav-item nav-link ${pills} ${
                   activeItem === (i + 1).toString() ? active : ''
                 }`}
@@ -60,13 +60,10 @@ export default class Tabs extends Component {
         </nav>
         <div className={`tab-content ${tabContent}`} id="nav-tabContent">
           {tabs.map((x, i) => {
-            const DynComp = Loadable({
-              loader: () => import(`../TabComps/${x}`),
-              loading: () => <div>Loading...</div>,
-            });
+            const DynComp = loadable(() => import(`../TabComps/${x}`));
             return (
               <div
-                key={i + 1}
+                key={x}
                 className={`tab-pane fade${
                   activeItem === (i + 1).toString() ? ' show active' : ''
                 }`}

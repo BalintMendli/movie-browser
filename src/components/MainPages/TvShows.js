@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
 import { fetchLists } from '../../redux/actions';
-import { getUrls } from '../../utils/fetchData';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
 import { bg, hr } from '../Style/style.module.css';
@@ -16,13 +15,12 @@ class TvShows extends Component {
       topRatedTv,
       fetchLists,
     } = this.props;
-    const toFetch = getUrls({
+    fetchLists({
       popularTv,
       topRatedTv,
       airingTodayTv,
       onTheAirTv,
     });
-    if (Object.keys(toFetch).length) fetchLists(toFetch);
   }
 
   render() {
@@ -31,14 +29,15 @@ class TvShows extends Component {
       onTheAirTv,
       popularTv,
       topRatedTv,
-      isLoading,
-      error,
+      listsIsLoading,
+      listsError,
     } = this.props;
-    if (error) {
-      return <p>{error.message}</p>;
+
+    if (listsError) {
+      return <p>{listsError.message}</p>;
     }
 
-    if (isLoading) {
+    if (listsIsLoading) {
       return <p>Loading ...</p>;
     }
 
@@ -69,7 +68,18 @@ class TvShows extends Component {
   }
 }
 
-const mapStateToProps = state => state.lists;
+const mapStateToProps = ({
+  lists: { airingTodayTv, onTheAirTv, popularTv, topRatedTv },
+  listsIsLoading,
+  listsError,
+}) => ({
+  airingTodayTv,
+  onTheAirTv,
+  popularTv,
+  topRatedTv,
+  listsIsLoading,
+  listsError,
+});
 
 export default connect(
   mapStateToProps,

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import lists from './lists';
-import tvShows from './tvShows';
+import { lists, listsIsLoading, listsError } from './lists';
 
 export default combineReducers({
   lists,
-  tvShows,
+  listsIsLoading,
+  listsError,
 });
