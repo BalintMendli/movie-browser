@@ -1,30 +1,31 @@
 import qs from 'query-string';
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { setUser } from '../../redux/actions';
 
 const url = 'https://api.themoviedb.org/3//authentication/session/new?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default class Auth extends Component {
+class Auth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessionId: null,
       isLoading: true,
       error: null,
     };
   }
 
   componentDidMount() {
-    console.log(qs.parse(this.props.location.search));
+    const { location, setUser } = this.props;
     axios
       .post(`${url}${API_KEY}`, {
-        request_token: qs.parse(this.props.location.search).request_token,
+        request_token: qs.parse(location.search).request_token,
       })
       .then(response => {
+        setUser(response.data.session_id);
         this.setState({
-          sessionId: response.data.session_id,
           isLoading: false,
         });
       })
@@ -36,7 +37,7 @@ export default class Auth extends Component {
   }
 
   render() {
-    const { isLoading, error, sessionId } = this.state;
+    const { isLoading, error } = this.state;
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -45,8 +46,11 @@ export default class Auth extends Component {
       return <p>Loading ...</p>;
     }
 
-    localStorage.setItem('session_id', sessionId);
-
     return <Redirect to="/profile" />;
   }
 }
+
+export default connect(
+  null,
+  { setUser }
+)(Auth);

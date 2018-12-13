@@ -1,71 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
+import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
 import { bg, posterImg, carText } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export default class MovieDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movieDetails: {},
-      isLoading: true,
-      error: null,
-      activeItem: '1',
-    };
-    this.fetchData = this.fetchData.bind(this);
-  }
-
+class TvDetails extends Component {
   componentDidMount() {
-    const { match } = this.props;
-    this.fetchData(match.params.movieId);
+    const { match, fetchDetails } = this.props;
+    fetchDetails({ id: match.params.mediaId, mediaType: 'tv' });
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.movieId !== prevProps.match.params.movieId) {
-      this.fetchData(this.props.match.params.movieId);
+    const { match, fetchDetails } = this.props;
+    if (match.params.mediaId !== prevProps.match.params.mediaId) {
+      fetchDetails({ id: match.params.mediaId, mediaType: 'tv' });
     }
   }
 
-  fetchData(movieId) {
-    this.setState({ isLoading: true });
-    axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`
-      )
-      .then(response => {
-        this.setState({ movieDetails: response.data, isLoading: false });
-        console.log(response.data);
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
-  }
-
   render() {
-    const { movieDetails, isLoading, error, activeItem } = this.state;
+    const { tvDetails, isLoading, error } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading) {
+    if (isLoading || !tvDetails) {
       return <p>Loading ...</p>;
     }
 
     return (
       <div>
         <View
-          src={`https://image.tmdb.org/t/p/original${
-            movieDetails.backdrop_path
-          }`}
+          src={`https://image.tmdb.org/t/p/original${tvDetails.backdrop_path}`}
           className={carImg}
         >
           <Mask
@@ -73,14 +42,12 @@ export default class MovieDetails extends Component {
             className="d-flex justify-content-end p-5 flex-column text-white"
           >
             <div className={carText}>
-              <h1 className="text-left font-weight-bold">
-                {movieDetails.name}
-              </h1>
-              <h4>{movieDetails.tagline}</h4>
-              <p>{movieDetails.genres.map(genre => genre.name).join(', ')}</p>
+              <h1 className="text-left font-weight-bold">{tvDetails.name}</h1>
+              <h4>{tvDetails.tagline}</h4>
+              <p>{tvDetails.genres.map(genre => genre.name).join(', ')}</p>
               <p className="text-left font-weight-bold">
                 <Fa icon="star" className="amber-text pr-1" />
-                {movieDetails.vote_average}
+                {tvDetails.vote_average}
                 <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
                   /10
                 </span>
@@ -94,7 +61,7 @@ export default class MovieDetails extends Component {
               <Col md="4" className="text-center">
                 <img
                   src={`https://image.tmdb.org/t/p/w342${
-                    movieDetails.poster_path
+                    tvDetails.poster_path
                   }`}
                   alt="poster"
                   className={`img-fluid ${posterImg}`}
@@ -105,7 +72,7 @@ export default class MovieDetails extends Component {
                   <Row>
                     <Col md="12">
                       <Tabs
-                        movieDetails={movieDetails}
+                        movieDetails={tvDetails}
                         tabs={[
                           'Overview',
                           'Cast',
@@ -127,10 +94,21 @@ export default class MovieDetails extends Component {
   }
 }
 
-MovieDetails.propTypes = {
+TvDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       movieId: PropTypes.string,
     }),
   }).isRequired,
 };
+
+const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+  tvDetails: details.tv,
+  isLoading: detailsIsLoading.tv,
+  error: detailsError,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchDetails }
+)(TvDetails);

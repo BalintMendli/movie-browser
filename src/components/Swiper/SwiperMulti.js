@@ -7,6 +7,7 @@ const params = {
   slidesPerView: 6,
   spaceBetween: 30,
   slidesPerGroup: 6,
+  loop: true,
   scrollbar: {
     el: '.swiper-scrollbar',
     hide: true,
@@ -48,6 +49,7 @@ const paramsSmall = {
   slidesPerView: 4,
   spaceBetween: 20,
   slidesPerGroup: 4,
+  loop: true,
   scrollbar: {
     el: '.swiper-scrollbar',
     hide: true,

@@ -1,4 +1,4 @@
-import { SET_LISTS, LOADING, ERROR } from '../actions/types';
+import { SET_LISTS, LISTS_LOADING, LISTS_ERROR } from '../actions/types';
 import { parseLists } from '../../utils/parseData';
 
 const initialState = {
@@ -25,7 +25,7 @@ export function lists(state = initialState, action) {
 
 export function listsError(state = null, action) {
   switch (action.type) {
-    case ERROR:
+    case LISTS_ERROR:
       return action.error;
     default:
       return state;
@@ -33,7 +33,7 @@ export function listsError(state = null, action) {
 }
 export function listsIsLoading(state = false, action) {
   switch (action.type) {
-    case LOADING:
+    case LISTS_LOADING:
       return action.value;
     default:
       return state;

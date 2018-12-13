@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setUser } from '../../redux/actions';
 import { bg, posterImg } from '../Style/style.module.css';
 
 const tokenUrl =
@@ -10,7 +12,7 @@ const guestUrl =
   'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default class LogIn extends Component {
+class LogIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,15 +46,13 @@ export default class LogIn extends Component {
   }
 
   guestSignIn() {
+    const { setUser } = this.props;
     axios
       .get(`${guestUrl}${API_KEY}`)
       .then(response => {
         console.log(response.data);
         if (response.data.guest_session_id) {
-          localStorage.setItem(
-            'guest_session_id',
-            response.data.guest_session_id
-          );
+          setUser(response.data.guest_session_id, true);
           this.setState({
             redirect: true,
           });
@@ -90,3 +90,8 @@ export default class LogIn extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { setUser }
+)(LogIn);

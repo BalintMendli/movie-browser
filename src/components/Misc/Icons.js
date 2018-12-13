@@ -84,12 +84,7 @@ export default class Icons extends Component {
     }
     return (
       <div className="mt-3 mb-2">
-        <Tooltip
-          placement="bottom"
-          tooltipContent="Rate It!"
-          className="d-inline pr-5"
-          componentClass="d-inline"
-        >
+        <Tooltip placement="bottom">
           <Fa
             icon="star"
             size="2x"
@@ -98,8 +93,9 @@ export default class Icons extends Component {
             data-collapse="basicCollapse"
             onClick={this.toggleCollapse}
           />
+          <div>Rate It!</div>
         </Tooltip>
-        <Tooltip
+        {/* <Tooltip
           placement="bottom"
           tooltipContent="Mark as Favorite"
           className="d-inline pr-5"
@@ -128,7 +124,7 @@ export default class Icons extends Component {
             data-collapse="basicCollapse"
             onClick={this.toggleCollapse}
           />
-        </Tooltip>
+        </Tooltip> */}
         <Collapse id="basicCollapse" isOpen={collapseID} className="pt-3">
           {collapseContent}
         </Collapse>

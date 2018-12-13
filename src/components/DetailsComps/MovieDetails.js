@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { View, Mask, Fa, Container, Row, Col, Tooltip } from 'mdbreact';
+import { connect } from 'react-redux';
+import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
+import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
 import {
   bg,
@@ -14,58 +15,27 @@ import {
 import Tabs from '../Misc/Tabs';
 import Icons from '../Misc/Icons';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export default class MovieDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movieDetails: {},
-      isLoading: true,
-      error: null,
-    };
-    this.fetchData = this.fetchData.bind(this);
-  }
-
+class MovieDetails extends Component {
   componentDidMount() {
-    const { match } = this.props;
-    this.fetchData(match.params.movieId);
+    const { match, fetchDetails } = this.props;
+    fetchDetails({ id: match.params.mediaId, mediaType: 'movie' });
   }
 
   componentDidUpdate(prevProps) {
-    const { match } = this.props;
-    if (match.params.movieId !== prevProps.match.params.movieId) {
-      this.fetchData(match.params.movieId);
+    const { match, fetchDetails } = this.props;
+    if (match.params.mediaId !== prevProps.match.params.mediaId) {
+      fetchDetails({ id: match.params.mediaId, mediaType: 'movie' });
     }
   }
 
-  fetchData(movieId) {
-    this.setState({ isLoading: true });
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`
-      )
-      .then(response => {
-        this.setState({ movieDetails: response.data, isLoading: false });
-        console.log(response.data);
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
-  }
-
   render() {
-    const { movieDetails, isLoading, error } = this.state;
-    const { match } = this.props;
-    console.log(match);
+    const { movieDetails, isLoading, error } = this.props;
+
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading) {
+    if (isLoading || !movieDetails) {
       return <p>Loading ...</p>;
     }
 
@@ -91,7 +61,7 @@ export default class MovieDetails extends Component {
                 <Fa icon="star" className="amber-text pr-1" />
                 {movieDetails.vote_average}
                 <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
-                  /10{match.params.movieId}
+                  /10
                 </span>
               </p>
             </div>
@@ -146,3 +116,14 @@ MovieDetails.propTypes = {
     }),
   }).isRequired,
 };
+
+const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+  movieDetails: details.movie,
+  isLoading: detailsIsLoading.movie,
+  error: detailsError,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchDetails }
+)(MovieDetails);

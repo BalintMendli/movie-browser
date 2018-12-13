@@ -12,6 +12,7 @@ import {
 import './Header.css';
 import { Fade } from 'react-reveal';
 import BrandImg from '../../media/brand.png';
+import SearchBox from './SearchBox';
 
 class Header extends React.Component {
   constructor(props) {
@@ -50,8 +51,8 @@ class Header extends React.Component {
               <NavbarToggler onClick={this.onClick} />
             </Fade>
             <Collapse isOpen={this.state.collapse} navbar>
-              <Fade>
-                <NavbarNav left>
+              <NavbarNav left>
+                <Fade>
                   <NavItem>
                     <NavLink exact to="/">
                       Home
@@ -63,11 +64,14 @@ class Header extends React.Component {
                   <NavItem>
                     <NavLink to="/tv-shows">TV Shows</NavLink>
                   </NavItem>
-                </NavbarNav>
-              </Fade>
+                </Fade>
+              </NavbarNav>
               <NavbarNav right>
-                <Fade>
-                  <NavItem>
+                <NavItem>
+                  <SearchBox />
+                </NavItem>
+                <NavItem>
+                  <Fade>
                     <NavLink to="/profile">
                       <span className="d-md-none">Profile</span>
                       <Fa
@@ -76,8 +80,8 @@ class Header extends React.Component {
                         className="d-none d-md-inline"
                       />
                     </NavLink>
-                  </NavItem>
-                </Fade>
+                  </Fade>
+                </NavItem>
               </NavbarNav>
             </Collapse>
           </Navbar>

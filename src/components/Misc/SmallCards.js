@@ -7,12 +7,12 @@ import defPoster from '../../media/default_poster.jpg';
 import { ellipsis } from '../Style/style.module.css';
 
 const SmallCards = ({ data, type, page }) => {
-  if (page === 'filmography' || page === 'similar') {
+  if (page === 'filmography' || page === 'similar' || page === 'profile') {
     let cardText = '';
     if (page === 'filmography') {
       cardText = data.character ? `as ${data.character}` : '-';
     }
-    if (page === 'similar') {
+    if (page === 'similar' || page === 'profile') {
       cardText = data.overview;
     }
     return (

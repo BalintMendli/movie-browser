@@ -9,7 +9,8 @@ const toSnake = str =>
     .toLowerCase();
 
 function buildUrl({ media, category, id, appends }) {
-  let url = `${API_URL}/${VERSION}/${media}/${category}`;
+  let url = `${API_URL}/${VERSION}/${media}`;
+  if (category) url += `/${category}`;
   if (id) url += `/${id}`;
   url += `?api_key=${API_KEY}`;
   if (appends && appends.length)
@@ -22,4 +23,13 @@ export function getUrl(input) {
   const media = split.pop().toLowerCase();
   const category = split.join('_').toLowerCase();
   return buildUrl({ media, category });
+}
+
+export function getDetailsUrl(media, id) {
+  let appends = [];
+  if (media === 'movie' || media === 'tv')
+    appends = ['videos', 'credits', 'reviews', 'similar'];
+  if (media === 'person') appends = ['combined_credits'];
+  // `https://api.themoviedb.org/3/${media}/${id}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`;
+  return buildUrl({ media, id, appends });
 }

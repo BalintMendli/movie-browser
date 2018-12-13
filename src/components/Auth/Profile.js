@@ -2,12 +2,15 @@ import { Container } from 'mdbreact';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
+import { getAuthInfo, getSessionId } from '../../utils/storage';
+import { forgetUser } from '../../redux/actions';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default class Profile extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,8 +28,10 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    const sessionId = localStorage.getItem('session_id');
-    const guestSessionId = localStorage.getItem('guest_session_id');
+    const authInfo = getAuthInfo();
+    const sessionId = authInfo.guest ? null : authInfo.sessionId;
+    const guestSessionId = authInfo.guest ? authInfo.sessionId : null;
+    console.log(authInfo.guest);
     if (sessionId) {
       axios
         .get(
@@ -93,17 +98,18 @@ export default class Profile extends Component {
   }
 
   logout() {
+    const { forgetUser } = this.props;
     axios
       .delete(
         `https://api.themoviedb.org/3/authentication/session?api_key=${API_KEY}`,
         {
-          params: { session_id: localStorage.getItem('session_id') },
+          params: { session_id: getSessionId() },
         }
       )
       .then(response => {
         console.log(response);
         if (response.data.success) {
-          localStorage.clear();
+          forgetUser();
           this.setState({
             redirect: true,
           });
@@ -156,11 +162,11 @@ export default class Profile extends Component {
             />
             <h5>Favorite Movies:</h5>
             {favoriteMovies.map(x => (
-              <SmallCards key={x.id} data={x} type="movie" />
+              <SmallCards key={x.id} data={x} type="movie" page="profile" />
             ))}
             <h5>Favorite TV Shows:</h5>
             {favoriteTv.map(x => (
-              <SmallCards key={x.id} data={x} type="tv" />
+              <SmallCards key={x.id} data={x} type="tv" page="profile" />
             ))}
             <button type="button" onClick={this.logout}>
               Log Out
@@ -169,17 +175,18 @@ export default class Profile extends Component {
         </div>
       );
     }
+
     return (
       <div className={bg}>
         <Container className="text-white">
           <h2>Guest Profile</h2>
           <h5>Rated Movies:</h5>
           {ratedMovies.map(x => (
-            <SmallCards key={x.id} data={x} type="movie" />
+            <SmallCards key={x.id} data={x} type="movie" page="profile" />
           ))}
           <h5>Rated TV Shows:</h5>
           {ratedTv.map(x => (
-            <SmallCards key={x.id} data={x} type="tv" />
+            <SmallCards key={x.id} data={x} type="tv" page="profile" />
           ))}
           <button type="button" onClick={this.logout}>
             Log Out
@@ -189,3 +196,8 @@ export default class Profile extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { forgetUser }
+)(Profile);

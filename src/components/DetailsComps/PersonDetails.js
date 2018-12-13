@@ -1,53 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { Container, Row, Col, Card, CardText, CardTitle } from 'mdbreact';
+import { connect } from 'react-redux';
+import { fetchDetails } from '../../redux/actions';
 import defPoster from '../../media/default_poster.jpg';
 import { bg, posterImg } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export default class MovieDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      personDetails: {},
-      isLoading: true,
-      error: null,
-    };
+class PersonDetails extends Component {
+  componentDidMount() {
+    const { match, fetchDetails } = this.props;
+    fetchDetails({ id: match.params.mediaId, mediaType: 'person' });
   }
 
-  componentDidMount() {
-    const { match } = this.props;
-    this.setState({ isLoading: true });
-    axios
-      .get(
-        `https://api.themoviedb.org/3/person/${
-          match.params.personId
-        }?api_key=${API_KEY}&append_to_response=combined_credits`
-      )
-      .then(response => {
-        this.setState({ personDetails: response.data, isLoading: false });
-        console.log(response.data);
-      })
-      .catch(error =>
-        this.setState({
-          error,
-          isLoading: false,
-        })
-      );
+  componentDidUpdate(prevProps) {
+    const { match, fetchDetails } = this.props;
+    if (match.params.mediaId !== prevProps.match.params.mediaId) {
+      fetchDetails({ id: match.params.mediaId, mediaType: 'person' });
+    }
   }
 
   render() {
-    const { personDetails, isLoading, error } = this.state;
+    const { personDetails, isLoading, error } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading) {
+    if (isLoading || !personDetails) {
       return <p>Loading ...</p>;
     }
 
@@ -84,10 +65,21 @@ export default class MovieDetails extends Component {
   }
 }
 
-MovieDetails.propTypes = {
+PersonDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       movieId: PropTypes.string,
     }),
   }).isRequired,
 };
+
+const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+  personDetails: details.person,
+  isLoading: detailsIsLoading.person,
+  error: detailsError,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchDetails }
+)(PersonDetails);
