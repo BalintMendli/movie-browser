@@ -4,7 +4,7 @@
     "jest": true
   },
   "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module",
@@ -13,23 +13,12 @@
     }
   },
   "rules": {
-    "class-methods-use-this": "off",
-    "import/no-extraneous-dependencies": "off",
-    "import/prefer-default-export": "warn",
-    "no-nested-ternary": "off",
-    "linebreak-style": "off",
-    "no-unused-vars": "warn",
     "no-use-before-define": "off",
-    "no-param-reassign": "warn",
-    "no-shadow": "off",
-    "comma-dangle": [
+    "no-restricted-syntax": "off",
+    "react/jsx-filename-extension": [
       "error",
       {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "only-multiline"
+        "extensions": [".js", ".jsx"]
       }
     ],
     "prettier/prettier": [
@@ -39,13 +28,8 @@
         "trailingComma": "es5"
       }
     ],
-    "react/jsx-one-expression-per-line": "off",
-    "react/prop-types": "warn",
-    "react/jsx-filename-extension": [
-      "error",
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ]
+    "react/jsx-curly-newline": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/prop-types": "warn"
   }
 }

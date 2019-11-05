@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
+import {
+  View,
+  Mask,
+  Fa,
+  Container,
+  Row,
+  Col,
+  MDBBtn,
+  MDBTooltip
+} from 'mdbreact';
 import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
 import {
@@ -10,7 +19,7 @@ import {
   carText,
   amberStar,
   redHeart,
-  cyanBM,
+  cyanBM
 } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
 import Icons from '../Misc/Icons';
@@ -93,7 +102,7 @@ class MovieDetails extends Component {
                           'Cast',
                           'Videos',
                           'Reviews',
-                          'Similar',
+                          'Similar'
                         ]}
                         type="movie"
                       />
@@ -112,15 +121,15 @@ class MovieDetails extends Component {
 MovieDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      movieId: PropTypes.string,
-    }),
-  }).isRequired,
+      movieId: PropTypes.string
+    })
+  }).isRequired
 };
 
 const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
   movieDetails: details.movie,
   isLoading: detailsIsLoading.movie,
-  error: detailsError,
+  error: detailsError
 });
 
 export default connect(
