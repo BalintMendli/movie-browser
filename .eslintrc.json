@@ -15,6 +15,8 @@
   "rules": {
     "no-use-before-define": "off",
     "no-restricted-syntax": "off",
+    "no-shadow": "off",
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       "error",
       {
@@ -25,7 +27,7 @@
       "error",
       {
         "singleQuote": true,
-        "trailingComma": "es5"
+        "trailingComma": "all"
       }
     ],
     "react/jsx-curly-newline": "off",
