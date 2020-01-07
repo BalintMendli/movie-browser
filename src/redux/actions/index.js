@@ -5,6 +5,8 @@ export { fetchLists } from './fetchLists';
 
 export { fetchDetails } from './fetchDetails';
 
+export { submitRating } from './submitRating';
+
 export function setUser(sessionId, guest) {
   setAuth(sessionId, guest);
   console.log(sessionId);

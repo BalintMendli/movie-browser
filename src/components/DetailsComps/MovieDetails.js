@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  View,
-  Mask,
-  Fa,
-  Container,
-  Row,
-  Col,
-  MDBBtn,
-  MDBTooltip
-} from 'mdbreact';
+import { View, Mask, Fa, Container, Row, Col } from 'mdbreact';
 import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
-import {
-  bg,
-  posterImg,
-  carText,
-  amberStar,
-  redHeart,
-  cyanBM
-} from '../Style/style.module.css';
+import { bg, posterImg, carText } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
 import Icons from '../Misc/Icons';
 
@@ -51,9 +35,7 @@ class MovieDetails extends Component {
     return (
       <>
         <View
-          src={`https://image.tmdb.org/t/p/original${
-            movieDetails.backdrop_path
-          }`}
+          src={`https://image.tmdb.org/t/p/original${movieDetails.backdrop_path}`}
           className={carImg}
         >
           <Mask
@@ -82,9 +64,7 @@ class MovieDetails extends Component {
               <Col md="4" className="text-center">
                 <div className={posterImg}>
                   <img
-                    src={`https://image.tmdb.org/t/p/w342${
-                      movieDetails.poster_path
-                    }`}
+                    src={`https://image.tmdb.org/t/p/w342${movieDetails.poster_path}`}
                     alt="poster"
                     className="img-fluid"
                   />
@@ -102,7 +82,7 @@ class MovieDetails extends Component {
                           'Cast',
                           'Videos',
                           'Reviews',
-                          'Similar'
+                          'Similar',
                         ]}
                         type="movie"
                       />
@@ -121,15 +101,15 @@ class MovieDetails extends Component {
 MovieDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      movieId: PropTypes.string
-    })
-  }).isRequired
+      movieId: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
   movieDetails: details.movie,
   isLoading: detailsIsLoading.movie,
-  error: detailsError
+  error: detailsError,
 });
 
 export default connect(

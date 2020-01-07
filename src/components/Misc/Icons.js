@@ -11,6 +11,7 @@ import {
   Collapse,
 } from 'mdbreact';
 import StarRatings from 'react-star-ratings';
+import { connect } from 'react-redux';
 import {
   bg,
   posterImg,
@@ -20,12 +21,13 @@ import {
   cyanBM,
 } from '../Style/style.module.css';
 
-export default class Icons extends Component {
+class Icons extends Component {
   constructor(props) {
     super(props);
     this.state = {
       collapseID: '',
       icon: '',
+      ratingMessage: 'Rate It!',
     };
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.closeCollapse = this.closeCollapse.bind(this);
@@ -33,7 +35,6 @@ export default class Icons extends Component {
   }
 
   toggleCollapse(e) {
-    console.log(e.target.dataset.collapse);
     const icon = e.target.id;
     const { collapse } = e.target.dataset;
     this.setState(prevState => ({
@@ -58,7 +59,9 @@ export default class Icons extends Component {
   }
 
   render() {
-    const { collapseID, rating, icon } = this.state;
+    const { collapseID, rating, icon, ratingMessage } = this.state;
+    const { auth } = this.props;
+    console.log(auth);
     let collapseContent = '';
     if (icon === 'star') {
       collapseContent = (
@@ -73,7 +76,7 @@ export default class Icons extends Component {
             numberOfStars={10}
             name="rating"
           />
-          <p className="pt-3">Rate It!</p>
+          <p className="pt-3">{ratingMessage}</p>
         </>
       );
     }
@@ -116,3 +119,7 @@ export default class Icons extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps)(Icons);

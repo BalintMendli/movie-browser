@@ -1,4 +1,4 @@
-import { SET_DETAILS, DETAILS_LOADING, DETAILS_ERROR } from '../actions/types';
+import { SET_DETAILS, DETAILS_REQUEST, DETAILS_ERROR } from '../actions/types';
 import { parseLists } from '../../utils/parseData';
 
 export function details(state = {}, action) {
@@ -23,7 +23,7 @@ export function detailsError(state = null, action) {
 export function detailsIsLoading(state = {}, action) {
   const { type, value, mediaType } = action;
   switch (type) {
-    case DETAILS_LOADING:
+    case DETAILS_REQUEST:
       return { ...state, [mediaType]: value };
     default:
       return state;

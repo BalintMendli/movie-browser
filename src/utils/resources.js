@@ -2,12 +2,6 @@ const API_URL = 'https://api.themoviedb.org';
 const VERSION = '3';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const toSnake = str =>
-  str
-    .split(/(?=[A-Z])/)
-    .join('_')
-    .toLowerCase();
-
 function buildUrl({ media, category, id, appends }) {
   let url = `${API_URL}/${VERSION}/${media}`;
   if (category) url += `/${category}`;
@@ -30,6 +24,5 @@ export function getDetailsUrl(media, id) {
   if (media === 'movie' || media === 'tv')
     appends = ['videos', 'credits', 'reviews', 'similar'];
   if (media === 'person') appends = ['combined_credits'];
-  // `https://api.themoviedb.org/3/${media}/${id}?api_key=${API_KEY}&append_to_response=videos,credits,reviews,similar`;
   return buildUrl({ media, id, appends });
 }
