@@ -7,6 +7,8 @@ import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
 import { getAuthInfo, getSessionId } from '../../utils/storage';
 import { forgetUser } from '../../redux/actions';
+import { getRated } from '../../redux/actions/getRated';
+import { getFavorites } from '../../redux/actions/getFavorites';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -17,8 +19,6 @@ class Profile extends Component {
       profile: {},
       favoriteMovies: [],
       favoriteTv: [],
-      ratedMovies: [],
-      ratedTv: [],
       isLoading: true,
       error: null,
       redirect: false,
@@ -28,73 +28,71 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const authInfo = getAuthInfo();
-    const sessionId = authInfo.guest ? null : authInfo.sessionId;
-    const guestSessionId = authInfo.guest ? authInfo.sessionId : null;
-    console.log(authInfo.guest);
-    if (sessionId) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`
-        )
-        .then(response => {
-          this.setState({ profile: response.data, isLoading: false });
-          localStorage.setItem('profile_id', response.data.id);
-          console.log(response.data);
-          return Promise.all([
-            axios.get(
-              `https://api.themoviedb.org/3/account/${
-                response.data.id
-              }/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`
-            ),
-            axios.get(
-              `https://api.themoviedb.org/3/account/${
-                response.data.id
-              }/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`
-            ),
-          ]);
-        })
-        .then(response => {
-          this.setState({
-            favoriteMovies: response[0].data.results,
-            favoriteTv: response[1].data.results,
-            isLoading: false,
-          });
-          console.log(response[0].data);
-          console.log(response[1].data);
-        })
-        .catch(error =>
-          this.setState({
-            error,
-            isLoading: false,
-          })
-        );
-    } else if (guestSessionId) {
-      this.setState({ guest: true });
-      Promise.all([
-        axios.get(
-          `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}`
-        ),
-        axios.get(
-          `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/tv?api_key=${API_KEY}`
-        ),
-      ])
-        .then(response => {
-          this.setState({
-            ratedMovies: response[0].data.results,
-            ratedTv: response[1].data.results,
-            isLoading: false,
-          });
-          console.log(response[0].data);
-          console.log(response[1].data);
-        })
-        .catch(error =>
-          this.setState({
-            error,
-            isLoading: false,
-          })
-        );
-    }
+    const { getRated, getFavorites } = this.props;
+    // const authInfo = getAuthInfo();
+    // const sessionId = authInfo.guest ? null : authInfo.sessionId;
+    // const guestSessionId = authInfo.guest ? authInfo.sessionId : null;
+    // console.log(authInfo.guest);
+    getRated();
+    getFavorites();
+    // if (sessionId) {
+    //   axios
+    //     .get(
+    //       `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`,
+    //     )
+    //     .then(response => {
+    //       this.setState({ profile: response.data, isLoading: false });
+    //       console.log(response.data);
+    //       return Promise.all([
+    //         axios.get(
+    //           `https://api.themoviedb.org/3/account/${response.data.id}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`,
+    //         ),
+    //         axios.get(
+    //           `https://api.themoviedb.org/3/account/${response.data.id}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`,
+    //         ),
+    //       ]);
+    //     })
+    //     .then(response => {
+    //       this.setState({
+    //         favoriteMovies: response[0].data.results,
+    //         favoriteTv: response[1].data.results,
+    //         isLoading: false,
+    //       });
+    //       console.log(response[0].data);
+    //       console.log(response[1].data);
+    //     })
+    //     .catch(error =>
+    //       this.setState({
+    //         error,
+    //         isLoading: false,
+    //       }),
+    //     );
+    // } else if (guestSessionId) {
+    //   this.setState({ guest: true });
+    //   Promise.all([
+    //     axios.get(
+    //       `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}`,
+    //     ),
+    //     axios.get(
+    //       `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/tv?api_key=${API_KEY}`,
+    //     ),
+    //   ])
+    //     .then(response => {
+    //       this.setState({
+    //         ratedMovies: response[0].data.results,
+    //         ratedTv: response[1].data.results,
+    //         isLoading: false,
+    //       });
+    //       console.log(response[0].data);
+    //       console.log(response[1].data);
+    //     })
+    //     .catch(error =>
+    //       this.setState({
+    //         error,
+    //         isLoading: false,
+    //       }),
+    //     );
+    // }
   }
 
   logout() {
@@ -104,7 +102,7 @@ class Profile extends Component {
         `https://api.themoviedb.org/3/authentication/session?api_key=${API_KEY}`,
         {
           params: { session_id: getSessionId() },
-        }
+        },
       )
       .then(response => {
         console.log(response);
@@ -155,9 +153,7 @@ class Profile extends Component {
             <p>{profile.id}</p>
             <h5>Avatar:</h5>
             <img
-              src={`https://www.gravatar.com/avatar/${
-                profile.avatar.gravatar.hash
-              }`}
+              src={`https://www.gravatar.com/avatar/${profile.avatar.gravatar.hash}`}
               alt="gravatar"
             />
             <h5>Favorite Movies:</h5>
@@ -197,7 +193,11 @@ class Profile extends Component {
   }
 }
 
-export default connect(
-  null,
-  { forgetUser }
-)(Profile);
+const mapStateToProps = ({ rated }) => ({
+  ratedMovies: rated.ratedMovies,
+  ratedTv: rated.ratedTv,
+});
+
+export default connect(mapStateToProps, { forgetUser, getRated, getFavorites })(
+  Profile,
+);
