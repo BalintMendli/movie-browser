@@ -7,5 +7,5 @@ import rootReducer from './reducers';
 export default createStore(
   enableBatching(rootReducer),
   {},
-  composeWithDevTools(applyMiddleware(reduxThunk))
+  composeWithDevTools(applyMiddleware(reduxThunk)),
 );
