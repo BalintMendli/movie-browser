@@ -22,7 +22,7 @@ export const submitRating = ({ id, mediaType, rating }) => async dispatch => {
       data,
       headers: { 'content-type': 'application/json;charset=utf-8' },
     };
-    const response = (await axios(options)).data;
+    const response = (await axios.post(options)).data;
     console.log(response);
     dispatch(
       batchActions([
