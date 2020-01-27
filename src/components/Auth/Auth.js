@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { setUser } from '../../redux/actions';
 
-const url = 'https://api.themoviedb.org/3//authentication/session/new?api_key=';
+const url = 'https://api.themoviedb.org/3/authentication/session/new?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 class Auth extends Component {
@@ -29,11 +29,7 @@ class Auth extends Component {
           isLoading: false,
         });
       })
-      .catch(error =>
-        this.setState({
-          error,
-        })
-      );
+      .catch(error => this.setState({ error }));
   }
 
   render() {
@@ -50,7 +46,4 @@ class Auth extends Component {
   }
 }
 
-export default connect(
-  null,
-  { setUser }
-)(Auth);
+export default connect(null, { setUser })(Auth);

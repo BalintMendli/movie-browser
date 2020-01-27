@@ -32,16 +32,14 @@ class LogIn extends Component {
         console.log(response.data, requestToken, window.location.href);
         if (requestToken) {
           window.location.replace(
-            `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${
-              window.location.href
-            }/auth`
+            `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${window.location.href}/auth`,
           );
         }
       })
       .catch(error =>
         this.setState({
           error,
-        })
+        }),
       );
   }
 
@@ -61,7 +59,7 @@ class LogIn extends Component {
       .catch(error =>
         this.setState({
           error,
-        })
+        }),
       );
   }
 
@@ -91,7 +89,4 @@ class LogIn extends Component {
   }
 }
 
-export default connect(
-  null,
-  { setUser }
-)(LogIn);
+export default connect(null, { setUser })(LogIn);

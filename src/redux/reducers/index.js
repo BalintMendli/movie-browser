@@ -3,6 +3,7 @@ import { lists, listsIsLoading, listsError } from './lists';
 import { details, detailsIsLoading, detailsError } from './details';
 import { rated } from './rated';
 import { favorite } from './favorite';
+import { accountDetails } from './accountDetails';
 import { auth } from './auth';
 
 export default combineReducers({
@@ -14,4 +15,6 @@ export default combineReducers({
   detailsError,
   auth,
   rated,
+  favorite,
+  accountDetails,
 });

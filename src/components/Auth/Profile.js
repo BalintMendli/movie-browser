@@ -9,6 +9,7 @@ import { getAuthInfo, getSessionId } from '../../utils/storage';
 import { forgetUser } from '../../redux/actions';
 import { getRated } from '../../redux/actions/getRated';
 import { getFavorites } from '../../redux/actions/getFavorites';
+import { getAccountDetails } from '../../redux/actions/getAccountDetails';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -16,23 +17,20 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: {},
       favoriteMovies: [],
       favoriteTv: [],
-      isLoading: true,
-      error: null,
       redirect: false,
-      guest: false,
     };
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
-    const { getRated, getFavorites } = this.props;
+    const { getRated, getFavorites, getAccountDetails } = this.props;
     // const authInfo = getAuthInfo();
     // const sessionId = authInfo.guest ? null : authInfo.sessionId;
     // const guestSessionId = authInfo.guest ? authInfo.sessionId : null;
     // console.log(authInfo.guest);
+    getAccountDetails();
     getRated();
     getFavorites();
     // if (sessionId) {
@@ -116,23 +114,15 @@ class Profile extends Component {
   }
 
   render() {
-    const {
-      profile,
-      favoriteMovies,
-      favoriteTv,
-      ratedMovies,
-      ratedTv,
-      isLoading,
-      error,
-      redirect,
-      guest,
-    } = this.state;
+    const { favoriteMovies, favoriteTv, error, redirect } = this.state;
+
+    const { ratedMovies, ratedTv, profile } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading) {
+    if (!profile.id || !ratedTv || !ratedMovies) {
       return <p>Loading ...</p>;
     }
 
@@ -140,7 +130,7 @@ class Profile extends Component {
       return <Redirect push to="/" />;
     }
 
-    if (!guest) {
+    if (profile.id) {
       return (
         <div className={bg}>
           <Container className="text-white">
@@ -162,6 +152,14 @@ class Profile extends Component {
             ))}
             <h5>Favorite TV Shows:</h5>
             {favoriteTv.map(x => (
+              <SmallCards key={x.id} data={x} type="tv" page="profile" />
+            ))}
+            <h5>Rated Movies:</h5>
+            {ratedMovies.map(x => (
+              <SmallCards key={x.id} data={x} type="movie" page="profile" />
+            ))}
+            <h5>Rated TV Shows:</h5>
+            {ratedTv.map(x => (
               <SmallCards key={x.id} data={x} type="tv" page="profile" />
             ))}
             <button type="button" onClick={this.logout}>
@@ -193,11 +191,15 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ rated }) => ({
+const mapStateToProps = ({ rated, accountDetails }) => ({
   ratedMovies: rated.ratedMovies,
   ratedTv: rated.ratedTv,
+  profile: accountDetails.details,
 });
 
-export default connect(mapStateToProps, { forgetUser, getRated, getFavorites })(
-  Profile,
-);
+export default connect(mapStateToProps, {
+  forgetUser,
+  getRated,
+  getFavorites,
+  getAccountDetails,
+})(Profile);
