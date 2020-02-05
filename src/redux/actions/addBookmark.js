@@ -7,7 +7,7 @@ import {
 import { getDetailsUrl } from '../../utils/resources';
 
 export const addFavorite = ({ id, mediaType }) => async dispatch => {
-  dispatch({ type: ADD_BOOKMARK_REQUEST, value: true });
+  dispatch({ type: ADD_BOOKMARK_REQUEST, loading: true });
   try {
     const url = `https://api.themoviedb.org/3/account/watchlist?api_key=`;
     const data = { media_type: mediaType, media_id: id, watchlist: true };
@@ -18,7 +18,7 @@ export const addFavorite = ({ id, mediaType }) => async dispatch => {
     };
     const response = (await axios.post(options)).data;
     console.log(response);
-    dispatch({ type: ADD_BOOKMARK_SUCCESS, value: true });
+    dispatch({ type: ADD_BOOKMARK_SUCCESS, loading: false });
   } catch (error) {
     dispatch({ type: ADD_BOOKMARK_FAILURE, error });
   }
