@@ -11,7 +11,7 @@ const initialState = {
   error: null,
 };
 
-export function favorite(state = initialState, action) {
+export function favorites(state = initialState, action) {
   const { type, favoriteMovies, favoriteTv, error } = action;
   switch (type) {
     case FAVORITES_REQUEST:
