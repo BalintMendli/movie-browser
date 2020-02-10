@@ -6,7 +6,7 @@ import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
 import { bg, posterImg, carText } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
-import Icons from '../Misc/Icons';
+import IconPanel from '../Misc/IconPanel';
 
 class MovieDetails extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class MovieDetails extends Component {
   }
 
   render() {
-    const { movieDetails, isLoading, error } = this.props;
+    const { movieDetails, isLoading, error, match } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -68,7 +68,13 @@ class MovieDetails extends Component {
                     alt="poster"
                     className="img-fluid"
                   />
-                  <Icons />
+                  <IconPanel
+                    mediaType="movie"
+                    id={match.params.mediaId}
+                    rating={movieDetails.account_states?.rating}
+                    favorite={movieDetails.account_states?.favorite}
+                    watchlist={movieDetails.account_states?.watchlist}
+                  />
                 </div>
               </Col>
               <Col md="8">
@@ -112,7 +118,4 @@ const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
   error: detailsError,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchDetails }
-)(MovieDetails);
+export default connect(mapStateToProps, { fetchDetails })(MovieDetails);

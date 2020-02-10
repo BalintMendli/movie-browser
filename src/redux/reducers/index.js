@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import { lists, listsIsLoading, listsError } from './lists';
 import { details, detailsIsLoading, detailsError } from './details';
 import { rated } from './rated';
-import { favorite } from './favorite';
+import { favorites } from './favorites';
 import { accountDetails } from './accountDetails';
 import { auth } from './auth';
+import { submitRating } from './submitRating';
 
 export default combineReducers({
   lists,
@@ -15,6 +16,7 @@ export default combineReducers({
   detailsError,
   auth,
   rated,
-  favorite,
+  favorites,
   accountDetails,
+  submitRating,
 });

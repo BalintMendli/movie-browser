@@ -99,14 +99,29 @@
   cursor: pointer;
 }
 
+.amberStarActive {
+  color: #ffc107;
+  cursor: pointer;
+}
+
 .redHeart:hover {
   color: #f44336;
   transition: 250ms linear;
   cursor: pointer;
 }
 
+.redHeartActive {
+  color: #f44336;
+  cursor: pointer;
+}
+
 .cyanBM:hover {
   color: #00bcd4;
   transition: 250ms linear;
+  cursor: pointer;
+}
+
+.cyanBMActive {
+  color: #00bcd4;
   cursor: pointer;
 }

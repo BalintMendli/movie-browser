@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Mask,
-  Fa,
-  Container,
-  Row,
-  Col,
-  MDBIcon,
-  Tooltip,
-  Collapse,
-} from 'mdbreact';
+import { MDBIcon, Tooltip, Collapse } from 'mdbreact';
 import StarRatings from 'react-star-ratings';
 import { connect } from 'react-redux';
 import {
-  bg,
-  posterImg,
-  carText,
   amberStar,
+  amberStarActive,
   redHeart,
+  redHeartActive,
   cyanBM,
+  cyanBMActive,
 } from '../Style/style.module.css';
+import { submitRating } from '../../redux/actions/submitRating';
 
-class Icons extends Component {
+class IconPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,22 +43,21 @@ class Icons extends Component {
     });
   }
 
-  changeRating(newRating) {
-    this.setState({
-      rating: newRating,
-    });
+  changeRating(rating) {
+    const { submitRating, mediaType, id } = this.props;
+    submitRating({ id, mediaType, rating });
   }
 
   render() {
-    const { collapseID, rating, icon, ratingMessage } = this.state;
-    const { auth } = this.props;
-    console.log(auth);
+    const { collapseID, icon, ratingMessage } = this.state;
+    const { accountStates = {} } = this.props;
+    const { rated, favorite, watchlist } = accountStates;
     let collapseContent = '';
     if (icon === 'star') {
       collapseContent = (
         <>
           <StarRatings
-            rating={rating}
+            rating={rated.value}
             changeRating={this.changeRating}
             starRatedColor="#ffc107"
             starHoverColor="#ffc107"
@@ -92,23 +82,23 @@ class Icons extends Component {
           icon="star"
           size="2x"
           id="star"
-          className={`mx-4 ${amberStar}`}
+          className={`mx-4 ${rated ? amberStarActive : amberStar}`}
           data-collapse="basicCollapse"
           onClick={this.toggleCollapse}
         />
-        <Fa
+        <MDBIcon
           icon="heart"
           size="2x"
           id="heart"
-          className={`mx-4 ${redHeart}`}
+          className={`mx-4 ${favorite ? redHeartActive : redHeart}`}
           data-collapse="basicCollapse"
           onClick={this.toggleCollapse}
         />
-        <Fa
+        <MDBIcon
           icon="bookmark"
           size="2x"
           id="bookmark"
-          className={`mx-4 ${cyanBM}`}
+          className={`mx-4 ${watchlist ? cyanBMActive : cyanBM}`}
           data-collapse="basicCollapse"
           onClick={this.toggleCollapse}
         />
@@ -120,6 +110,9 @@ class Icons extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, details }) => ({
+  auth,
+  accountStates: details.movie.account_states,
+});
 
-export default connect(mapStateToProps)(Icons);
+export default connect(mapStateToProps, { submitRating })(IconPanel);

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { batchActions } from 'redux-batched-actions';
 import { SET_DETAILS, DETAILS_ERROR, DETAILS_REQUEST } from './types';
 import { getDetailsUrl } from '../../utils/resources';
+import { getSessionId } from '../../utils/storage';
 
 export const fetchDetails = ({ id, mediaType }) => async dispatch => {
   dispatch(
@@ -11,7 +12,7 @@ export const fetchDetails = ({ id, mediaType }) => async dispatch => {
     ]),
   );
   try {
-    const url = getDetailsUrl(mediaType, id);
+    const url = getDetailsUrl(mediaType, id, getSessionId());
     const response = (await axios.get(url)).data;
     dispatch(
       batchActions([
