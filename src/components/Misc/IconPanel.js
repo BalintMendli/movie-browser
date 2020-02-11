@@ -11,6 +11,7 @@ import {
   cyanBMActive,
 } from '../Style/style.module.css';
 import { submitRating } from '../../redux/actions/submitRating';
+import { addFavorite } from '../../redux/actions/addFavorite';
 
 class IconPanel extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class IconPanel extends Component {
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.closeCollapse = this.closeCollapse.bind(this);
     this.changeRating = this.changeRating.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   toggleCollapse(e) {
@@ -46,6 +48,16 @@ class IconPanel extends Component {
   changeRating(rating) {
     const { submitRating, mediaType, id } = this.props;
     submitRating({ id, mediaType, rating });
+  }
+
+  handleFavorite() {
+    const {
+      addFavorite,
+      mediaType,
+      id,
+      accountStates: { favorite } = {},
+    } = this.props;
+    addFavorite({ id, mediaType, favorite: !favorite });
   }
 
   render() {
@@ -92,7 +104,7 @@ class IconPanel extends Component {
           id="heart"
           className={`mx-4 ${favorite ? redHeartActive : redHeart}`}
           data-collapse="basicCollapse"
-          onClick={this.toggleCollapse}
+          onClick={this.handleFavorite}
         />
         <MDBIcon
           icon="bookmark"
@@ -112,7 +124,9 @@ class IconPanel extends Component {
 
 const mapStateToProps = ({ auth, details }) => ({
   auth,
-  accountStates: details.movie.account_states,
+  accountStates: details.data.account_states,
 });
 
-export default connect(mapStateToProps, { submitRating })(IconPanel);
+export default connect(mapStateToProps, { submitRating, addFavorite })(
+  IconPanel,
+);

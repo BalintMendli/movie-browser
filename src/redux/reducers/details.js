@@ -1,11 +1,24 @@
-import { SET_DETAILS, DETAILS_REQUEST, DETAILS_ERROR } from '../actions/types';
+import {
+  SET_DETAILS,
+  DETAILS_REQUEST,
+  DETAILS_ERROR,
+  ADD_FAVORITE_SUCCESS,
+} from '../actions/types';
 import { parseLists } from '../../utils/parseData';
 
 export function details(state = {}, action) {
-  const { type, response, mediaType } = action;
+  const { type, response, favorite } = action;
   switch (type) {
     case SET_DETAILS:
-      return { ...state, [mediaType]: response };
+      return { ...state, data: response };
+    case ADD_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          account_states: { ...state.data.account_states, favorite },
+        },
+      };
     default:
       return state;
   }

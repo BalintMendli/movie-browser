@@ -113,7 +113,7 @@ MovieDetails.propTypes = {
 };
 
 const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
-  movieDetails: details.movie,
+  movieDetails: details.data,
   isLoading: detailsIsLoading.movie,
   error: detailsError,
 });

@@ -60,9 +60,7 @@ class TvDetails extends Component {
             <Row>
               <Col md="4" className="text-center">
                 <img
-                  src={`https://image.tmdb.org/t/p/w342${
-                    tvDetails.poster_path
-                  }`}
+                  src={`https://image.tmdb.org/t/p/w342${tvDetails.poster_path}`}
                   alt="poster"
                   className={`img-fluid ${posterImg}`}
                 />
@@ -103,12 +101,9 @@ TvDetails.propTypes = {
 };
 
 const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
-  tvDetails: details.tv,
+  tvDetails: details.data,
   isLoading: detailsIsLoading.tv,
   error: detailsError,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchDetails }
-)(TvDetails);
+export default connect(mapStateToProps, { fetchDetails })(TvDetails);
