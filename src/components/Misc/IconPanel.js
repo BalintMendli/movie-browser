@@ -12,6 +12,7 @@ import {
 } from '../Style/style.module.css';
 import { submitRating } from '../../redux/actions/submitRating';
 import { addFavorite } from '../../redux/actions/addFavorite';
+import { addBookmark } from '../../redux/actions/addBookmark';
 
 class IconPanel extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class IconPanel extends Component {
     this.closeCollapse = this.closeCollapse.bind(this);
     this.changeRating = this.changeRating.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleBookmark = this.handleBookmark.bind(this);
   }
 
   toggleCollapse(e) {
@@ -58,6 +60,16 @@ class IconPanel extends Component {
       accountStates: { favorite } = {},
     } = this.props;
     addFavorite({ id, mediaType, favorite: !favorite });
+  }
+
+  handleBookmark() {
+    const {
+      addBookmark,
+      mediaType,
+      id,
+      accountStates: { watchlist } = {},
+    } = this.props;
+    addBookmark({ id, mediaType, watchlist: !watchlist });
   }
 
   render() {
@@ -112,7 +124,7 @@ class IconPanel extends Component {
           id="bookmark"
           className={`mx-4 ${watchlist ? cyanBMActive : cyanBM}`}
           data-collapse="basicCollapse"
-          onClick={this.toggleCollapse}
+          onClick={this.handleBookmark}
         />
         <Collapse id="basicCollapse" isOpen={collapseID} className="pt-3">
           {collapseContent}
@@ -127,6 +139,8 @@ const mapStateToProps = ({ auth, details }) => ({
   accountStates: details.data.account_states,
 });
 
-export default connect(mapStateToProps, { submitRating, addFavorite })(
-  IconPanel,
-);
+export default connect(mapStateToProps, {
+  submitRating,
+  addFavorite,
+  addBookmark,
+})(IconPanel);
