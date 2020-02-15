@@ -11,7 +11,7 @@ export const submitRating = ({ id, mediaType, rating }) => async dispatch => {
   dispatch({ type: SUBMIT_RATING_REQUEST, value: true });
   console.log(id, rating);
   try {
-    const url = `https://api.themoviedb.org/3/${mediaType}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`;
+    const url = `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`;
     const data = { value: rating };
     const options = {
       url,
@@ -21,7 +21,7 @@ export const submitRating = ({ id, mediaType, rating }) => async dispatch => {
     };
     const response = (await axios(options)).data;
     console.log(response);
-    dispatch({ type: SUBMIT_RATING_SUCCESS });
+    dispatch({ type: SUBMIT_RATING_SUCCESS, rating });
   } catch (error) {
     dispatch({ type: SUBMIT_RATING_FAILURE, error });
   }

@@ -1,4 +1,4 @@
-export const SET_LISTS = 'SET_LISTS';
+export const LISTS_SUCCESS = 'LISTS_SUCCESS';
 export const LISTS_ERROR = 'LISTS_ERROR';
 export const LISTS_REQUEST = 'LISTS_REQUEST';
 

@@ -38,9 +38,7 @@ class PersonDetails extends Component {
           <Row>
             <Col md="4" className="text-center">
               <img
-                src={`https://image.tmdb.org/t/p/w342${
-                  personDetails.profile_path
-                }`}
+                src={`https://image.tmdb.org/t/p/w342${personDetails.profile_path}`}
                 alt="poster"
                 className={`img-fluid ${posterImg}`}
               />
@@ -74,12 +72,9 @@ PersonDetails.propTypes = {
 };
 
 const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
-  personDetails: details.person,
+  personDetails: details.data,
   isLoading: detailsIsLoading.person,
   error: detailsError,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchDetails }
-)(PersonDetails);
+export default connect(mapStateToProps, { fetchDetails })(PersonDetails);

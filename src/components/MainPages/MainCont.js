@@ -3,15 +3,7 @@ import { Col, Container, Row } from 'mdbreact';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SmallCards from '../Misc/SmallCards';
 
-const MainCont = ({ popularPerson, upcomingMovie, isLoading, error }) => {
-  if (error) {
-    return <p>{error.message}</p>;
-  }
-
-  if (isLoading) {
-    return <p>Loading ...</p>;
-  }
-
+const MainCont = ({ popularPerson, upcomingMovie }) => {
   return (
     <Container className="my-5 py-5 text-white">
       <Row>

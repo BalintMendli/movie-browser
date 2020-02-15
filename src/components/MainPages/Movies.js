@@ -29,15 +29,15 @@ class Movies extends Component {
       topRatedMovie,
       nowPlayingMovie,
       upcomingMovie,
-      listsIsLoading,
-      listsError,
+      loading,
+      error,
     } = this.props;
 
-    if (listsError) {
-      return <p>{listsError.message}</p>;
+    if (error) {
+      return <p>{error.message}</p>;
     }
 
-    if (listsIsLoading) {
+    if (loading) {
       return <p>Loading ...</p>;
     }
 
@@ -69,19 +69,21 @@ class Movies extends Component {
 }
 
 const mapStateToProps = ({
-  lists: { popularMovie, topRatedMovie, nowPlayingMovie, upcomingMovie },
-  listsIsLoading,
-  listsError,
+  lists: {
+    popularMovie,
+    topRatedMovie,
+    nowPlayingMovie,
+    upcomingMovie,
+    loading,
+    error,
+  },
 }) => ({
   popularMovie,
   topRatedMovie,
   nowPlayingMovie,
   upcomingMovie,
-  listsIsLoading,
-  listsError,
+  loading,
+  error,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchLists }
-)(Movies);
+export default connect(mapStateToProps, { fetchLists })(Movies);

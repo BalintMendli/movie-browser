@@ -1,15 +1,9 @@
 import axios from 'axios';
-import { batchActions } from 'redux-batched-actions';
-import { SET_LISTS, LISTS_ERROR, LISTS_REQUEST } from './types';
+import { LISTS_REQUEST, LISTS_SUCCESS, LISTS_ERROR } from './types';
 import { getUrl } from '../../utils/resources';
 
 export const fetchLists = categories => async dispatch => {
-  dispatch(
-    batchActions([
-      { type: LISTS_REQUEST, value: true },
-      { type: LISTS_ERROR, error: null },
-    ]),
-  );
+  dispatch({ type: LISTS_REQUEST });
   try {
     const urls = getUrls(categories);
     const respTuple = async ([cat, url]) => [
@@ -18,19 +12,9 @@ export const fetchLists = categories => async dispatch => {
     ];
     const response = await Promise.all(urls.map(respTuple));
     const respObj = Object.fromEntries(response);
-    dispatch(
-      batchActions([
-        { type: SET_LISTS, respObj },
-        { type: LISTS_REQUEST, value: false },
-      ]),
-    );
+    dispatch({ type: LISTS_SUCCESS, respObj });
   } catch (error) {
-    dispatch(
-      batchActions([
-        { type: LISTS_ERROR, error },
-        { type: LISTS_REQUEST, value: false },
-      ]),
-    );
+    dispatch({ type: LISTS_ERROR, error });
   }
 };
 

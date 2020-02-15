@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { lists, listsIsLoading, listsError } from './lists';
+import { lists } from './lists';
 import { details, detailsIsLoading, detailsError } from './details';
 import { rated } from './rated';
 import { favorites } from './favorites';
@@ -10,8 +10,6 @@ import { addFavorite } from './addFavorite';
 
 export default combineReducers({
   lists,
-  listsIsLoading,
-  listsError,
   details,
   detailsIsLoading,
   detailsError,

@@ -29,15 +29,15 @@ class TvShows extends Component {
       onTheAirTv,
       popularTv,
       topRatedTv,
-      listsIsLoading,
-      listsError,
+      loading,
+      error,
     } = this.props;
 
-    if (listsError) {
-      return <p>{listsError.message}</p>;
+    if (error) {
+      return <p>{error.message}</p>;
     }
 
-    if (listsIsLoading) {
+    if (loading) {
       return <p>Loading ...</p>;
     }
 
@@ -69,19 +69,14 @@ class TvShows extends Component {
 }
 
 const mapStateToProps = ({
-  lists: { airingTodayTv, onTheAirTv, popularTv, topRatedTv },
-  listsIsLoading,
-  listsError,
+  lists: { airingTodayTv, onTheAirTv, popularTv, topRatedTv, loading, error },
 }) => ({
   airingTodayTv,
   onTheAirTv,
   popularTv,
   topRatedTv,
-  listsIsLoading,
-  listsError,
+  loading,
+  error,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchLists }
-)(TvShows);
+export default connect(mapStateToProps, { fetchLists })(TvShows);

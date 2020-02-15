@@ -6,6 +6,7 @@ import { fetchDetails } from '../../redux/actions';
 import { carImg } from '../Carousel/Carousel.module.css';
 import { bg, posterImg, carText } from '../Style/style.module.css';
 import Tabs from '../Misc/Tabs';
+import IconPanel from '../Misc/IconPanel';
 
 class TvDetails extends Component {
   componentDidMount() {
@@ -21,7 +22,7 @@ class TvDetails extends Component {
   }
 
   render() {
-    const { tvDetails, isLoading, error } = this.props;
+    const { tvDetails, isLoading, error, match } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -59,11 +60,20 @@ class TvDetails extends Component {
           <Container className="text-white">
             <Row>
               <Col md="4" className="text-center">
-                <img
-                  src={`https://image.tmdb.org/t/p/w342${tvDetails.poster_path}`}
-                  alt="poster"
-                  className={`img-fluid ${posterImg}`}
-                />
+                <div className={posterImg}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w342${tvDetails.poster_path}`}
+                    alt="poster"
+                    className="img-fluid"
+                  />
+                  <IconPanel
+                    mediaType="tv"
+                    id={match.params.mediaId}
+                    rating={tvDetails.account_states?.rating}
+                    favorite={tvDetails.account_states?.favorite}
+                    watchlist={tvDetails.account_states?.watchlist}
+                  />
+                </div>
               </Col>
               <Col md="8">
                 <Container className="mt-5 mt-md-0">

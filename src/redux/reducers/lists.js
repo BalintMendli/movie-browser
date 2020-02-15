@@ -1,4 +1,4 @@
-import { SET_LISTS, LISTS_REQUEST, LISTS_ERROR } from '../actions/types';
+import { LISTS_REQUEST, LISTS_SUCCESS, LISTS_ERROR } from '../actions/types';
 import { parseLists } from '../../utils/parseData';
 
 const initialState = {
@@ -11,30 +11,19 @@ const initialState = {
   onTheAirTv: [],
   airingTodayTv: [],
   popularPerson: [],
+  loading: false,
+  error: null,
 };
 
 export function lists(state = initialState, action) {
   const { type, respObj } = action;
   switch (type) {
-    case SET_LISTS:
-      return { ...state, ...parseLists(respObj) };
-    default:
-      return state;
-  }
-}
-
-export function listsError(state = null, action) {
-  switch (action.type) {
-    case LISTS_ERROR:
-      return action.error;
-    default:
-      return state;
-  }
-}
-export function listsIsLoading(state = false, action) {
-  switch (action.type) {
     case LISTS_REQUEST:
-      return action.value;
+      return { ...state, loading: true, error: null };
+    case LISTS_SUCCESS:
+      return { ...state, ...parseLists(respObj), loading: false };
+    case LISTS_ERROR:
+      return { ...state, error: action.error, loading: false };
     default:
       return state;
   }

@@ -20,15 +20,15 @@ class Home extends React.Component {
       nowPlayingMovie,
       upcomingMovie,
       popularPerson,
-      listsIsLoading,
-      listsError,
+      loading,
+      error,
     } = this.props;
 
-    if (listsError) {
-      return <p>{listsError.message}</p>;
+    if (error) {
+      return <p>{error.message}</p>;
     }
 
-    if (listsIsLoading) {
+    if (loading) {
       return <p>Loading ...</p>;
     }
 
@@ -42,18 +42,13 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({
-  lists: { nowPlayingMovie, upcomingMovie, popularPerson },
-  listsIsLoading,
-  listsError,
+  lists: { nowPlayingMovie, upcomingMovie, popularPerson, loading, error },
 }) => ({
   nowPlayingMovie,
   upcomingMovie,
   popularPerson,
-  listsIsLoading,
-  listsError,
+  loading,
+  error,
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchLists }
-)(Home);
+export default connect(mapStateToProps, { fetchLists })(Home);
