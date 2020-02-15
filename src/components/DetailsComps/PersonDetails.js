@@ -22,13 +22,17 @@ class PersonDetails extends Component {
   }
 
   render() {
-    const { personDetails, isLoading, error } = this.props;
+    const { personDetails, loading, error, match } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading || !personDetails) {
+    if (
+      loading ||
+      !personDetails ||
+      parseInt(match.params.mediaId, 10) !== personDetails?.id
+    ) {
       return <p>Loading ...</p>;
     }
 
@@ -71,10 +75,10 @@ PersonDetails.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+const mapStateToProps = ({ details }) => ({
   personDetails: details.data,
-  isLoading: detailsIsLoading.person,
-  error: detailsError,
+  loading: details.loading,
+  error: details.error,
 });
 
 export default connect(mapStateToProps, { fetchDetails })(PersonDetails);

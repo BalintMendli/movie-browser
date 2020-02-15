@@ -22,13 +22,17 @@ class TvDetails extends Component {
   }
 
   render() {
-    const { tvDetails, isLoading, error, match } = this.props;
+    const { tvDetails, loading, error, match } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading || !tvDetails) {
+    if (
+      loading ||
+      !tvDetails ||
+      parseInt(match.params.mediaId, 10) !== tvDetails?.id
+    ) {
       return <p>Loading ...</p>;
     }
 
@@ -110,10 +114,10 @@ TvDetails.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+const mapStateToProps = ({ details }) => ({
   tvDetails: details.data,
-  isLoading: detailsIsLoading.tv,
-  error: detailsError,
+  loading: details.loading,
+  error: details.error,
 });
 
 export default connect(mapStateToProps, { fetchDetails })(TvDetails);

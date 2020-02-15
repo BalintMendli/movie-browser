@@ -22,13 +22,17 @@ class MovieDetails extends Component {
   }
 
   render() {
-    const { movieDetails, isLoading, error, match } = this.props;
+    const { movieDetails, loading, error, match } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading || !movieDetails) {
+    if (
+      loading ||
+      !movieDetails ||
+      parseInt(match.params.mediaId, 10) !== movieDetails?.id
+    ) {
       return <p>Loading ...</p>;
     }
 
@@ -112,10 +116,10 @@ MovieDetails.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ details, detailsIsLoading, detailsError }) => ({
+const mapStateToProps = ({ details }) => ({
   movieDetails: details.data,
-  isLoading: detailsIsLoading.movie,
-  error: detailsError,
+  loading: details.loading,
+  error: details.error,
 });
 
 export default connect(mapStateToProps, { fetchDetails })(MovieDetails);

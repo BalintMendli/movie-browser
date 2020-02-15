@@ -2,7 +2,7 @@ export const LISTS_SUCCESS = 'LISTS_SUCCESS';
 export const LISTS_ERROR = 'LISTS_ERROR';
 export const LISTS_REQUEST = 'LISTS_REQUEST';
 
-export const SET_DETAILS = 'SET_DETAILS';
+export const DETAILS_SUCCESS = 'DETAILS_SUCCESS';
 export const DETAILS_ERROR = 'DETAILS_ERROR';
 export const DETAILS_REQUEST = 'DETAILS_REQUEST';
 

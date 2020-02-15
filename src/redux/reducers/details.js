@@ -1,5 +1,5 @@
 import {
-  SET_DETAILS,
+  DETAILS_SUCCESS,
   DETAILS_REQUEST,
   DETAILS_ERROR,
   SUBMIT_RATING_SUCCESS,
@@ -7,11 +7,21 @@ import {
   ADD_BOOKMARK_SUCCESS,
 } from '../actions/types';
 
-export function details(state = {}, action) {
+const initialState = {
+  loading: false,
+  error: null,
+  data: null,
+};
+
+export function details(state = initialState, action) {
   const { type, response, rating, favorite, watchlist } = action;
   switch (type) {
-    case SET_DETAILS:
-      return { ...state, data: response };
+    case DETAILS_REQUEST:
+      return { ...state, loading: true, error: null };
+    case DETAILS_SUCCESS:
+      return { ...state, data: response, loading: false };
+    case DETAILS_ERROR:
+      return { ...state, error: action.error, loading: false };
     case SUBMIT_RATING_SUCCESS:
       return {
         ...state,
@@ -39,25 +49,6 @@ export function details(state = {}, action) {
           account_states: { ...state.data.account_states, watchlist },
         },
       };
-    default:
-      return state;
-  }
-}
-
-export function detailsError(state = null, action) {
-  switch (action.type) {
-    case DETAILS_ERROR:
-      return action.error;
-    default:
-      return state;
-  }
-}
-
-export function detailsIsLoading(state = {}, action) {
-  const { type, value, mediaType } = action;
-  switch (type) {
-    case DETAILS_REQUEST:
-      return { ...state, [mediaType]: value };
     default:
       return state;
   }
