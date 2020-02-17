@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fa } from 'mdbreact';
+import { movieType, tvType, personType } from '../types';
 
 const Overview = ({ data, type }) => {
   if (type === 'person') {
@@ -66,76 +67,68 @@ const Overview = ({ data, type }) => {
           <Fa icon="star" className="amber-text pr-1" />
           {data.vote_average}
           <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
-            /10 ({data.vote_count})
+            {`/10 (${data.vote_count})`}
           </span>
         </p>
       </>
     );
   }
 
-  if (type === 'movie') {
-    return (
-      <>
-        <h4>Genre</h4>
-        <p>{data.genres.map(genre => genre.name).join(', ')}</p>
-        <h4>Release Date</h4>
-        <p>{data.release_date}</p>
-        <h4>Runtime</h4>
-        <p>{`${data.runtime} min`}</p>
-        <h4>Summary</h4>
-        <p>{data.overview}</p>
-        <h4>Official Website</h4>
-        <p>
-          {data.homepage ? (
-            <a href={data.homepage} target="_blank" rel="noreferrer noopener">
-              {data.homepage}
-            </a>
-          ) : (
-            '-'
-          )}
-        </p>
-        <h4>Production Companies</h4>
-        <p>{data.production_companies.map(comp => comp.name).join(', ')}</p>
-        <h4>Budget</h4>
-        <p>
-          {data.budget
-            ? new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              }).format(data.budget)
-            : 'No data'}
-        </p>
-        <h4>Revenue</h4>
-        <p>
-          {data.revenue
-            ? new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              }).format(data.revenue)
-            : 'No data'}
-        </p>
-        <h4>Rating</h4>
-        <p className="text-left font-weight-bold">
-          <Fa icon="star" className="amber-text pr-1" />
-          {data.vote_average}
-          <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
-            /10 ({data.vote_count})
-          </span>
-        </p>
-      </>
-    );
-  }
+  return (
+    <>
+      <h4>Genre</h4>
+      <p>{data.genres.map(genre => genre.name).join(', ')}</p>
+      <h4>Release Date</h4>
+      <p>{data.release_date}</p>
+      <h4>Runtime</h4>
+      <p>{`${data.runtime} min`}</p>
+      <h4>Summary</h4>
+      <p>{data.overview}</p>
+      <h4>Official Website</h4>
+      <p>
+        {data.homepage ? (
+          <a href={data.homepage} target="_blank" rel="noreferrer noopener">
+            {data.homepage}
+          </a>
+        ) : (
+          '-'
+        )}
+      </p>
+      <h4>Production Companies</h4>
+      <p>{data.production_companies.map(comp => comp.name).join(', ')}</p>
+      <h4>Budget</h4>
+      <p>
+        {data.budget
+          ? new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(data.budget)
+          : 'No data'}
+      </p>
+      <h4>Revenue</h4>
+      <p>
+        {data.revenue
+          ? new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            }).format(data.revenue)
+          : 'No data'}
+      </p>
+      <h4>Rating</h4>
+      <p className="text-left font-weight-bold">
+        <Fa icon="star" className="amber-text pr-1" />
+        {data.vote_average}
+        <span style={{ fontSize: '12px', fontWeight: 'normal' }}>
+          {`/10 (${data.vote_count})`}
+        </span>
+      </p>
+    </>
+  );
 };
 
 Overview.propTypes = {
-  type: PropTypes.string,
-  data: PropTypes.shape({
-    id: PropTypes.number,
-  }).isRequired,
-};
-
-Overview.defaultProps = {
-  type: 'movie',
+  type: PropTypes.oneOf(['movie', 'tv', 'person']).isRequired,
+  data: PropTypes.oneOfType([movieType, tvType, personType]).isRequired,
 };
 
 export default Overview;

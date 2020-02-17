@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SmallCards from '../Misc/SmallCards';
+import { personType } from '../types';
 
 const Filmography = ({ data }) => (
   <div>
@@ -17,7 +17,7 @@ const Filmography = ({ data }) => (
 );
 
 Filmography.propTypes = {
-  data: PropTypes.shape({ id: PropTypes.number }).isRequired,
+  data: personType.isRequired,
 };
 
 export default Filmography;

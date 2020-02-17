@@ -52,7 +52,7 @@ const SmallCards = ({ data, type, page }) => {
   }
   if (type === 'character') {
     return (
-      <Link to={`/people/${data.id}`}>
+      <Link to={`/person/${data.id}`}>
         <Card className="card-body mb-2">
           <Row>
             <Col size="4" className="text-center">
@@ -82,7 +82,7 @@ const SmallCards = ({ data, type, page }) => {
   }
   if (type === 'person') {
     return (
-      <Link to={`/people/${data.id}`}>
+      <Link to={`/person/${data.id}`}>
         <Card className="card-body mb-2">
           <Row>
             <Col size="4" className="text-center">

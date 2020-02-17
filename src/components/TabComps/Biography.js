@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { whiteSpace } from '../Style/style.module.css';
+import { personType } from '../types';
 
 const Biography = ({ data }) => (
   <>
@@ -9,6 +9,8 @@ const Biography = ({ data }) => (
   </>
 );
 
-Biography.propTypes = {};
+Biography.propTypes = {
+  data: personType.isRequired,
+};
 
 export default Biography;

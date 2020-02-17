@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { movieType, tvType } from '../types';
 
 const Videos = ({ data }) => (
   <>
@@ -20,6 +21,8 @@ const Videos = ({ data }) => (
   </>
 );
 
-Videos.propTypes = {};
+Videos.propTypes = {
+  data: PropTypes.oneOfType([movieType, tvType]).isRequired,
+};
 
 export default Videos;

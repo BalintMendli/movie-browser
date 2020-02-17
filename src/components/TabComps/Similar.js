@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SmallCards from '../Misc/SmallCards';
+import { movieType, tvType } from '../types';
 
 const Similar = ({ data, type }) => (
   <div>
@@ -11,7 +12,7 @@ const Similar = ({ data, type }) => (
 );
 
 Similar.propTypes = {
-  data: PropTypes.shape({ id: PropTypes.number }).isRequired,
+  data: PropTypes.oneOfType([movieType, tvType]).isRequired,
 };
 
 export default Similar;

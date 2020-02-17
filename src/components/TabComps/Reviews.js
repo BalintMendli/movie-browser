@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { hr, whiteSpace } from '../Style/style.module.css';
+import { movieType, tvType } from '../types';
 
 const Reviews = ({ data }) => {
   if (!data.reviews.results.length) {
@@ -14,6 +16,10 @@ const Reviews = ({ data }) => {
       <hr className={hr} />
     </React.Fragment>
   ));
+};
+
+Reviews.propTypes = {
+  data: PropTypes.oneOfType([movieType, tvType]).isRequired,
 };
 
 export default Reviews;

@@ -8,6 +8,7 @@ import {
   active,
   pillsHeader,
 } from '../Style/style.module.css';
+import { movieType, tvType, personType } from '../types';
 
 export default class Tabs extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class Tabs extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { movieDetails, tabs, type } = this.props;
+    const { tabs, details, type } = this.props;
     return (
       <div className={tabsComp}>
         <nav>
@@ -71,7 +72,7 @@ export default class Tabs extends Component {
                 role="tabpanel"
                 aria-labelledby={`nav-${x.toLowerCase()}-tab`}
               >
-                <DynComp data={movieDetails} type={type} />
+                <DynComp data={details} type={type} />
               </div>
             );
           })}
@@ -82,8 +83,7 @@ export default class Tabs extends Component {
 }
 
 Tabs.propTypes = {
-  movieDetails: PropTypes.shape({
-    title: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
+  details: PropTypes.oneOfType([movieType, tvType, personType]).isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.oneOf(['movie', 'tv', 'person']).isRequired,
 };
