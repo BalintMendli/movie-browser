@@ -9,7 +9,6 @@ import { getSessionId } from '../../utils/storage';
 
 export const submitRating = ({ id, mediaType, rating }) => async dispatch => {
   dispatch({ type: SUBMIT_RATING_REQUEST, value: true });
-  console.log(id, rating);
   try {
     const url = `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`;
     const data = { value: rating };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBIcon, Tooltip, Collapse } from 'mdbreact';
 import StarRatings from 'react-star-ratings';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   amberStar,
   amberStarActive,
@@ -53,35 +54,24 @@ class IconPanel extends Component {
   }
 
   handleFavorite() {
-    const {
-      addFavorite,
-      mediaType,
-      id,
-      accountStates: { favorite } = {},
-    } = this.props;
+    const { addFavorite, mediaType, id, favorite } = this.props;
     addFavorite({ id, mediaType, favorite: !favorite });
   }
 
   handleBookmark() {
-    const {
-      addBookmark,
-      mediaType,
-      id,
-      accountStates: { watchlist } = {},
-    } = this.props;
+    const { addBookmark, mediaType, id, watchlist } = this.props;
     addBookmark({ id, mediaType, watchlist: !watchlist });
   }
 
   render() {
     const { collapseID, icon, ratingMessage } = this.state;
-    const { accountStates = {} } = this.props;
-    const { rated, favorite, watchlist } = accountStates;
+    const { rated, favorite, watchlist } = this.props;
     let collapseContent = '';
     if (icon === 'star') {
       collapseContent = (
         <>
           <StarRatings
-            rating={rated.value}
+            rating={rated}
             changeRating={this.changeRating}
             starRatedColor="#ffc107"
             starHoverColor="#ffc107"
@@ -134,9 +124,25 @@ class IconPanel extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, details }) => ({
+IconPanel.propTypes = {
+  mediaType: PropTypes.oneOf(['movie', 'tv', 'person']).isRequired,
+  id: PropTypes.number.isRequired,
+  rated: PropTypes.number,
+  favorite: PropTypes.bool,
+  watchlist: PropTypes.bool,
+  submitRating: PropTypes.func.isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  addBookmark: PropTypes.func.isRequired,
+};
+
+IconPanel.defaultProps = {
+  rated: 0,
+  favorite: false,
+  watchlist: false,
+};
+
+const mapStateToProps = ({ auth }) => ({
   auth,
-  accountStates: details.data.account_states,
 });
 
 export default connect(mapStateToProps, {
