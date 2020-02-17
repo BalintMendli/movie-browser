@@ -24,12 +24,7 @@ const parseTvShow = ({
   rating,
 });
 
-const parsePerson = ({
-  id,
-  name,
-  profile_path: pic,
-  known_for: [knownFor],
-}) => ({
+const parsePerson = ({ id, name, profile_path: pic, known_for: knownFor }) => ({
   id,
   name,
   pic,

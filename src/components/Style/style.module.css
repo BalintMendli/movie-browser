@@ -125,3 +125,8 @@
   color: #00bcd4;
   cursor: pointer;
 }
+
+.knownFor {
+  font-size: 0.8em;
+  letter-spacing: -0.5px;
+}

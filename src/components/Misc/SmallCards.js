@@ -4,7 +4,7 @@ import { Fa, Row, Col, Card, CardText, CardTitle } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import defProf from '../../media/default_profile.jpg';
 import defPoster from '../../media/default_poster.jpg';
-import { ellipsis } from '../Style/style.module.css';
+import { ellipsis, knownFor } from '../Style/style.module.css';
 
 const SmallCards = ({ data, type, page }) => {
   if (page === 'filmography' || page === 'similar' || page === 'profile') {
@@ -102,7 +102,9 @@ const SmallCards = ({ data, type, page }) => {
               <CardText className="text-dark">
                 <strong>{data.name}</strong>
                 <br />
-                {data.knownFor.title || data.knownFor.name}
+                <span className={knownFor}>
+                  {data.knownFor.map(m => m.title || m.name).join(', ')}
+                </span>
               </CardText>
             </Col>
           </Row>
