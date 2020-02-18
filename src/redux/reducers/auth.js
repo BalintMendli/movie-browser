@@ -1,4 +1,4 @@
-import { SET_AUTH, DEL_AUTH } from '../actions/types';
+import { SET_AUTH, LOGOUT_SUCCESS } from '../actions/types';
 import { getAuthInfo } from '../../utils/storage';
 
 export function auth(state = getAuthInfo(), action) {
@@ -6,8 +6,8 @@ export function auth(state = getAuthInfo(), action) {
   switch (type) {
     case SET_AUTH:
       return payload;
-    case DEL_AUTH:
-      return { sessionId: null };
+    case LOGOUT_SUCCESS:
+      return { sessionId: null, guest: null };
     default:
       return state;
   }

@@ -1,128 +1,55 @@
 import { Container } from 'mdbreact';
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
-import { getAuthInfo, getSessionId } from '../../utils/storage';
-import { forgetUser } from '../../redux/actions';
+import { logoutUser } from '../../redux/actions';
 import { getRated } from '../../redux/actions/getRated';
 import { getFavorites } from '../../redux/actions/getFavorites';
 import { getAccountDetails } from '../../redux/actions/getAccountDetails';
-
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favoriteMovies: [],
-      favoriteTv: [],
       redirect: false,
     };
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
-    const { getRated, getFavorites, getAccountDetails } = this.props;
-    // const authInfo = getAuthInfo();
-    // const sessionId = authInfo.guest ? null : authInfo.sessionId;
-    // const guestSessionId = authInfo.guest ? authInfo.sessionId : null;
-    // console.log(authInfo.guest);
-    getAccountDetails();
+    const { getRated, getFavorites, getAccountDetails, isGuest } = this.props;
     getRated();
-    getFavorites();
-    // if (sessionId) {
-    //   axios
-    //     .get(
-    //       `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`,
-    //     )
-    //     .then(response => {
-    //       this.setState({ profile: response.data, isLoading: false });
-    //       console.log(response.data);
-    //       return Promise.all([
-    //         axios.get(
-    //           `https://api.themoviedb.org/3/account/${response.data.id}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`,
-    //         ),
-    //         axios.get(
-    //           `https://api.themoviedb.org/3/account/${response.data.id}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`,
-    //         ),
-    //       ]);
-    //     })
-    //     .then(response => {
-    //       this.setState({
-    //         favoriteMovies: response[0].data.results,
-    //         favoriteTv: response[1].data.results,
-    //         isLoading: false,
-    //       });
-    //       console.log(response[0].data);
-    //       console.log(response[1].data);
-    //     })
-    //     .catch(error =>
-    //       this.setState({
-    //         error,
-    //         isLoading: false,
-    //       }),
-    //     );
-    // } else if (guestSessionId) {
-    //   this.setState({ guest: true });
-    //   Promise.all([
-    //     axios.get(
-    //       `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}`,
-    //     ),
-    //     axios.get(
-    //       `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/tv?api_key=${API_KEY}`,
-    //     ),
-    //   ])
-    //     .then(response => {
-    //       this.setState({
-    //         ratedMovies: response[0].data.results,
-    //         ratedTv: response[1].data.results,
-    //         isLoading: false,
-    //       });
-    //       console.log(response[0].data);
-    //       console.log(response[1].data);
-    //     })
-    //     .catch(error =>
-    //       this.setState({
-    //         error,
-    //         isLoading: false,
-    //       }),
-    //     );
-    // }
+    if (!isGuest) {
+      getAccountDetails();
+      getFavorites();
+    }
   }
 
   logout() {
-    const { forgetUser } = this.props;
-    axios
-      .delete(
-        `https://api.themoviedb.org/3/authentication/session?api_key=${API_KEY}`,
-        {
-          params: { session_id: getSessionId() },
-        },
-      )
-      .then(response => {
-        console.log(response);
-        if (response.data.success) {
-          forgetUser();
-          this.setState({
-            redirect: true,
-          });
-        }
-      });
+    const { logoutUser, sessionId } = this.props;
+    logoutUser(sessionId);
   }
 
   render() {
-    const { favoriteMovies, favoriteTv, error, redirect } = this.state;
+    const { redirect } = this.state;
 
-    const { ratedMovies, ratedTv, profile } = this.props;
+    const {
+      ratedMovies,
+      ratedTv,
+      favoriteMovies,
+      favoriteTv,
+      profile,
+      error,
+      loading,
+    } = this.props;
 
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (!profile.id || !ratedTv || !ratedMovies) {
+    if (loading || !ratedTv || !ratedMovies) {
       return <p>Loading ...</p>;
     }
 
@@ -191,14 +118,18 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ rated, accountDetails }) => ({
+const mapStateToProps = ({ rated, favorites, accountDetails, auth }) => ({
+  isGuest: auth.guest,
+  sessionId: auth.sessionId,
   ratedMovies: rated.ratedMovies,
   ratedTv: rated.ratedTv,
+  favoriteMovies: favorites.ratedMovies,
+  favoriteTv: favorites.ratedTv,
   profile: accountDetails.details,
 });
 
 export default connect(mapStateToProps, {
-  forgetUser,
+  logoutUser,
   getRated,
   getFavorites,
   getAccountDetails,
