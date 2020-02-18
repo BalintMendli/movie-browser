@@ -3,11 +3,9 @@ import axios from 'axios';
 import { MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUser, authRequest } from '../../redux/actions';
+import { setUser, getToken } from '../../redux/actions';
 import { bg } from '../Style/style.module.css';
 
-const tokenUrl =
-  'https://api.themoviedb.org/3/authentication/token/new?api_key=';
 const guestUrl =
   'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=';
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -24,8 +22,8 @@ class LogIn extends Component {
   }
 
   signIn() {
-    const { authRequest } = this.props;
-    authRequest();
+    const { getToken } = this.props;
+    getToken();
   }
 
   guestSignIn() {
@@ -74,4 +72,4 @@ class LogIn extends Component {
   }
 }
 
-export default connect(null, { setUser, authRequest })(LogIn);
+export default connect(null, { setUser, getToken })(LogIn);

@@ -4,4 +4,4 @@ export { fetchDetails } from './fetchDetails';
 
 export { submitRating } from './submitRating';
 
-export { authRequest, setUser, logoutUser } from './auth';
+export { getToken, getSession, setUser, logoutUser } from './auth';

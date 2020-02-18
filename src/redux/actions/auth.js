@@ -5,8 +5,12 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-  AUTH_REQUEST,
-  AUTH_FAILURE,
+  TOKEN_REQUEST,
+  TOKEN_SUCCESS,
+  TOKEN_FAILURE,
+  SESSION_REQUEST,
+  SESSION_SUCCESS,
+  SESSION_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
 
@@ -18,16 +22,16 @@ export function setUser(sessionId, guest) {
   };
 }
 
-export function authRequest() {
+export function getToken() {
   return dispatch => {
-    dispatch({ type: AUTH_REQUEST });
+    dispatch({ type: TOKEN_REQUEST });
     const tokenUrl =
       'https://api.themoviedb.org/3/authentication/token/new?api_key=';
     axios
       .get(`${tokenUrl}${API_KEY}`)
       .then(response => {
         const requestToken = response.data.request_token;
-        console.log(response.data, requestToken, window.location.href);
+        dispatch({ type: TOKEN_SUCCESS });
         if (requestToken) {
           window.location.replace(
             `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${window.location.href}/auth`,
@@ -35,7 +39,30 @@ export function authRequest() {
         }
       })
       .catch(error => {
-        dispatch({ type: AUTH_FAILURE, error });
+        dispatch({ type: TOKEN_FAILURE, error });
+      });
+  };
+}
+
+export function getSession(requestToken) {
+  return dispatch => {
+    dispatch({ type: SESSION_REQUEST });
+    const url =
+      'https://api.themoviedb.org/3/authentication/session/new?api_key=';
+    axios
+      .post(`${url}${API_KEY}`, {
+        request_token: requestToken,
+      })
+      .then(response => {
+        const sessionId = response.data.session_id;
+        dispatch({
+          type: SESSION_SUCCESS,
+          payload: { sessionId, guest: false },
+        });
+        setAuth(sessionId, false);
+      })
+      .catch(error => {
+        dispatch({ type: SESSION_FAILURE, error });
       });
   };
 }

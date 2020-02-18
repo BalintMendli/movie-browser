@@ -1,44 +1,23 @@
 import qs from 'query-string';
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { setUser } from '../../redux/actions';
-
-const url = 'https://api.themoviedb.org/3/authentication/session/new?api_key=';
-const API_KEY = process.env.REACT_APP_API_KEY;
+import { getSession } from '../../redux/actions';
 
 class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      error: null,
-    };
-  }
-
   componentDidMount() {
-    const { location, setUser } = this.props;
-    axios
-      .post(`${url}${API_KEY}`, {
-        request_token: qs.parse(location.search).request_token,
-      })
-      .then(response => {
-        setUser(response.data.session_id);
-        this.setState({
-          isLoading: false,
-        });
-      })
-      .catch(error => this.setState({ error }));
+    const { location, getSession } = this.props;
+    getSession(qs.parse(location.search).request_token);
   }
 
   render() {
-    const { isLoading, error } = this.state;
+    const { isLoading, error, sessionId } = this.pros;
+
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading) {
+    if (isLoading || !sessionId) {
       return <p>Loading ...</p>;
     }
 
@@ -46,4 +25,10 @@ class Auth extends Component {
   }
 }
 
-export default connect(null, { setUser })(Auth);
+const mapStateToProps = ({ auth }) => ({
+  loading: auth.loading,
+  error: auth.error,
+  sessionId: auth.sessionId,
+});
+
+export default connect(mapStateToProps, { getSession })(Auth);
