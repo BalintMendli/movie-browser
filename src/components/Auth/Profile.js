@@ -1,6 +1,5 @@
 import { Container } from 'mdbreact';
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
@@ -12,9 +11,6 @@ import { getAccountDetails } from '../../redux/actions/getAccountDetails';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: false,
-    };
     this.logout = this.logout.bind(this);
   }
 
@@ -33,8 +29,6 @@ class Profile extends Component {
   }
 
   render() {
-    const { redirect } = this.state;
-
     const {
       ratedMovies,
       ratedTv,
@@ -51,10 +45,6 @@ class Profile extends Component {
 
     if (loading || !ratedTv || !ratedMovies) {
       return <p>Loading ...</p>;
-    }
-
-    if (redirect) {
-      return <Redirect push to="/" />;
     }
 
     if (profile.id) {
@@ -123,8 +113,8 @@ const mapStateToProps = ({ rated, favorites, accountDetails, auth }) => ({
   sessionId: auth.sessionId,
   ratedMovies: rated.ratedMovies,
   ratedTv: rated.ratedTv,
-  favoriteMovies: favorites.ratedMovies,
-  favoriteTv: favorites.ratedTv,
+  favoriteMovies: favorites.favoriteMovies,
+  favoriteTv: favorites.favoriteTv,
   profile: accountDetails.details,
 });
 
