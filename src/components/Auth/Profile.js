@@ -24,8 +24,8 @@ class Profile extends Component {
   }
 
   logout() {
-    const { logoutUser, sessionId } = this.props;
-    logoutUser(sessionId);
+    const { logoutUser } = this.props;
+    logoutUser();
   }
 
   render() {
@@ -110,7 +110,6 @@ class Profile extends Component {
 
 const mapStateToProps = ({ rated, favorites, accountDetails, auth }) => ({
   isGuest: auth.guest,
-  sessionId: auth.sessionId,
   ratedMovies: rated.ratedMovies,
   ratedTv: rated.ratedTv,
   favoriteMovies: favorites.favoriteMovies,

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { setAuth, deleteAuth } from '../../utils/storage';
 import {
-  SET_AUTH,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
@@ -13,14 +12,6 @@ import {
   SESSION_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
-
-export function setUser(sessionId, guest) {
-  setAuth(sessionId, guest);
-  return {
-    type: SET_AUTH,
-    payload: { sessionId, guest },
-  };
-}
 
 export function getToken() {
   return dispatch => {
@@ -67,9 +58,31 @@ export function getSession(requestToken) {
   };
 }
 
-export function logoutUser(sessionId) {
+export function getGuestSession() {
   return dispatch => {
+    dispatch({ type: SESSION_REQUEST });
+    const url =
+      'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=';
+    axios
+      .get(`${url}${API_KEY}`)
+      .then(response => {
+        const sessionId = response.data.guest_session_id;
+        dispatch({
+          type: SESSION_SUCCESS,
+          payload: { sessionId, guest: true },
+        });
+        setAuth(sessionId, true);
+      })
+      .catch(error => {
+        dispatch({ type: SESSION_FAILURE, error });
+      });
+  };
+}
+
+export function logoutUser() {
+  return (dispatch, getState) => {
     dispatch({ type: LOGOUT_REQUEST });
+    const { sessionId } = getState().auth;
     axios
       .delete(
         `https://api.themoviedb.org/3/authentication/session?api_key=${API_KEY}`,

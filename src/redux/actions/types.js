@@ -6,9 +6,6 @@ export const DETAILS_SUCCESS = 'DETAILS_SUCCESS';
 export const DETAILS_ERROR = 'DETAILS_ERROR';
 export const DETAILS_REQUEST = 'DETAILS_REQUEST';
 
-export const SET_AUTH = 'SET_AUTH';
-export const DEL_AUTH = 'DEL_AUTH';
-
 export const TOKEN_REQUEST = 'TOKEN_REQUEST';
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_FAILURE = 'TOKEN_FAILURE';

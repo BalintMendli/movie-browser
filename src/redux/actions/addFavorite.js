@@ -5,12 +5,15 @@ import {
   ADD_FAVORITE_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
-import { getSessionId } from '../../utils/storage';
 
-export const addFavorite = ({ id, mediaType, favorite }) => async dispatch => {
+export const addFavorite = ({ id, mediaType, favorite }) => async (
+  dispatch,
+  getState,
+) => {
   dispatch({ type: ADD_FAVORITE_REQUEST, loading: true });
   try {
-    const url = `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${API_KEY}&session_id=${getSessionId()}`;
+    const { sessionId } = getState().auth;
+    const url = `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${API_KEY}&session_id=${sessionId}`;
     const data = { media_type: mediaType, media_id: id, favorite };
     const options = {
       url,

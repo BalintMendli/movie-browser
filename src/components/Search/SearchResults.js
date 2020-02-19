@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Container, Row, Col } from 'mdbreact';
 import { bg } from '../Style/style.module.css';
 import SearchResultsElem from './SearchResultsElem';
-
-const API_KEY = process.env.REACT_APP_API_KEY;
+import { API_KEY } from '../../utils/resources';
 
 export default class SearchResults extends Component {
   constructor(props) {
@@ -38,7 +37,7 @@ export default class SearchResults extends Component {
         this.setState({
           error,
           isLoading: false,
-        })
+        }),
       );
   }
 

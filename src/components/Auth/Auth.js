@@ -11,13 +11,12 @@ class Auth extends Component {
   }
 
   render() {
-    const { isLoading, error, sessionId } = this.pros;
-
+    const { loading, error, sessionId } = this.props;
     if (error) {
       return <p>{error.message}</p>;
     }
 
-    if (isLoading || !sessionId) {
+    if (loading || !sessionId) {
       return <p>Loading ...</p>;
     }
 

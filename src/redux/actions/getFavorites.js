@@ -4,17 +4,14 @@ import {
   FAVORITES_SUCCESS,
   FAVORITES_FAILURE,
 } from './types';
-import { getDetailsUrl } from '../../utils/resources';
-import { getSessionId } from '../../utils/storage';
+import { API_KEY } from '../../utils/resources';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export const getFavorites = () => async dispatch => {
+export const getFavorites = () => async (dispatch, getState) => {
   dispatch({
     type: FAVORITES_REQUEST,
   });
   try {
-    const sessionId = getSessionId();
+    const { sessionId } = getState().auth;
     const movieUrl = `https://api.themoviedb.org/3/account/{account_id}/favorite/movies?api_key=${API_KEY}&session_id=${sessionId}`;
     const tvUrl = `https://api.themoviedb.org/3/account/{account_id}/favorite/tv?api_key=${API_KEY}&session_id=${sessionId}`;
     const [movies, tv] = await Promise.all([movieUrl, tvUrl].map(axios.get));

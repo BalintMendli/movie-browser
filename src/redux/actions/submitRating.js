@@ -5,12 +5,17 @@ import {
   SUBMIT_RATING_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
-import { getSessionId } from '../../utils/storage';
 
-export const submitRating = ({ id, mediaType, rating }) => async dispatch => {
+export const submitRating = ({ id, mediaType, rating }) => async (
+  dispatch,
+  getState,
+) => {
   dispatch({ type: SUBMIT_RATING_REQUEST, value: true });
   try {
-    const url = `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${API_KEY}&session_id=${getSessionId()}`;
+    const { sessionId, guest } = getState().auth;
+    const url = guest
+      ? `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${API_KEY}&guest_session_id=${sessionId}`
+      : `https://api.themoviedb.org/3/${mediaType}/${id}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
     const data = { value: rating };
     const options = {
       url,

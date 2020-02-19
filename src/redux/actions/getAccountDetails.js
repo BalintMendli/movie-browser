@@ -4,14 +4,10 @@ import {
   ACCOUNT_DETAILS_SUCCESS,
   ACCOUNT_DETAILS_FAILURE,
 } from './types';
-import { getAuthInfo } from '../../utils/storage';
+import { API_KEY } from '../../utils/resources';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export const getAccountDetails = () => async dispatch => {
-  const authInfo = getAuthInfo();
-  if (authInfo.guest || !authInfo.sessionId) return null;
-  const { sessionId } = authInfo;
+export const getAccountDetails = () => async (dispatch, getState) => {
+  const { sessionId } = getState().auth;
   dispatch({ type: ACCOUNT_DETAILS_REQUEST });
   try {
     const url = `https://api.themoviedb.org/3/account?api_key=${API_KEY}&session_id=${sessionId}`;

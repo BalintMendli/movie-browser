@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUser, getToken } from '../../redux/actions';
+import { getGuestSession, getToken } from '../../redux/actions';
 import { bg } from '../Style/style.module.css';
-
-const guestUrl =
-  'https://api.themoviedb.org/3/authentication/guest_session/new?api_key=';
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 class LogIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      redirect: false,
-    };
     this.signIn = this.signIn.bind(this);
     this.guestSignIn = this.guestSignIn.bind(this);
   }
@@ -27,33 +18,14 @@ class LogIn extends Component {
   }
 
   guestSignIn() {
-    const { setUser } = this.props;
-    axios
-      .get(`${guestUrl}${API_KEY}`)
-      .then(response => {
-        console.log(response.data);
-        if (response.data.guest_session_id) {
-          setUser(response.data.guest_session_id, true);
-          this.setState({
-            redirect: true,
-          });
-        }
-      })
-      .catch(error =>
-        this.setState({
-          error,
-        }),
-      );
+    const { getGuestSession } = this.props;
+    getGuestSession();
   }
 
   render() {
-    const { error, redirect } = this.state;
+    const { sessionId } = this.props;
 
-    if (error) {
-      return <p>{error.message}</p>;
-    }
-
-    if (redirect) {
+    if (sessionId) {
       return <Redirect to="/profile" />;
     }
 
@@ -72,4 +44,6 @@ class LogIn extends Component {
   }
 }
 
-export default connect(null, { setUser, getToken })(LogIn);
+const mapStateToProps = ({ auth }) => ({ sessionId: auth.sessionId });
+
+export default connect(mapStateToProps, { getGuestSession, getToken })(LogIn);

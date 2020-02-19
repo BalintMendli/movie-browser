@@ -5,12 +5,15 @@ import {
   ADD_BOOKMARK_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
-import { getSessionId } from '../../utils/storage';
 
-export const addBookmark = ({ id, mediaType, watchlist }) => async dispatch => {
+export const addBookmark = ({ id, mediaType, watchlist }) => async (
+  dispatch,
+  getState,
+) => {
   dispatch({ type: ADD_BOOKMARK_REQUEST, loading: true });
   try {
-    const url = `https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=${API_KEY}&session_id=${getSessionId()}`;
+    const { sessionId } = getState().auth;
+    const url = `https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=${API_KEY}&session_id=${sessionId}`;
     const data = { media_type: mediaType, media_id: id, watchlist };
     const options = {
       url,

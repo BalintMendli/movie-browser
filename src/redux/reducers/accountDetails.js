@@ -2,7 +2,7 @@ import {
   ACCOUNT_DETAILS_REQUEST,
   ACCOUNT_DETAILS_SUCCESS,
   ACCOUNT_DETAILS_FAILURE,
-  DEL_AUTH,
+  LOGOUT_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -20,7 +20,7 @@ export function accountDetails(state = initialState, action) {
       return { ...state, loading: false, details };
     case ACCOUNT_DETAILS_FAILURE:
       return { ...state, loading: false, error };
-    case DEL_AUTH:
+    case LOGOUT_SUCCESS:
       return {};
     default:
       return state;
