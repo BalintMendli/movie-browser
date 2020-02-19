@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
 import { logoutUser } from '../../redux/actions';
-import { getRated } from '../../redux/actions/getRated';
-import { getFavorites } from '../../redux/actions/getFavorites';
-import { getAccountDetails } from '../../redux/actions/getAccountDetails';
+import { getAccountInfo } from '../../redux/actions/getAccountInfo';
 
 class Profile extends Component {
   constructor(props) {
@@ -15,12 +13,8 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { getRated, getFavorites, getAccountDetails, isGuest } = this.props;
-    getRated();
-    if (!isGuest) {
-      getAccountDetails();
-      getFavorites();
-    }
+    const { getAccountInfo } = this.props;
+    getAccountInfo();
   }
 
   logout() {
@@ -34,6 +28,8 @@ class Profile extends Component {
       ratedTv,
       favoriteMovies,
       favoriteTv,
+      watchlistMovies,
+      watchlistTv,
       profile,
       error,
       loading,
@@ -47,7 +43,7 @@ class Profile extends Component {
       return <p>Loading ...</p>;
     }
 
-    if (profile.id) {
+    if (profile) {
       return (
         <div className={bg}>
           <Container className="text-white">
@@ -79,6 +75,14 @@ class Profile extends Component {
             {ratedTv.map(x => (
               <SmallCards key={x.id} data={x} type="tv" page="profile" />
             ))}
+            <h5>Watchlist Movies:</h5>
+            {watchlistMovies.map(x => (
+              <SmallCards key={x.id} data={x} type="movie" page="profile" />
+            ))}
+            <h5>Watchlist TV Shows:</h5>
+            {watchlistTv.map(x => (
+              <SmallCards key={x.id} data={x} type="tv" page="profile" />
+            ))}
             <button type="button" onClick={this.logout}>
               Log Out
             </button>
@@ -108,18 +112,17 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ rated, favorites, accountDetails, auth }) => ({
-  isGuest: auth.guest,
-  ratedMovies: rated.ratedMovies,
-  ratedTv: rated.ratedTv,
-  favoriteMovies: favorites.favoriteMovies,
-  favoriteTv: favorites.favoriteTv,
-  profile: accountDetails.details,
+const mapStateToProps = ({ accountInfo }) => ({
+  ratedMovies: accountInfo.ratedMovies?.results,
+  ratedTv: accountInfo.ratedTv?.results,
+  favoriteMovies: accountInfo.favoriteMovies?.results,
+  favoriteTv: accountInfo.favoriteTv?.results,
+  watchlistMovies: accountInfo.watchlistMovies?.results,
+  watchlistTv: accountInfo.watchlistTv?.results,
+  profile: accountInfo.details,
 });
 
 export default connect(mapStateToProps, {
+  getAccountInfo,
   logoutUser,
-  getRated,
-  getFavorites,
-  getAccountDetails,
 })(Profile);
