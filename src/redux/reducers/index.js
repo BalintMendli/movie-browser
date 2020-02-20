@@ -5,6 +5,8 @@ import { accountInfo } from './accountInfo';
 import { auth } from './auth';
 import { submitRating } from './submitRating';
 import { addFavorite } from './addFavorite';
+import { addBookmark } from './addBookmark';
+import { notifications } from './notifications';
 
 export default combineReducers({
   lists,
@@ -13,4 +15,6 @@ export default combineReducers({
   accountInfo,
   submitRating,
   addFavorite,
+  addBookmark,
+  notifications,
 });

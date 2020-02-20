@@ -11,6 +11,7 @@ import SearchResults from './components/Search/SearchResults';
 import LogIn from './components/Auth/LogIn';
 import Auth from './components/Auth/Auth';
 import PrivateRoute from './components/Auth/PrivateRoute';
+import Notifications from './components/Misc/Notifications';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         />
         <Route path="/results/:type/:query" component={SearchResults} />
       </Switch>
+      <Notifications />
       <FooterComp />
     </div>
   );

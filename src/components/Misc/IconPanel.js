@@ -14,6 +14,7 @@ import {
 import { submitRating } from '../../redux/actions/submitRating';
 import { addFavorite } from '../../redux/actions/addFavorite';
 import { addBookmark } from '../../redux/actions/addBookmark';
+import { addNotification } from '../../redux/actions/notifications';
 
 class IconPanel extends Component {
   constructor(props) {
@@ -149,4 +150,5 @@ export default connect(mapStateToProps, {
   submitRating,
   addFavorite,
   addBookmark,
+  addNotification,
 })(IconPanel);
