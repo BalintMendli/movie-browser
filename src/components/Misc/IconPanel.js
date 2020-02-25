@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBIcon, Tooltip, Collapse } from 'mdbreact';
+import { MDBIcon, MDBTooltip, Collapse } from 'mdbreact';
 import StarRatings from 'react-star-ratings';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,8 +21,6 @@ class IconPanel extends Component {
     super(props);
     this.state = {
       collapseID: '',
-      icon: '',
-      ratingMessage: 'Rate It!',
     };
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.closeCollapse = this.closeCollapse.bind(this);
@@ -32,15 +30,10 @@ class IconPanel extends Component {
   }
 
   toggleCollapse(e) {
-    const icon = e.target.id;
     const { collapse } = e.target.dataset;
     this.setState(prevState => ({
-      icon,
       collapseID: prevState.collapseID !== collapse ? collapse : '',
     }));
-    if (icon === 'heart' || icon === 'bookmark') {
-      setTimeout(this.closeCollapse, 3000);
-    }
   }
 
   closeCollapse() {
@@ -65,68 +58,76 @@ class IconPanel extends Component {
   }
 
   render() {
-    const { collapseID, icon, ratingMessage } = this.state;
-    const { rated, favorite, watchlist } = this.props;
-    let collapseContent = '';
-    if (icon === 'star') {
-      collapseContent = (
-        <>
-          <StarRatings
-            rating={rated}
-            changeRating={this.changeRating}
-            starRatedColor="#ffc107"
-            starHoverColor="#ffc107"
-            starDimension="30px"
-            starSpacing="0px"
-            numberOfStars={10}
-            name="rating"
-          />
-          <p className="pt-3">{ratingMessage}</p>
-        </>
-      );
-    }
-    if (icon === 'heart') {
-      collapseContent = <p className="pt-3">Added to Your Favorites</p>;
-    }
-    if (icon === 'bookmark') {
-      collapseContent = <p className="pt-3">Added to Bookmarks</p>;
-    }
+    const { collapseID } = this.state;
+    const { rated, favorite, watchlist, mediaType } = this.props;
+    const collapseContent = (
+      <>
+        <StarRatings
+          rating={rated}
+          changeRating={this.changeRating}
+          starRatedColor="#ffc107"
+          starHoverColor="#ffc107"
+          starDimension="30px"
+          starSpacing="0px"
+          numberOfStars={10}
+          name="rating"
+        />
+        <p className="pt-3">
+          {`Rate ${mediaType === 'tv' ? 'TV Show' : 'Movie'}!`}
+        </p>
+      </>
+    );
+
     return (
-      <div className="mt-3 mb-2">
-        <MDBIcon
-          icon="star"
-          size="2x"
-          id="star"
-          className={`mx-4 ${rated ? amberStarActive : amberStar}`}
-          data-collapse="basicCollapse"
-          onClick={this.toggleCollapse}
-        />
-        <MDBIcon
-          icon="heart"
-          size="2x"
-          id="heart"
-          className={`mx-4 ${favorite ? redHeartActive : redHeart}`}
-          data-collapse="basicCollapse"
-          onClick={this.handleFavorite}
-        />
-        <MDBIcon
-          icon="bookmark"
-          size="2x"
-          id="bookmark"
-          className={`mx-4 ${watchlist ? cyanBMActive : cyanBM}`}
-          data-collapse="basicCollapse"
-          onClick={this.handleBookmark}
-        />
+      <>
+        <div className="mt-3 mb-2 mx-4 d-flex justify-content-around">
+          <MDBTooltip placement="bottom" domElement>
+            <div className={watchlist ? cyanBMActive : cyanBM}>
+              <MDBIcon
+                icon="star"
+                size="2x"
+                id="star"
+                className={rated ? amberStarActive : amberStar}
+                data-collapse="basicCollapse"
+                onClick={this.toggleCollapse}
+              />
+            </div>
+            <div>{`Rate ${mediaType === 'tv' ? 'TV Show' : 'Movie'}!`}</div>
+          </MDBTooltip>
+          <MDBTooltip placement="bottom" domElement>
+            <div className={watchlist ? cyanBMActive : cyanBM}>
+              <MDBIcon
+                icon="heart"
+                size="2x"
+                id="heart"
+                className={favorite ? redHeartActive : redHeart}
+                onClick={this.handleFavorite}
+              />
+            </div>
+            <div>Mark as Favorite!</div>
+          </MDBTooltip>
+          <MDBTooltip placement="bottom" domElement>
+            <div className={watchlist ? cyanBMActive : cyanBM}>
+              <MDBIcon
+                icon="bookmark"
+                size="2x"
+                id="bookmark"
+                onClick={this.handleBookmark}
+              />
+            </div>
+            <div>Add to Watchlist!</div>
+          </MDBTooltip>
+        </div>
         <Collapse id="basicCollapse" isOpen={collapseID} className="pt-3">
           {collapseContent}
         </Collapse>
-      </div>
+      </>
     );
   }
 }
 
 IconPanel.propTypes = {
-  mediaType: PropTypes.oneOf(['movie', 'tv', 'person']).isRequired,
+  mediaType: PropTypes.oneOf(['movie', 'tv']).isRequired,
   id: PropTypes.number.isRequired,
   rated: PropTypes.number,
   favorite: PropTypes.bool,
@@ -142,9 +143,7 @@ IconPanel.defaultProps = {
   watchlist: false,
 };
 
-const mapStateToProps = ({ auth }) => ({
-  auth,
-});
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps, {
   submitRating,

@@ -80,17 +80,18 @@
   white-space: nowrap;
 }
 
-:global .tooltip > .tooltip-inner {
+:global .tooltip {
   background-color: #01d277;
   color: #000000;
-}
-
-:global .tooltip > .arrow::before {
-  border-bottom-color: #01d277;
-}
-
-:global .tooltip {
   top: 5px !important;
+}
+
+:global .popover_arrow {
+  border-bottom-color: #01d277 !important;
+}
+
+:global .popover_arrow::before {
+  border-bottom-color: #01d277 !important;
 }
 
 .amberStar:hover {
