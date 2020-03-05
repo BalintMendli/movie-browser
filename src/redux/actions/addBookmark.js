@@ -5,14 +5,19 @@ import {
   ADD_BOOKMARK_FAILURE,
 } from './types';
 import { API_KEY } from '../../utils/resources';
+import { addNotification } from './notifications';
 
 export const addBookmark = ({ id, mediaType, watchlist }) => async (
   dispatch,
   getState,
 ) => {
+  const { sessionId, guest } = getState().auth;
+  if (!sessionId || guest) {
+    dispatch(addNotification('Please sign in with your TMDB account!'));
+    return;
+  }
   dispatch({ type: ADD_BOOKMARK_REQUEST, loading: true });
   try {
-    const { sessionId } = getState().auth;
     const url = `https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=${API_KEY}&session_id=${sessionId}`;
     const data = { media_type: mediaType, media_id: id, watchlist };
     const options = {

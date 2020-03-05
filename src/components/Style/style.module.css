@@ -83,7 +83,7 @@
 :global .tooltip {
   background-color: #01d277;
   color: #000000;
-  top: 5px !important;
+  top: 8px !important;
 }
 
 :global .popover_arrow {
@@ -92,6 +92,10 @@
 
 :global .popover_arrow::before {
   border-bottom-color: #01d277 !important;
+}
+
+:global strong {
+  font-weight: normal;
 }
 
 .amberStar:hover {

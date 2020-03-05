@@ -16,11 +16,15 @@ function Notifications({ notifications }) {
       {notifications.map(n => (
         <MDBNotification
           key={n.ts}
+          title={n.message}
           show
           fade
           autohide={5000}
-          iconClassName="d-none"
-          message={n.message}
+          icon="exclamation-triangle"
+          titleClassName="bg-transparent text-dark d-flex"
+          iconClassName="orange-text"
+          closeClassName="ml-4"
+          bodyClassName="d-none"
         />
       ))}
     </MDBContainer>
