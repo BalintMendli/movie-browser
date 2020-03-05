@@ -98,6 +98,14 @@
   font-weight: normal;
 }
 
+:global a {
+  color: inherit;
+}
+
+:global a:hover {
+  color: inherit;
+}
+
 .amberStar:hover {
   color: #ffc107;
   transition: 250ms linear;

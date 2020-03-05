@@ -11,6 +11,7 @@ const CarouselComp = ({ nowPlayingMovie }) => (
     length={carouselLength}
     showControls={false}
     showIndicators={false}
+    onHoverStop={false}
     className="z-depth-1"
   >
     <CarouselInner>

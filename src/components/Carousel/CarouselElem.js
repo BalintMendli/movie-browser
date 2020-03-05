@@ -1,9 +1,10 @@
 import React from 'react';
 import { CarouselCaption, CarouselItem, View, Mask, Fa } from 'mdbreact';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { carImg } from './Carousel.module.css';
 
-const CarouselElem = ({ itemId, movie: { title, rating, bgPic } }) => (
+const CarouselElem = ({ itemId, movie: { title, rating, bgPic, id } }) => (
   <CarouselItem itemId={itemId}>
     <View
       src={`https://image.tmdb.org/t/p/original${bgPic}`}
@@ -12,7 +13,9 @@ const CarouselElem = ({ itemId, movie: { title, rating, bgPic } }) => (
       <Mask overlay="black-light" />
     </View>
     <CarouselCaption>
-      <h3 className="h3-responsive text-left font-weight-bold">{title}</h3>
+      <Link to={`/movie/${id}`}>
+        <h3 className="h3-responsive text-left font-weight-bold">{title}</h3>
+      </Link>
       <p className="text-left font-weight-bold">
         <Fa icon="star" className="amber-text pr-1" />
         {rating}
@@ -30,5 +33,6 @@ CarouselElem.propTypes = {
     title: PropTypes.string,
     rating: PropTypes.number,
     bgPic: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
 };
