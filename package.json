@@ -1,6 +1,7 @@
 {
-  "name": "movie-app",
+  "name": "movie-browser-app",
   "version": "0.1.0",
+  "homepage": "https://zenott.github.io/movie-browser",
   "private": true,
   "dependencies": {
     "@loadable/component": "^5.12.0",

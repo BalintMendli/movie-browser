@@ -37,7 +37,7 @@ const FooterComp = () => (
     </Container>
     <div className="footer-copyright text-center py-3">
       <Container fluid>
-        {`${new Date().getFullYear()} - Movie App`}
+        {`${new Date().getFullYear()} - Movie Browser`}
         <span className="text-muted"> by</span>
         <a href="https://github.com/zenott"> zenott</a>
       </Container>

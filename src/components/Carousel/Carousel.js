@@ -15,11 +15,9 @@ const CarouselComp = ({ nowPlayingMovie }) => (
     className="z-depth-1"
   >
     <CarouselInner>
-      {nowPlayingMovie
-        .filter((_, i) => i < carouselLength)
-        .map((x, i) => (
-          <CarouselElem key={x.id} itemId={i + 1} movie={x} />
-        ))}
+      {nowPlayingMovie.slice(0, carouselLength).map((x, i) => (
+        <CarouselElem key={x.id} itemId={i + 1} movie={x} />
+      ))}
     </CarouselInner>
   </Carousel>
 );
