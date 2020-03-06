@@ -1,0 +1,2 @@
+(this["webpackJsonpmovie-browser-app"]=this["webpackJsonpmovie-browser-app"]||[]).push([[1],{85:function(e,t,a){"use strict";a.r(t);var r=a(1),n=a.n(r),c=a(3),s=a(25);a(43);t.default=function(e){var t=e.data;return n.a.createElement(c.B,{className:"flex-column justify-content-center align-items-center"},n.a.createElement(c.h,{size:"12",md:"10",lg:"8"},t.credits.cast.map((function(e){return n.a.createElement(s.a,{key:e.credit_id,data:e,type:"character"})}))))}}}]);
+//# sourceMappingURL=1.5b122693.chunk.js.map

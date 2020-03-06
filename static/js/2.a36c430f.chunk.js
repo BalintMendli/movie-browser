@@ -1,0 +1,2 @@
+(this["webpackJsonpmovie-browser-app"]=this["webpackJsonpmovie-browser-app"]||[]).push([[2],{86:function(e,a,t){"use strict";t.r(a);var r=t(1),i=t.n(r),n=t(25);t(43);a.default=function(e){var a=e.data;return i.a.createElement("div",null,i.a.createElement("h3",{className:"mt-4 mb-4"},"Filmography"),a.combined_credits.cast.map((function(e){return i.a.createElement(n.a,{key:e.credit_id,data:e,page:"filmography",type:e.media_type})})))}}}]);
+//# sourceMappingURL=2.a36c430f.chunk.js.map

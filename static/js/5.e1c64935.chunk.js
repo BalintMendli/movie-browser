@@ -1,0 +1,2 @@
+(this["webpackJsonpmovie-browser-app"]=this["webpackJsonpmovie-browser-app"]||[]).push([[5],{89:function(e,a,t){"use strict";t.r(a);var r=t(1),i=t.n(r),n=t(25);t(43);a.default=function(e){var a=e.data,t=e.type;return i.a.createElement("div",null,a.similar.results.map((function(e){return i.a.createElement(n.a,{key:e.id,data:e,type:t,page:"similar"})})))}}}]);
+//# sourceMappingURL=5.e1c64935.chunk.js.map
