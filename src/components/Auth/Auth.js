@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getSession } from '../../redux/actions';
+import Loading from '../Misc/Loading';
 
 class Auth extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ class Auth extends Component {
     }
 
     if (loading || !sessionId) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
 
     return <Redirect to="/profile" />;

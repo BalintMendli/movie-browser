@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'mdbreact';
 import { bg } from '../Style/style.module.css';
 import SearchResultsElem from './SearchResultsElem';
 import { API_KEY } from '../../utils/resources';
+import Loading from '../Misc/Loading';
 
 export default class SearchResults extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class SearchResults extends Component {
     }
 
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
     return (
       <div className={bg}>

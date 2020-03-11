@@ -5,6 +5,7 @@ import { fetchLists } from '../../redux/actions';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
 import { bg, hr } from '../Style/style.module.css';
+import Loading from '../Misc/Loading';
 
 class Movies extends Component {
   componentDidMount() {
@@ -38,7 +39,7 @@ class Movies extends Component {
     }
 
     if (loading) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
 
     return (

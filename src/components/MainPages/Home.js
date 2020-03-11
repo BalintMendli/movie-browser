@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchLists } from '../../redux/actions';
 import CarouselComp from '../Carousel/Carousel';
 import MainCont from './MainCont';
+import Loading from '../Misc/Loading';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -29,7 +30,7 @@ class Home extends React.Component {
     }
 
     if (loading) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
 
     return (

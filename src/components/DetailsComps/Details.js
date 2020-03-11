@@ -5,6 +5,7 @@ import { fetchDetails } from '../../redux/actions';
 import Backdrop from './Backdrop';
 import DetailsLower from './DetailsLower';
 import { movieType, tvType, personType } from '../types';
+import Loading from '../Misc/Loading';
 
 function getMedia(path) {
   return path.match(/\w+(?=\/)/)[0];
@@ -34,7 +35,7 @@ class Details extends Component {
     }
 
     if (loading || !details || parseInt(match.params.id, 10) !== details.id) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
 
     return (

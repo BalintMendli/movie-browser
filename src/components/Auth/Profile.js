@@ -5,6 +5,7 @@ import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
 import { logoutUser } from '../../redux/actions';
 import { getAccountInfo } from '../../redux/actions/getAccountInfo';
+import Loading from '../Misc/Loading';
 
 class Profile extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Profile extends Component {
     }
 
     if (loading || !ratedTv || !ratedMovies) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
 
     if (profile) {
