@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getGuestSession, getToken } from '../../redux/actions';
+import { getGuestSession, getToken } from '../../redux/actions/auth';
 import { bg } from '../Style/style.module.css';
 
 class LogIn extends Component {

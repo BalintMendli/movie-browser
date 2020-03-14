@@ -7,7 +7,7 @@ import {
 import { API_KEY } from '../../utils/resources';
 import { addNotification } from './notifications';
 
-export const addBookmark = ({ id, mediaType, watchlist }) => async (
+const addBookmark = ({ id, mediaType, watchlist }) => async (
   dispatch,
   getState,
 ) => {
@@ -33,3 +33,5 @@ export const addBookmark = ({ id, mediaType, watchlist }) => async (
     dispatch({ type: ADD_BOOKMARK_FAILURE, error });
   }
 };
+
+export default addBookmark;

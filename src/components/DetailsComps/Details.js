@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDetails } from '../../redux/actions';
+import fetchDetails from '../../redux/actions/fetchDetails';
 import Backdrop from './Backdrop';
 import DetailsLower from './DetailsLower';
 import { movieType, tvType, personType } from '../types';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 function getMedia(path) {
   return path.match(/\w+(?=\/)/)[0];
@@ -31,7 +32,7 @@ class Details extends Component {
     const media = getMedia(match.path);
 
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (loading || !details || parseInt(match.params.id, 10) !== details.id) {

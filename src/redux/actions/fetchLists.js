@@ -2,7 +2,7 @@ import axios from 'axios';
 import { LISTS_REQUEST, LISTS_SUCCESS, LISTS_ERROR } from './types';
 import { getUrl } from '../../utils/resources';
 
-export const fetchLists = categories => async dispatch => {
+const fetchLists = categories => async dispatch => {
   dispatch({ type: LISTS_REQUEST });
   try {
     const urls = getUrls(categories);
@@ -22,3 +22,5 @@ const getUrls = categories =>
   Object.keys(categories)
     .filter(cat => !categories[cat] || !categories[cat].length)
     .map(cat => [cat, getUrl(cat)]);
+
+export default fetchLists;

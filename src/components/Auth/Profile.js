@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bg } from '../Style/style.module.css';
 import SmallCards from '../Misc/SmallCards';
-import { logoutUser } from '../../redux/actions';
-import { getAccountInfo } from '../../redux/actions/getAccountInfo';
+import { logoutUser } from '../../redux/actions/auth';
+import getAccountInfo from '../../redux/actions/getAccountInfo';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 class Profile extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class Profile extends Component {
     } = this.props;
 
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (loading || !ratedTv || !ratedMovies) {

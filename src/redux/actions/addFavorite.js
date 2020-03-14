@@ -7,7 +7,7 @@ import {
 import { API_KEY } from '../../utils/resources';
 import { addNotification } from './notifications';
 
-export const addFavorite = ({ id, mediaType, favorite }) => async (
+const addFavorite = ({ id, mediaType, favorite }) => async (
   dispatch,
   getState,
 ) => {
@@ -33,3 +33,5 @@ export const addFavorite = ({ id, mediaType, favorite }) => async (
     dispatch({ type: ADD_FAVORITE_FAILURE, error });
   }
 };
+
+export default addFavorite;

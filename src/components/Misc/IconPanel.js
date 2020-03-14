@@ -11,9 +11,9 @@ import {
   cyanBM,
   cyanBMActive,
 } from '../Style/style.module.css';
-import { submitRating } from '../../redux/actions/submitRating';
-import { addFavorite } from '../../redux/actions/addFavorite';
-import { addBookmark } from '../../redux/actions/addBookmark';
+import submitRating from '../../redux/actions/submitRating';
+import addFavorite from '../../redux/actions/addFavorite';
+import addBookmark from '../../redux/actions/addBookmark';
 import { addNotification } from '../../redux/actions/notifications';
 
 class IconPanel extends Component {

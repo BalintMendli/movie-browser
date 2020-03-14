@@ -6,7 +6,7 @@ import {
 } from './types';
 import { API_KEY } from '../../utils/resources';
 
-export const getAccountInfo = () => async (dispatch, getState) => {
+const getAccountInfo = () => async (dispatch, getState) => {
   const { sessionId, guest } = getState().auth;
   dispatch({ type: ACCOUNT_INFO_REQUEST });
   try {
@@ -37,3 +37,5 @@ export const getAccountInfo = () => async (dispatch, getState) => {
     dispatch({ type: ACCOUNT_INFO_FAILURE, error });
   }
 };
+
+export default getAccountInfo;

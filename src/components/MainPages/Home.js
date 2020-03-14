@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchLists } from '../../redux/actions';
+import fetchLists from '../../redux/actions/fetchLists';
 import CarouselComp from '../Carousel/Carousel';
 import MainCont from './MainCont';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class Home extends React.Component {
     } = this.props;
 
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (loading) {

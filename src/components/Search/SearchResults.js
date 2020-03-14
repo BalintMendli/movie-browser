@@ -5,6 +5,7 @@ import { bg } from '../Style/style.module.css';
 import SearchResultsElem from './SearchResultsElem';
 import { API_KEY } from '../../utils/resources';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 export default class SearchResults extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class SearchResults extends Component {
   render() {
     const { results, error, isLoading } = this.state;
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (isLoading) {

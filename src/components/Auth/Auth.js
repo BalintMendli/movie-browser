@@ -2,8 +2,9 @@ import qs from 'query-string';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getSession } from '../../redux/actions';
+import { getSession } from '../../redux/actions/auth';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 class Auth extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Auth extends Component {
   render() {
     const { loading, error, sessionId } = this.props;
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (loading || !sessionId) {

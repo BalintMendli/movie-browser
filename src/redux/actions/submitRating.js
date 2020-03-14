@@ -7,7 +7,7 @@ import {
 import { API_KEY } from '../../utils/resources';
 import { addNotification } from './notifications';
 
-export const submitRating = ({ id, mediaType, rating }) => async (
+const submitRating = ({ id, mediaType, rating }) => async (
   dispatch,
   getState,
 ) => {
@@ -35,3 +35,5 @@ export const submitRating = ({ id, mediaType, rating }) => async (
     dispatch({ type: SUBMIT_RATING_FAILURE, error });
   }
 };
+
+export default submitRating;

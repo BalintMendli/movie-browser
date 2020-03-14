@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'mdbreact';
 import { connect } from 'react-redux';
-import { fetchLists } from '../../redux/actions';
+import fetchLists from '../../redux/actions/fetchLists';
 import SwiperMulti from '../Swiper/SwiperMulti';
 import SearchForm from '../Search/SearchForm';
 import { bg, hr } from '../Style/style.module.css';
 import Loading from '../Misc/Loading';
+import Error from '../Misc/Error';
 
 class TvShows extends Component {
   componentDidMount() {
@@ -35,7 +36,7 @@ class TvShows extends Component {
     } = this.props;
 
     if (error) {
-      return <p>{error.message}</p>;
+      return <Error />;
     }
 
     if (loading) {
