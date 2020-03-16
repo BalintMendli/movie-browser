@@ -1,0 +1,2 @@
+(this["webpackJsonpmovie-browser-app"]=this["webpackJsonpmovie-browser-app"]||[]).push([[6],{90:function(e,t,r){"use strict";r.r(t);var a=r(1),n=r.n(a);r(44);t.default=function(e){var t=e.data;return n.a.createElement(n.a.Fragment,null,t.videos.results.filter((function(e){return"YouTube"===e.site})).map((function(e){return n.a.createElement("iframe",{key:e.id,id:"ytplayer",title:"ytplayer",type:"text/html",width:"640",height:"360",src:"https://www.youtube.com/embed/".concat(e.key),frameBorder:"0"})})))}}}]);
+//# sourceMappingURL=6.088777f9.chunk.js.map
