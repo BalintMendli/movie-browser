@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Container, Row, Footer } from 'mdbreact';
-import PoweredBy from '../../media/powered-by.svg';
-import './Footer.css';
+import { Col, Container, Row, MDBFooter } from 'mdbreact';
+import PoweredByImg from '../../media/powered-by.svg';
 
-const FooterComp = () => (
-  <Footer color="unique-color-dark" className="font-small pt-4">
+const Footer = () => (
+  <MDBFooter color="unique-color-dark" className="font-small pt-4">
     <Container fluid className="text-center text-md-left">
       <Row className="justify-content-center">
         <Col md="4" className="text-center">
           <img
-            src={PoweredBy}
+            src={PoweredByImg}
             height="100px"
             alt="powered by"
             className="mt-2"
@@ -42,7 +41,7 @@ const FooterComp = () => (
         <a href="https://github.com/zenott"> zenott</a>
       </Container>
     </div>
-  </Footer>
+  </MDBFooter>
 );
 
-export default FooterComp;
+export default Footer;

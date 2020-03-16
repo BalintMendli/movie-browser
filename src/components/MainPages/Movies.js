@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'mdbreact';
+import { Container } from 'mdbreact';
 import { connect } from 'react-redux';
 import fetchLists from '../../redux/actions/fetchLists';
 import SwiperMulti from '../Swiper/SwiperMulti';
@@ -46,14 +46,12 @@ class Movies extends Component {
     return (
       <div className={bg}>
         <Container className="text-white">
-          <Row>
-            <Col size="9" className="d-flex align-items-center">
-              <h2 className="mb-0">Now Playing</h2>
-            </Col>
-            <Col size="3">
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="mb-4 mb-sm-0">Now Playing</h2>
+            <div className="d-none d-sm-block">
               <SearchForm type="movie" />
-            </Col>
-          </Row>
+            </div>
+          </div>
           <SwiperMulti movies={nowPlayingMovie} />
           <hr className={`my-4 ${hr}`} />
           <h2 className="mb-4">Popular</h2>

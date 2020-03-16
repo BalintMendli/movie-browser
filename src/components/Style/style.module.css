@@ -66,8 +66,14 @@
   box-shadow: none !important;
 }
 
-.carText {
+.backdropText {
   padding-left: 12%;
+}
+
+@media (max-width: 500px) {
+  .backdropText {
+    padding-left: 0;
+  }
 }
 
 .whiteSpace {

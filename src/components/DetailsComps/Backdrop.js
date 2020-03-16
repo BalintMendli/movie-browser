@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Mask, Fa } from 'mdbreact';
 import PropTypes from 'prop-types';
-import { carText } from '../Style/style.module.css';
+import { backdropText } from '../Style/style.module.css';
 import { carImg } from '../Carousel/Carousel.module.css';
 
 export default function Backdrop({
@@ -20,7 +20,7 @@ export default function Backdrop({
         overlay="black-light"
         className="d-flex justify-content-end p-5 flex-column text-white"
       >
-        <div className={carText}>
+        <div className={backdropText}>
           <h1 className="text-left font-weight-bold">{title}</h1>
           {tagline && <h4>{tagline}</h4>}
           <p>{genres.map(genre => genre.name).join(', ')}</p>
