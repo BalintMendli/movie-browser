@@ -13,7 +13,7 @@
 - React
 - Redux
 - Mdbreact
-- Css modules
+- CSS modules
 
 ## Usage
 
@@ -58,7 +58,7 @@ $ npm run test
 
 👤 **Balint Mendli**
 
-- Github: [@zenott](https://github.com/zenott)
+- GitHub: [@zenott](https://github.com/zenott)
 - Website: [mendli.com](https://mendli.com)
 - Email: [balint@mendli.com](mailto:balint@mendli.com)
 
