@@ -1,6 +1,6 @@
 ## Movie Browser
 
-> Browse, rate and bookmark your favorite Movies, TV shows and actors.
+> Browse, rate, and bookmark your favorite Movies, TV shows, and actors.
 
 ![movie-browser](img/movie-browser.png)
 
@@ -64,8 +64,8 @@ $ npm run test
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!
-Feel free to check [issues page](https://github.com/zenott/movie-browser/issues/).
+Contributions, issues, and feature requests are welcome!
+Feel free to check the [issues page](https://github.com/zenott/movie-browser/issues/).
 
 1. Fork it
 2. Create your working branch
