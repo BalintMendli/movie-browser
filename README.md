@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[Demo](https://zenott.github.io/movie-browser/)
+[Demo](https://balintmendli.github.io/movie-browser/)
 
 ## Built With
 
@@ -27,7 +27,7 @@
 Clone the repository to your local machine
 
 ```
-$ git clone https://github.com/zenott/movie-browser.git
+$ git clone https://github.com/BalintMendli/movie-browser.git
 ```
 
 Change into the project directory
@@ -58,14 +58,14 @@ $ npm run test
 
 👤 **Balint Mendli**
 
-- GitHub: [@zenott](https://github.com/zenott)
+- GitHub: [@BalintMendli](https://github.com/BalintMendli)
 - Website: [mendli.com](https://mendli.com)
 - Email: [balint@mendli.com](mailto:balint@mendli.com)
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
-Feel free to check the [issues page](https://github.com/zenott/movie-browser/issues/).
+Feel free to check the [issues page](https://github.com/BalintMendli/movie-browser/issues/).
 
 1. Fork it
 2. Create your working branch
